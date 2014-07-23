@@ -1,0 +1,12 @@
+<div class="r">
+  <h3><span class="gray fl">主题数:{$topic_count}</span> <a href="{:U('home/forum/form',array('cid'=>I('cid'),'model'=>$model[id]))}" class="public_btn fr"> + 发表</a></h3>
+  <ul class="sidebar">
+    <!--            	<li>
+                	<p>讨论区公告:<br/后台分类列表增加折叠>记忆的功能后台分类列表增加折叠记忆的功能后台分类列表增加折叠记忆的功能，官方QQ群：329650736【已满】,8322255</p>
+                </li>-->
+    
+    <volist name='cateArr' id='vo'>
+      <li> <a href="{:U('home/forum/index','cid='.$vo['cid'])}">{$vo.name}</a> </li>
+    </volist>
+  </ul>
+</div>

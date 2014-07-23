@@ -1,0 +1,271 @@
+/*******************************************
+ * 自定义配色css文件放在defaut_color的同级目录,然后在 "系统/配置管理" 中为"COLOR_STYLE"增加一行配置项
+ *********************************************/
+
+/********************************************
+ * base.css
+ * 描述：重置页面元素并设置布局样式
+ * 作用范围： 全局
+ *******************************************/
+
+a {
+	color: #2d7200;
+	/*全局默认链接颜色*/
+}
+a:hover{
+	color: #4bbd00;
+	/*全局默认链接悬停颜色*/
+}
+
+/*************************************************
+ * common.css 
+ * 描述：定义公共类名
+ * 作用范围: 公共，独立样式
+ *************************************************/
+
+/* 文章搜索/用户搜素 下拉弹出按钮 实心小箭头 */
+.arrow-down {
+	border-top-color: #000;
+}
+.arrow-up {
+	border-bottom-color: #000;
+}
+.arrow-left {
+	border-right-color: #000;
+}
+.arrow-right {
+	border-left-color: #000;
+}
+
+/********************************************** 
+ * module.css 
+ * 描述：定义常用组件样式
+ * 作用范围: 公共，组件模块
+ ***********************************************/
+
+/* 文章新增编辑页,权限授权页,分类编辑页 tab标签 */
+.tab-nav {
+	border-bottom-color: #e0e0e0;
+}
+.tab-nav .current a,
+.tab-nav .current a:hover {
+	border-color: #34b4e0 #e0e0e0 #f6f6f6;
+}
+
+
+/* (暂未使用) 面包屑导航 */
+.breadcrumb {
+	color: #999;
+}
+.tags-crumb li {
+	background-color: #e0e0e0;
+}
+.tags-crumb .current {
+	background-color: #f60;
+}
+.tags-crumb .current a {
+	color: #fff;
+}
+.tags-crumb li i {
+	border-left-color: #fff
+}
+.tags-crumb li b {
+	border-left-color: #e0e0e0
+}
+.tags-crumb .current b {
+	border-left-color: #f60;
+}	
+
+/* 列表分页 */
+.page a,
+.page span {
+    color: #686868;
+    border: 1px solid #CCCCCC;
+}
+.page a:hover
+ {
+    background: #E1E1E1;
+}
+.page .current {
+	border-top: 3px solid #4BBD00;
+	height: 28px;
+	line-height: 26px;
+}
+
+/* uploadify插件上传按钮 */
+.uploadify-button {
+	color: #fff;
+	background-color: #27ae60;
+}
+
+/* 分类管理/分类授权 树形菜单（目前只支持3级）
+------------------------------------------ */
+.category .hd {
+	border-bottom-color: #d4d4d4;
+	color:#fff;
+	background-color: #353535;
+}
+.category .cate-item dt {
+	border-bottom-color: #E7E7E7;
+}
+.category .name .error {
+	color: #B94A48;
+}
+.category .name .success {
+	color: #468847;
+}
+
+.close {
+    color: #000000;
+    text-shadow: 0 1px 0 #ffffff;
+    opacity: 0.2;
+    filter: alpha(opacity=20);
+}
+
+/******************************************** 
+ * form.css 
+ * 描述：定义表单样式
+ * 作用范围: 公共，表单模块，表单布局
+ *********************************************/
+
+/* 表单组件
+------------------------------------------ */
+.text,.textarea {
+	border-color: #eeeeee;
+	background-color: #fff;
+}
+select {
+	border-color: #ccc;
+}
+.must {
+	color: #f00; /* 表单必填项标识字符*/
+}
+
+/* 多行两列表单
+------------------------------------------ */
+.form-horizontal .item-label .check-tips {
+	color: #aaa; /* 表单label后面的提示文字 */
+}
+.form-horizontal .controls .check-tips {
+	color: #999; /*表单ajax操作完成后返回的提示文字*/
+}
+
+/* 搜索表单
+------------------------------------------ */
+.search-form .sleft {/* 高级搜索左边的搜索框 */
+	border-color: #ebebeb;
+	background-color: #fff;
+}
+
+/* 状态搜索下拉选项 */
+.search-form .drop-down ul {
+	background-color: #fff;
+	border-color: #ebebeb;
+}
+.search-form .drop-down ul li {
+	border-top-color: #ebebeb;
+}
+.search-form .drop-down ul a {
+	color: #404040;
+}
+.search-form .drop-down ul a:hover {
+	background-color: #f0f0f0;
+}
+.search-form .sch-btn:hover {
+	/* 搜索提交按钮 */
+	color: #fff;
+}
+
+.focus{
+	border: 1px solid #d1d1d1;
+	box-shadow: 0 0 12px #ECECEC;
+}
+/*********************************************
+ * table.css 
+ * 描述：定义数据表格样式
+ * 作用范围: 公共，表格模块
+ **********************************************/
+
+/* 内容区 行默认颜色*/
+.data-table tbody tr {
+	background-color: #ffffff;
+	color: #686868;
+}
+.data-table thead th,
+.data-table tbody td {
+	/*非隔行变色时 用于行区分的单元格底线颜色 */
+    border-bottom-color:  #f4f4f4;
+}
+/* 表头配色 */
+.data-table thead th {
+	color:#fff;
+    background-color: #353535;
+}
+/* 隔行变色 行默认颜色 */
+.table-striped tbody tr {
+	background-color: #fefefe;
+	color: #686868;
+}
+/* 隔行变色 偶数行配色 */
+.table-striped tbody tr:nth-child(even) {
+	background-color: #f2f2f2;
+
+}
+
+
+/************************************* 
+ * button.css 
+ * 描述：定义按钮样式
+ * 作用范围: 公共，按钮组，单独按钮
+ *************************************/
+
+/* 普通按钮 */
+.btn {
+    color: #edffd1;
+	background-color: #4bbd00;
+}
+.btn:hover {
+    color: #ffffff;
+    background-color: #4cdb00;
+}
+
+/* 表单返回按钮 */
+.btn-return {
+	color: #fff;
+}
+
+/* 表单提交按钮(确定,保存,提交) */
+.submit-btn {
+	color: #fff;
+    background-color: #CC3900;
+}
+.submit-btn:hover {
+    color: #fff;
+    background-color: #ff2610;
+}
+
+/* 下拉弹出按钮 */
+.btn-group .dropdown,
+.btn-group-click .dropdown {
+	border-color: #ccc;
+	background-color: #fff;
+}
+.btn-group .dropdown a:hover,
+.btn-group-click .dropdown a:hover {
+    background-color: #eee;
+}
+
+/* 被禁用的按钮 */
+.btn.disabled {
+	background-color: #8d8d8d;
+	cursor: not-allowed;
+}
+
+/* windows开始菜单式子菜单 */
+.side-sub-menu li .subitem {
+    border-color: #ccc;
+    background-color: #fff;
+}
+.side-sub-menu .subitem .item:hover {
+    background: url(../images/subnav_current.png) no-repeat 130px 12px #f5f5f5;
+}

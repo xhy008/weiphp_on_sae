@@ -1,0 +1,11 @@
+@charset "utf-8";
+/* CSS Document by jacy use in vipcard */
+html{background:url(bg.png) repeat;}
+#leaflets{ background:url(bg.png) repeat; color:#ccc;font-family: Microsoft YaHei,Helvitica,Verdana,Tohoma,Arial,san-serif;font-size: 15px;line-height: 1.5em;}
+#leaflets .container{max-width: 640px;outline: none;font-size: 100%;overflow: hidden;}
+#leaflets .body{ width:300px; margin:0 auto; background:none}
+#leaflets h1{ text-align:center; font-size:26px;color:#f5f5f5;font-weight:normal;text-shadow:0 1px 3px #111111; margin:35px auto 30px;}
+#leaflets .qrcode img{ width:300px; height:300px; border-radius:10px; display:block; margin:0 auto 30px;box-shadow:0 1px 3px #111111;}
+#leaflets .qr_tips{ border-radius:23px; height:45x; line-height:45px; margin:20px 25px; box-shadow:0 1px 2px #333 inset; text-align:center; background-color:RGBA(0,0,0,.1); font-size:14px;}
+#leaflets .desc{ margin:0 10px; padding-bottom:15px; border-bottom:1px dashed #333;}
+#leaflets .copyright{ font-size:12px; color:#999; text-align:center; line-height:50px; border-top:1px dashed #666; margin:0 10px;}

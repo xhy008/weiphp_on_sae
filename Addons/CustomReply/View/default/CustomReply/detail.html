@@ -1,0 +1,19 @@
+<include file="Public/mobile_head"/>	
+<link href="{:ADDON_PUBLIC_PATH}/detail.css?v={:SITE_VERSION}" rel="stylesheet" type="text/css">
+<body id="weisite">
+<div class="container">
+	<header style="background:#2e393f; display:none">
+    	<img class="logo" height="40" src="__IMG__/logo.jpg"/>
+    </header>
+    <div class="detail top_line">
+    	<h6 class="title">{$info.title}</h6>
+        <p class="info"><span class="colorless">{$info.cTime|time_format}</span></p>
+        <section class="content">
+                <notempty name="info.cover"><p><img src="{$info.cover|get_cover_url}"/></p></notempty>
+                {$info.content|htmlspecialchars_decode}
+        </section>
+    </div>
+</div>
+<div class="bottom_nav_blank"/>
+</body>
+</html>

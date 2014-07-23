@@ -1,0 +1,44 @@
+<!--继承的父类模板位于：Application\Home\View\default\Addons\widget.html -->
+
+<extend name="widget"/>
+<block name="widget_content">
+  <div class="diy_shop shopdetail_wrap">
+    <div class="header"><a class="back" href="javascript:history.go(-1);"></a><span class="title">宝贝详情</span></div>
+    <!-- 商品头图 -->
+    <div class="goods_detail_top">
+      <section class="banner square_slide_banner" id="picSlideShow">
+        <ul>
+          <notempty name="product.img_1"><li>{$product.img_1|get_img_html}</li></notempty>
+          <notempty name="product.img_2"><li>{$product.img_2|get_img_html}</li></notempty>
+          <notempty name="product.img_3"><li>{$product.img_3|get_img_html}</li></notempty>
+          <notempty name="product.img_4"><li>{$product.img_4|get_img_html}</li></notempty>
+          <notempty name="product.img_5"><li>{$product.img_5|get_img_html}</li></notempty>
+          
+        <!--<li><a href="#"><img src="http://gd4.alicdn.com/bao/uploaded/i4/T1CYpUFcpbXXXXXXXX_!!0-item_pic.jpg_460x460.jpg_.webp"/></a><span class="title">2014春装新款韩版女装宽松休闲打底显瘦长袖雪纺衬衫上衣衬衣</span></li>-->
+        </ul>
+        <span class="identify">
+          <notempty name="product.img_1"><em></em></notempty>
+          <notempty name="product.img_2"><em></em></notempty>
+          <notempty name="product.img_3"><em></em></notempty>
+          <notempty name="product.img_4"><em></em></notempty>
+          <notempty name="product.img_5"><em></em></notempty>
+          <a class="prevBtn" href="javascript:;"></a> <a class="nextBtn" href="javascript:;"></a> </section>
+    </div>
+    <div class="goods_detail_content"> 
+      <!-- 商品内容在此 -->
+      <h2>{$product.title}</h2>
+      <p class="price_p">价格：<span class="price">￥{$product.discount_price}</span><del>￥{$product.market_price}</del></p>
+      {$product.param}
+      <div class="goods_desc"> {$product.content} </div>
+    </div>
+    <!-- 购买按钮 -->
+    <div class="goods_action"> <a class="to_cart" href="{:U('bug',array('id'=>$product[id]))}"><em class="cart_icon"></em>加入购物车</a> <a class="to_buy" href="javascript:alert('支付流程正在内测中')"><em class="buy_icon"></em>立即购买</a> </div>
+  </div>
+</block>
+<block name="script"> 
+  <script type="text/javascript">
+setTimeout(function(){
+	$.WeiPHP.squarePicSlide(false,0,$('.layout_item').width(),400,'#picSlideShow .prevBtn','#picSlideShow .nextBtn');
+	},400)
+</script> 
+</block>

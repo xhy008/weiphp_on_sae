@@ -1,0 +1,41 @@
+<include file="Public/mobile_head"/>
+<link href="{:ADDON_PUBLIC_PATH}/css.css?v={:SITE_VERSION}" rel="stylesheet" type="text/css">
+<body>
+<div id="container" class="container">
+  <div class="top"></div>
+  
+  <div class="lead_box">
+    <h6>{$question.title}</h6>
+    <div class="lead_content">
+      <div class="intro">
+        <p class="w_tips">{$question.intro}</p>
+        <form id="form" action="{:U('test?test_id='.$_GET['test_id'])}" method="post">
+          <input name="next_id" id="next_id" value="{$next_id}" type="hidden">
+          <input name="question_id" id="question_id" value="{$question.id}" type="hidden">
+          <input name="score" id="score" value="0" type="hidden">
+          <volist name="extra" id="vo">
+            <div class="form-item cf">
+              <label class="radio">
+                <input type="radio" value="{$key}" name="answer" onClick="doPost(this)" score="{$vo.score|intval}" rel="{$vo.next_id}">
+                {$vo.title} </label>
+            </div>
+          </volist>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="rotate"></div>
+  <div class="bottom">
+    <p class="copyright">{$system_copy_right}</p>
+  </div>
+</div>
+<script type="text/javascript">
+function doPost(obj){
+	$('#next_id').val($(obj).attr('rel'));
+	$('#score').val($(obj).attr('score'));
+	
+	$('#form').submit();
+}
+</script>
+</body>
+</html>

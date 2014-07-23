@@ -1,0 +1,64 @@
+<!-- 提示 -->
+<div id="top-alert" class="top-alert-tips alert-error" style="display: none;">
+  <a class="close" href="javascript:;"><b class="fa fa-times-circle"></b></a>
+  <div class="alert-content">这是内容</div>
+</div>
+<!-- 导航条
+================================================== -->
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+       <a class="brand" title="{:C('WEB_SITE_TITLE')}" href="{:U('index/index')}"><img height="45" src="<php>if(C('SYSTEM_LOGO')) { echo C('SYSTEM_LOGO'); }else{ </php>__IMG__/top_logo.png?v={:SITE_VERSION} <php> } </php>" title="{:C('WEB_SITE_TITLE')}"/></a>
+            
+            
+            <div class="top_nav">
+                <if condition="is_login()">
+                    <ul class="nav" style="margin-right:0">
+                    	<li class="dropdown">						     
+                             <!-- 显示代码bug修改 -->
+							 <if condition="$mp_ids_list gt  0">
+								   <notempty  name="$member_public.public_name">
+									  <a href="{:U('home/MemberPublic/lists')}" class="dropdown-toggle login-nav" data-toggle="dropdown" title="公众号管理">公众号管理								
+									  <b class="pl_5 fa fa-sort-down"></b></a>   
+								  </notempty>							
+								  <empty  name="$member_public.public_name">
+									<a href="#" class="dropdown-toggle login-nav" data-toggle="dropdown" title="{$member_public.public_name}">{$member_public.public_name|msubstr_local=0,5,'utf-8'}<b class="pl_5 fa fa-sort-down"></b></a>
+								  </empty>		
+							 <else />
+							     <a href="#" class="dropdown-toggle login-nav" data-toggle="dropdown" title="未设置公众号"><font color="red">未设置公众号</font>						
+									  <b class="pl_5 fa fa-sort-down"></b></a>   
+							 </if>
+                            <ul class="dropdown-menu" style="display:none">
+							    <!-- 显示代码bug修改 	
+								  <li><a href="{:U('home/MemberPublic/lists')}">公众号管理</a></li>	
+								-->									
+                                <volist name='member_public_list' id='vo'>
+                                <li><a href="{:U('home/MemberPublic/changPublic','id='.$vo['id'])}" title="{$vo.public_name}">{$vo.public_name|msubstr_local=0,5,'utf-8'}</a></li>
+                                </volist>
+                            </ul>
+                        </li>
+                        <li class="dropdown admin_nav">
+                            <a href="#" class="dropdown-toggle login-nav" data-toggle="dropdown" style="">{:get_username()} <b class="pl_5 fa fa-sort-down"></b></a>
+                            <ul class="dropdown-menu" style="display:none">
+                                <li><a href="{:U('Admin/index/index')}">后台管理</a></li>
+                                <li><a href="{:U('User/profile')}">修改密码</a></li>
+                                <li><a href="{:U('User/logout')}">退出</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                <else/>
+                    <ul class="nav" style="margin-right:0">
+                    	<li style="padding-right:20px">你好!欢迎来到{:C('WEB_SITE_TITLE')}</li>
+                        <li>
+                            <a href="{:U('User/login')}">登录</a>
+                        </li>
+                        <li>
+                            <a href="{:U('User/register')}">注册</a>
+                        </li>
+                        <li>
+                            <a href="{:U('admin/index/index')}" style="padding-right:0">后台入口</a>
+                        </li>
+                    </ul>
+                </if>
+            </div>
+        </div>
+</div>

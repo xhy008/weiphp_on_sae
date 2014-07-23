@@ -1,0 +1,5 @@
+<input type="hidden" name="{$name}" id="data_{$name}" value="{$value}" />
+<script type="text/javascript" src="__STATIC__/json2select.js" ></script>
+<script>
+$("#cascade_{$name}").json2select({$json},[{$default_value}],'{$name}');
+</script>

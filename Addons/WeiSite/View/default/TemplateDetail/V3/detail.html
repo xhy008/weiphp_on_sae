@@ -1,0 +1,29 @@
+<include file="Public/mobile_head"/>	
+<link href="{:CUSTOM_TEMPLATE_PATH}Detail/V3/detail.css?v={:SITE_VERSION}" rel="stylesheet" type="text/css">
+<body id="weisite">
+<div class="container">
+	<div class="detail">
+    	<h6 class="title">
+        	{$info.title}
+            <p class="info">{$info.cTime|time_format}</p>
+        </h6>
+        
+        <section class="content">
+                <notempty name="info.cover"><p><img src="{$info.cover|get_cover_url}"/></p></notempty>
+                {$info.content|htmlspecialchars_decode}
+        </section>
+    </div>
+</div>
+<!-- 底部导航 -->
+{$footer_html}
+<!-- 统计代码 -->
+<notempty name="config.code">
+<p class="hide bdtongji">
+{$config.code}
+</p>
+</notempty>
+</body>
+<script type="text/javascript">
+$.WeiPHP.setRandomColor('.title');
+</script>
+</html>

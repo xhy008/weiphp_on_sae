@@ -1,0 +1,15 @@
+<!--继承的父类模板位于：Application\Home\View\default\Addons\widget.html -->
+<extend name="widget"/>
+
+<block name="widget_content">
+<ul>
+<div class="picture_simple">
+<volist name="widget.url" id="vo" key="k">
+<li>
+	<a href="{$vo}" target="_blank">
+    <h6><span class="title" title="">{$widget.title.$key}</span></h6></a>
+</li>
+</volist>
+</div>
+</ul>
+</block>

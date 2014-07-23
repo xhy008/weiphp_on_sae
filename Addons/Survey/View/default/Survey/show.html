@@ -1,0 +1,12 @@
+<include file="Public/mobile_head"/>	
+<link href="{:ADDON_PUBLIC_PATH}/css.css?v={:SITE_VERSION}" rel="stylesheet" type="text/css">
+<body>
+	<div id="container" class="container">
+    	<div class="lead_box">
+        	<h6>{$info.title}</h6>
+            <div class="lead_content">{$info.intro}</div>
+            <a href="{:U('profile','survey_id='.$info[id])}" class="lead_btn">马上开始</a>
+	</div>
+    <p class="copyright">{$system_copy_right}</p>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!--继承的父类模板位于：Application\Home\View\default\Addons\widget.html -->
+<extend name="widget"/>
+<block name="widget_head"></block>
+<block name="widget_content">
+<div class="diy_shop category_threerow_table">
+	
+	<if condition="!empty($widget_title) || !empty($widget_more_title[0])">
+        <div class="widget_title">
+            <notempty name="widget_title"><h2>{$widget_title}</h2></notempty>
+            
+            <notempty name="widget_more_title.0">
+            <volist name="widget_more_title" id="title" key="k" > 
+                <div class="more"><a href="{$widget_more_url[$k]}">{$title}</a></div>
+            </volist>
+            </notempty>
+        </div>
+    </if>
+    
+    <ul>
+        <volist name="category_list" id="vo">
+        <li>
+        	<a href="{:addons_url('Shop://Shop/products',array('cate_id'=>$vo[id]))}">
+            	<img src="{$vo.icon|get_cover_url}"/>
+                <h6>{$vo.title}</h6>
+				<p>{$vo.intro}</p>
+        	</a>
+        </li>
+        </volist>
+    </ul>
+</div>
+</block>

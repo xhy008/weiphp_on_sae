@@ -1,0 +1,35 @@
+<!--继承的父类模板位于：Application\Home\View\default\Addons\param.html -->
+<extend name="param"/>
+<block name="css">
+<link href="{:ADDON_PUBLIC_PATH}/css/diy.css?v={:SITE_VERSION}" rel="stylesheet" type="text/css">
+</block>
+<!--参数配置模块 一般情况widget里的param.html继承此模板后只需要重写baseSetting代码块即可-->
+<block name="baseSetting">
+<form id="baseSettingForm" class="edit_module_form form-horizontal">
+	<div class="form-item">
+        <div class="controls">
+			<span class="check-tips" style="padding:0">可点击编辑器第一个图标进入代码编辑模式，支持html,css,javascript,jquery语法。但出于安全考虑，部分javascript语法不支持</span>
+		</div>
+	</div>
+    
+    <div class="form-item" id="customArea">
+    	<label class="item-label">输入内容:</label>
+        <div class="controls">
+        <label class="textarea">
+			<textarea class="textarea" id="custom_content" name="custom_content" style=" width:700px;">{$custom_content}</textarea>
+            {:hook('adminArticleEdit', array('name'=>'custom_content','value'=>$custom_content))} </label>
+		</div>
+	</div>
+    <div class="form-item cf">
+    	<label class="item-label"></label>
+        <div class="textArea">
+           <button type="button" id="confirm" class="btn submit-btn ajax-post" target-form="form-horizontal">确 定</button>
+           <button type="button" class="btn preview_btn">预 览</button>
+        </div>
+    </div>
+</form>
+</block>
+
+<block name="script">
+<script src="{:ADDON_PUBLIC_PATH}/js/form.js?v={:SITE_VERSION}" type="text/javascript"></script> 
+</block>

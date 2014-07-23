@@ -1,0 +1,125 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<meta name="description" content="">
+<title></title>
+<link href="__CSS__/mobile_module.css?v={:SITE_VERSION}" rel="stylesheet" type="text/css">
+<link href="{:ADDON_PUBLIC_PATH}/vote.css?v={:SITE_VERSION}" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="__STATIC__/jquery-2.0.3.min.js"></script>
+<script type="text/javascript">
+var cknums = {$info.cknums|intval};
+var type = "{$info.type|intval}";
+function checkForm(){
+	return true;
+	
+	if(type=='0') return true;
+	
+	var content = '';
+	var msg = 0;
+	$("input[type='checkbox']:checked").each(function(){ msg += 1; });
+	//console.log(msg);
+	//return false;
+	if(msg>cknums){
+		$('#errorInfo').html('该投票最多可同时选择'+cknums+'项').show();
+		return false;
+	}
+
+	return true;
+}
+</script>
+</head>
+<body>
+<div class="container body">
+	<div class="vote_wrap">
+  <article>
+  	<div class="img_wrap">
+        
+        <php>if(!empty($info['picurl'])) { </php>
+        	<img width="100%" src="{$info.picurl|get_cover_url}">
+        	<h2>{$info.title}</h2>
+        <php> }else{ </php>
+        
+        	<h2 style="position:static">{$info.title}</h2>
+        <php>}</php>
+    </div>
+    <div class="vote_info mb">{$info.description|htmlspecialchars_decode}</div>
+    <p class="time">投票截止日期：{$info.end_date|time_format}</p>
+  </article>
+  <p class="vote_type">
+      本次投票为<php>if($info['type']==0) { $type='radio';$style_cls='regular-radio';echo '单选投票<br>';}else{ $type='checkbox';$style_cls='regular-checkbox';echo '多选投票<br>';}</php>
+      
+      <php>if($canJoin) {</php>
+      
+      <php>if($info['result_display']==0) {</php>
+      <span class="gray">已经有{$info.vote_count|intval}人投票，赶紧投下你宝贵的一票吧 :)</span>
+      <php>}</php>
+      
+      <php>}else{</php>
+      <span class="gray">投票已过期或你已经投过票 :)</span>
+      <php>}</php>
+      
+    </p>
+    
+  <form id="form1" name="form1" method="post" action="{:U( 'join' )}" onSubmit="return checkForm();">
+    <div class="clearfix choice_list">
+      <ul>
+        <volist name='opts' id='opt' key="k">
+          <li>
+            <php> if($info['is_img'] && !empty($opt['image'])) { </php>
+            <p class="mb" ><img src="{$opt.image|get_cover_url}" /></p>
+            <php> } </php>
+            <p class="list"> <input type="{$type}" class="{$style_cls}" id="check_{$opt.id}" name="optArr[]" value="{$opt.id}"           
+              <php>if(in_array($opt[id], $joinData)) echo 'checked="checked" '; if(!$canJoin) echo ' disabled'; </php>
+              ><label for="check_{$opt.id}"></label>{$opt.name}
+            </p>
+            <div class="clearfix tb">
+              <div class="databar">
+                <div class="actual_data vote-per-{$k-1}" style="width:0%"></div>
+              </div>
+              <p class="count">
+                <php>if($info['result_display']) { echo $opt[percent].'%'; } else { echo $opt[opt_count]; } </php> 票
+              </p>
+            </div>
+          </li>
+        </volist>
+      </ul>
+    </div>
+    
+    <div class="warning" id="errorInfo"></div>
+    <input type="hidden" value="{:I('token')}" name="token" />
+    <input type="hidden" value="{:I('wecha_id')}" name="wecha_id" />
+    <input type="hidden" value="{$info.id}" name="vote_id" />
+    <php>if($canJoin) { </php>
+    <div class="tb"><input type="submit" class="btn m_10 flex_1" value="确认提交" /></div>
+    <php> }else if(!empty($info['next_id'])) { $next_url = U('Vote/show','id='.$info['next_id'].'&token='.I('token').'&wecha_id='.I('wecha_id'));</php>
+    <div class="tb"><input type="button" class="btn m_10 flex_1" onClick="window.location.href='{$next_url}'" value="继续投票" /></div>
+    <php> } </php>
+    <php>if(!$canJoin && !empty($event_url)) { </php>
+     <div class="tb"><a href="{$event_url}" class="btn m_10 flex_1" style="background-color:#f36637">参加抽奖活动</a></div>
+     <php> } </php>
+  </form>
+  </div>
+</div>
+</body>
+</html>
+<script>
+$(function(){
+<php>
+foreach($opts as $k=>$v){
+echo '$(".vote-per-'.$k.'").animate( { width: "'.$v['percent'].'%"}, 5000);';
+}
+</php>
+$(".list").live("click", function () {
+     if ($(this).hasClass("bgBlue")) {
+         $(this).removeClass("bgBlue").find("input").attr("checked", true);
+     } else {
+         $(this).addClass("bgBlue").find("input").attr("checked", false);
+     }
+ });
+});
+</script>

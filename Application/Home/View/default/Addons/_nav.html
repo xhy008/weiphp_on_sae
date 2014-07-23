@@ -1,0 +1,20 @@
+<ul class="tab-nav nav">
+  <volist name='nav' id='vo'>
+    <li class="{$vo.class}"><a href="{$vo.url}">{$vo.title}<span class="arrow fa fa-sort-up"></span></a></li>
+  </volist>
+</ul>
+<div class="sub-tab-nav">
+      <if condition="!empty($sub_nav)">
+       <ul class="sub_tab">
+       <volist name="sub_nav" id="vo">
+          <li><a class="{$vo.class}" href="{$vo.url}">{$vo.title}<span class="arrow fa fa-sort-up"></span></a></li>
+       </volist>
+<!--          <li><a class="cur" href="{:addons_url('WeiSite://footer/lists')}">底部菜单配置</a></li>
+          <li><a href="{:addons_url('WeiSite://footer/template')}">底部菜单模板</a></li>-->
+      </ul>
+      </if>
+      
+</div> 
+<if condition="!empty($normal_tips)">
+	<p class="normal_tips"><b class="fa fa-info-circle"></b> {$normal_tips}</p>
+</if>

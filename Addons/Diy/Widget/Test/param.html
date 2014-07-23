@@ -1,0 +1,40 @@
+<!--继承的父类模板位于：Application\Home\View\default\Addons\param.html -->
+<extend name="param"/>
+<block name="css">
+<link href="{:ADDON_PUBLIC_PATH}/css/diy.css?v={:SITE_VERSION}" rel="stylesheet" type="text/css">
+</block>
+<!--参数配置模块 一般情况widget里的param.html继承此模板后只需要重写baseSetting代码块即可-->
+<block name="baseSetting">
+<form id="baseSettingForm" class="edit_module_form form-horizontal">
+	<div class="form-item">
+    	<label class="item-label">显示模板:<span class="check-tips"></span></label>
+        <div class="controls">
+			<select name="template" id="template">
+					<option value="simple" <eq name="template" value="simple">selected</eq> >普通模板</option>
+
+                    <option value="$widget_id" id="custom_template" <eq name="template" value="widget_id">selected</eq> >自定义模板</option>
+
+			</select>
+		</div>
+        <a class="edithtml" href="javascript:;">编辑模板</a>
+	</div>
+	<div class="form-item">
+    	<label class="item-label">微测试ID:</label>
+        <div class="controls">
+			<input type="text" name="target_id" placeholder="仅支持单个ID" class="text input-large" value="{$target_id}">
+		</div>
+	</div>
+    
+    <div class="form-item cf">
+    	<label class="item-label"></label>
+        <div class="controls">
+           <button type="button" id="confirm" class="btn submit-btn ajax-post" target-form="form-horizontal">确 定</button>
+           <button type="button" class="btn preview_btn">预 览</button>
+        </div>
+    </div>
+</form>
+</block>
+
+<block name="script">
+<script src="{:ADDON_PUBLIC_PATH}/js/form.js?v={:SITE_VERSION}" type="text/javascript"></script> 
+</block>

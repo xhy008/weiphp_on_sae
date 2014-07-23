@@ -1,0 +1,66 @@
+<!--继承的父类模板位于：Application\Home\View\default\Addons\param.html -->
+<extend name="param"/>
+<block name="css">
+<link href="{:ADDON_PUBLIC_PATH}/css/diy.css?v={:SITE_VERSION}" rel="stylesheet" type="text/css">
+</block>
+<!--参数配置模块 一般情况widget里的param.html继承此模板后只需要重写baseSetting代码块即可-->
+<block name="baseSetting">
+<form id="baseSettingForm" class="edit_module_form form-horizontal">
+	<div class="form-item">
+    	<label class="item-label">显示模板:<span class="check-tips"></span></label>
+        <div class="controls">
+			<select name="template" id="template">
+                    <option value="simple" <eq name="template" value="simple">selected</eq> >单列竖型模板</option>
+					<option value="towrowtable" <eq name="template" value="towrowtable">selected</eq> >两排表格式模板</option>
+                    <option value="towrowblock" <eq name="template" value="towrowblock">selected</eq> >两排方块式模板</option>
+                    <option value="threerowtable" <eq name="template" value="threerowtable">selected</eq> >三列表格式模板</option>
+                    <option value="lateraltable" <eq name="template" value="lateraltable">selected</eq> >横向排列模板</option>
+                    <option value="lateralblock" <eq name="template" value="lateralblock">selected</eq> >横向方块式模板</option>
+
+                    <option value="$widget_id" id="custom_template" <eq name="template" value="widget_id">selected</eq> >自定义模板</option>
+
+			</select>
+		</div>
+        <a class="edithtml" href="javascript:;">编辑模板</a>
+	</div>
+	<div class="form-item">
+    	<label class="item-label">数据源:<span class="check-tips"></span></label>
+        <div class="controls">
+           <php>$data_from = intval($data_from);</php>
+           <label class="radio"> <input type="radio" value="0" name="data_from" onClick="chang_data_from(this)" <eq name="data_from" value="0">checked="checked"</eq>>全部商品分类</label>	
+           <label class="radio"> <input type="radio" value="1" name="data_from" onClick="chang_data_from(this)" <eq name="data_from" value="1">checked="checked"</eq>>部分商品分类</label>
+           <!--<label class="radio"> <input type="radio" value="2" name="data_from" <eq name="data_from" value="2">checked="checked"</eq>>自定义数据</label>		-->
+		</div>
+	</div> 
+	<div class="form-item" id="data_ids" style="display:<neq name="data_from" value="1">none</neq>">
+    	<label class="item-label">分类ID:</label>
+        <div class="controls">
+        <span class="check-tips" style="padding:0">请输入分类ID，多个ID以英文逗号分割。如不清楚分类ID，可以查看商品分类的列表页面里的第一列数据</span><br/><br/>
+           <label class="textarea">
+			<textarea class="textarea" name="data_ids" style=" width:500px;">{$data_ids}</textarea></label>
+		</div>
+	</div>       
+    
+    <div class="form-item cf">
+    	<label class="item-label"></label>
+        <div class="controls">
+           <button type="button" id="confirm" class="btn submit-btn ajax-post" target-form="form-horizontal">确 定</button>
+           <button type="button" class="btn preview_btn">预 览</button>
+        </div>
+    </div>
+</form>
+</block>
+
+<block name="script">
+<script src="{:ADDON_PUBLIC_PATH}/js/form.js?v={:SITE_VERSION}" type="text/javascript"></script> 
+<script type="text/javascript">
+function chang_data_from(obj){
+	var val = $(obj).val();
+	if(val=='1'){
+		$('#data_ids').show();
+	  }else{
+		 $('#data_ids').hide();
+	  }
+};
+</script>
+</block>

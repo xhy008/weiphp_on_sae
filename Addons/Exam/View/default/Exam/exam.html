@@ -1,0 +1,76 @@
+<include file="Public/mobile_head"/>
+<link href="{:ADDON_PUBLIC_PATH}/css.css?v={:SITE_VERSION}" rel="stylesheet" type="text/css">
+<body>
+<div id="container" class="container">
+<div class="top"></div>
+<div class="lead_box">
+  <div class="lead_content do">
+  <h6>{$question.title}</h6>
+  <p class="w_tips">{$question.intro}</p>
+  <form id="form" action="{:U('exam?exam_id='.$_GET['exam_id'])}" method="post" onSubmit="return checkForm();">
+    <input name="next_id" value="{$next_id}" type="hidden">
+    <input name="question_id" value="{$question.id}" type="hidden">
+    <switch name="question.type">
+      <case value="textarea"> 
+        <!-- 文本框 -->
+        <div class="form-item cf">
+          <label class="item-label"><span class="check-tips"></span></label>
+          <div class="controls">
+            <textarea type="text" placeholder="请输入" class="text input-medium" name="answer">{$data}</textarea>
+          </div>
+        </div>
+      </case>
+      <case value="checkbox">
+        <volist name="extra" id="vo">
+          <div class="form-item cf">
+            <label class="checkbox"> <input type="checkbox" value="{$key}" name="answer[]" 
+              <in name="key" value="$data" >checked="checked"</in>
+              >{$key}: {$vo} </label>
+          </div>
+        </volist>
+      </case>
+      <default/>
+      <volist name="extra" id="vo">
+        <div class="form-item cf">
+          <label class="radio"> <input type="radio" value="{$key}" name="answer"                               
+        
+            <eq name="data" value="$key">checked="checked"</eq>
+            >{$key}: {$vo} </label>
+        </div>
+      </volist>
+    </switch>
+    </div>
+    <input class="lead_btn" id="submit" type="submit" value="下一题">
+  </form>
+  
+</div>
+<div class="bottom"></div>
+<p class="copyright">{$system_copy_right}</p>
+<script type="text/javascript">
+var is_require = "{$question.is_must}";
+var widget = "{$question.type}";
+function checkForm(){
+	if(is_require=='0') return true;
+	
+	var content = '';
+	var msg = '请先选择选项。';
+	if(widget=='textarea'){
+		content = $('textarea').val();
+		msg = '当前的题目不能为空.';
+	}else if(widget=='checkbox'){
+		content = $("input[type='checkbox']:checked").val();
+	}else{
+		content = $("input[type='radio']:checked").val();
+	}
+	//console.log(content);
+	//return false;
+	if(content=='' || content==undefined){
+		$.Dialog.fail(msg);
+		return false;
+	}
+
+	return true;
+}
+</script> 
+</body>
+</html>

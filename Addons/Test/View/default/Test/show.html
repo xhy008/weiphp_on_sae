@@ -1,0 +1,22 @@
+<include file="Public/mobile_head"/>	
+<link href="{:ADDON_PUBLIC_PATH}/css.css?v={:SITE_VERSION}" rel="stylesheet" type="text/css">
+<body>
+	<div id="container" class="container">
+    	<div class="top"></div>
+        <div class="lead_box">
+        	<h6>{$info.title}</h6>
+            <div class="lead_content">
+            	<p class="intro">{$info.intro}
+                <notempty name="score"><br/><br/>你上次的成绩为：{$score}分<br/>{$tip}</notempty>
+                </p>
+            </div>
+            
+            <a href="{:U('profile','test_id='.$info[id])}" class="lead_btn">马上开始</a>
+        </div>
+        <div class="rotate"></div>
+        <div class="bottom">
+        	<p class="copyright">{$system_copy_right}</p>
+        </div>
+    </div>  
+</body>
+</html>

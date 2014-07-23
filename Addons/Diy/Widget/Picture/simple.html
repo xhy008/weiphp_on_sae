@@ -1,0 +1,9 @@
+<!--继承的父类模板位于：Application\Home\View\default\Addons\widget.html -->
+<extend name="widget"/>
+
+<block name="widget_content">
+<div class="picture_simple">
+	<a href="{$url[0]}" target="_blank"><img class="img" src="{$imgId[0]|get_cover_url}"/>
+    <h6><span class="title" title="">{$title[0]}</span></h6></a>
+</div>
+</block>

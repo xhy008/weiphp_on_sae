@@ -1,0 +1,205 @@
+<!--继承的父类模板位于：Application\Home\View\default\Addons\param.html -->
+<extend name="param"/>
+<block name="css">
+<link href="{:ADDON_PUBLIC_PATH}/css/diy.css?v={:SITE_VERSION}" rel="stylesheet" type="text/css">
+</block>
+<!--参数配置模块 一般情况widget里的param.html继承此模板后只需要重写baseSetting代码块即可-->
+<block name="baseSetting">
+<form id="baseSettingForm" class="edit_module_form form-horizontal">
+	<div class="form-item">
+    	<label class="item-label">显示模板:<span class="check-tips"></span></label>
+        <div class="controls">
+			<select name="template" id="template">
+					<option value="simple" <eq name="template" value="simple">selected</eq> >单图显示模板</option>
+                    <option value="mult" <eq name="template" value="mult">selected</eq> >相册模板</option>
+                    <option value="slideshow" <eq name="template" value="slideshow">selected</eq> >滚动图片模板</option>
+                    <option value="lateralslide" <eq name="template" value="lateralslide">selected</eq> >左右滑动切换模板</option>
+                    <option value="adshow" <eq name="template" value="adshow">selected</eq> >广告引导模板</option>
+
+                    <option value="$widget_id" id="custom_template" <eq name="template" value="widget_id">selected</eq> >自定义模板</option>
+
+			</select>
+		</div>
+        <a class="edithtml" href="javascript:;">编辑模板</a>
+	</div>
+    <php>if(!empty($title)) { foreach($title as $i=>$vo) { 
+    </php>
+     <div class="form-col">
+        <div class="form-item">
+            <label class="item-label">封面标题:<span class="check-tips"></span></label>
+            <div class="controls">
+                <input type="text" name="title[{$i}]" class="text input-large" value="{$vo}">
+            </div>
+        </div>
+        <div class="form-item cf">
+            <label class="item-label">图片:<span class="check-tips"></span></label>
+            <div class="controls uploadrow upload_picture_item" rel="{$i}">
+                <input type="file" class="upload_picture" id="uploadImage_{$i}">
+                <input type="hidden" name="imgId[{$i}]" class="img" value="{$imgId.$i}"/>
+                <div class="upload-img-box">
+                  <notempty name="imgId[$i]">
+                    <div class="upload-pre-item"><img width="120" height="120" src="__ROOT__{$imgId.$i|get_cover='path'}"/></div>
+                  </notempty>
+                </div>
+            </div>
+           
+            <!--<textarea name="picArea" id="picArea"></textarea>
+            <button class="uploadBtn" type="button">上传图片</button>
+            {:hook('uploadImg', array('id'=>'picArea','className'=>'uploadBtn'))}
+             -->
+        </div>
+        <div class="form-item cf">
+                <label class="item-label">超链接:<span class="check-tips"></span></label>
+                <div class="controls">
+                   <input type="text" name="url[{$i}]" class="text input-large" value="{$url.$i}">
+                </div>
+        </div>
+        <div class="delete-item">
+              <a href="javascript:;" class="deleteBtn" onclick="$(this).parents('.form-col').remove();">删除</a>
+        </div>
+    </div>   
+    <php>  } } else{ </php>
+    <div class="form-col">
+        <div class="form-item">
+            <label class="item-label">封面标题:<span class="check-tips"></span></label>
+            <div class="controls">
+                <input type="text" name="title[]" class="text input-large" value="">
+            </div>
+        </div>
+        <div class="form-item cf">
+           <label class="item-label">图片:<span class="check-tips"></span></label>
+            <div class="controls upload_picture_item uploadrow" rel="0">
+                <input type="file" class="upload_picture" id="uploadImage_0">
+                <input type="hidden" name="imgId[]" class="img" value=""/>
+                <div class="upload-img-box">
+                  <notempty name="form['value']">
+                    <div class="upload-pre-item"><img width="120" height="120" src="__ROOT__{$form['value']|get_cover='path'}"/></div>
+                  </notempty>
+                </div>
+            </div>
+             <!--
+            <textarea name="picArea" id="picArea"></textarea>
+            <button class="uploadBtn" type="button">上传图片</button>
+            {:hook('uploadImg', array('id'=>'picArea','className'=>'uploadBtn'))}-->
+        </div>
+        <div class="form-item cf">
+                <label class="item-label">超链接:<span class="check-tips"></span></label>
+                <div class="controls">
+                   <input type="text" name="url[]" class="text input-large" value="">
+                </div>
+        </div>
+        <div class="delete-item">
+              <a href="javascript:;" class="deleteBtn" onclick="$(this).parents('.form-col').remove();">删除</a>
+        </div>
+    </div>    
+    <php> } </php>
+    
+    
+    <div class="form-item cf" id="addPicItem" style="display:<eq name="template" value="simple">none</eq> ">
+        <label class="item-label"></label>
+        <div class="controls">
+           <a href="javascript:;" id="addPic">添加</a>
+        </div>
+    </div>
+    
+    <div class="form-item cf">
+    	<label class="item-label"></label>
+        <div class="controls">
+           <button type="button" id="confirm" class="btn submit-btn ajax-post" target-form="form-horizontal">确 定</button>
+           <button type="button" class="btn preview_btn">预 览</button>
+        </div>
+    </div>
+</form>
+</block>
+
+<block name="script">
+<script src="{:ADDON_PUBLIC_PATH}/js/form.js?v={:SITE_VERSION}" type="text/javascript"></script> 
+<script type="text/javascript">
+//上传图片
+/* 初始化上传插件 */
+var node = '';
+function initPuls(){
+	$(".upload_picture_item").each(function(index, obj) {
+		var id = $(obj).attr('rel');
+		node = '#uploadImage_'+id;
+		$(node).uploadify({
+			"height"          : 120,
+			"swf"             : "__STATIC__/uploadify/uploadify.swf",
+			"fileObjName"     : "download",
+			"buttonText"      : "上传图片",
+			"uploader"        : "{:U('home/File/uploadPicture',array('session_id'=>session_id()))}",
+			"width"           : 120,
+			'removeTimeout'	  : 1,
+			'fileTypeExts'	  : '*.jpg; *.png; *.gif;',
+			"onUploadSuccess" : function(file, data, response) {
+                uploadPictureimage(file, data, id);
+            }
+	    });
+	});
+}
+
+function uploadPictureimage(file, data, id){
+	var data = $.parseJSON(data);
+	var src = '';
+	if(data.status){
+		//alert(data.status)
+		$("#uploadImage_"+id).parent().find('.img').val(data.id);
+		src = data.url || '__ROOT__' + data.path;
+		$("#uploadImage_"+id).parent().find('.upload-img-box').html(
+			'<div class="upload-pre-item"><img width="120" height="120" src="' + src + '"/></div>'
+		);
+	} else {
+		updateAlert(data.info);
+		setTimeout(function(){
+			$('#top-alert').find('button').click();
+		},1500);
+	}
+}
+$(function(){ 
+   initPuls(); 
+});
+
+$('#template').change(function(){
+	var val = $(this).val();
+	if(val=='mult' || val=='slideshow' || val=="lateralslide"){
+			$('#addPicItem').show();
+		}else{
+			$('#addPicItem').hide();
+			$('.form-col').eq(0).siblings('.form-col').remove();
+		}
+	});
+$('#addPic').click(function(){
+	var size = $('.form-col').size();
+	var next = size;
+	var $clone = "";
+	 	$clone = '<div class="form-col">'+
+        '<div class="form-item">'+
+            '<label class="item-label">封面标题:<span class="check-tips"></span></label>'+
+            '<div class="controls">'+
+                '<input type="text" name="title['+next+']" class="text input-large" value="">'+
+            '</div>'+
+        '</div>'+
+        '<div class="form-item cf">'+
+            '<label class="item-label">图片:<span class="check-tips"></span></label>'+
+            '<div class="controls upload_picture_item uploadrow" rel="'+next+'">'+
+                '<input type="file" class="upload_picture" id="uploadImage_'+next+'">'+
+                '<input type="hidden" name="imgId['+next+']" class="img" value=""/>'+
+                '<div class="upload-img-box">'+
+                '</div>'+
+            '</div>'+
+        '</div>'+
+        '<div class="form-item cf">'+
+                '<label class="item-label">超链接:<span class="check-tips"></span></label>'+
+                '<div class="controls">'+
+                   '<input type="text" name="url['+next+']" class="text input-large" value="">'+
+                '</div>'+
+        '</div>'+
+        '<div class="delete-item">'+
+              '<a href="javascript:;" style="diaplay:block" class="deleteBtn" onclick="$(this).parents(\'.form-col\').remove();">删除</a>'+
+        '</div>'+
+    '</div> '; 
+	$($clone).insertBefore($(this).parents('.form-item'));
+	initPuls(); 
+	})
+</script>
+</block>

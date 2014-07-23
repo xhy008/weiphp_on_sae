@@ -1,0 +1,62 @@
+<!-- 头部 -->
+<include file="Public/mobile_head"/>	
+<link rel="stylesheet" type="text/css" href="{:ADDON_PUBLIC_PATH}/suggest.css" media="all">
+
+<body>
+	<div class="container body">
+    	<img src="{:ADDON_PUBLIC_PATH}/images/suggest_head.png" width="100%"/>
+    	<div class="p_10"> 
+            <!-- 表单 -->
+            <form method="post">
+              <!-- 基础文档模型 -->
+              <div id="tab1" class="tab-pane">
+                   <if condition="$need_nickname">
+                   <div class="form-item cf">
+                        <label class="item-label">姓名</label>
+                        <div class="controls">
+                          <input type="text" class="text input-medium" name="nickname" id="nickname" value="{$user.nickname}">
+                         </div>
+                   </div>
+                   </if>
+                   <if condition="$need_mobile">
+                   <div class="form-item cf">
+                        <label class="item-label">联系方式</label>
+                        <div class="controls">
+                          <input type="text" class="text input-large" name="mobile" id="mobile" value="{$user.mobile}">
+                      	</div>
+                   </div>
+                   </if>
+                   <div class="form-item cf">
+                        <label class="item-label">内容</label>
+                        <div class="controls">
+                          <label class="textarea input-large"><textarea name="content" id="content"></textarea></label>
+                        </div>
+                   </div>                
+                   <div class="form-item cf tb pt_10">
+                		<button class="home_btn submit-btn mb_10 flex_1" id="submit" type="submit" target-form="form-horizontal">提  交</button>
+                  </div>
+          	</div>
+            </form>
+        </div>
+        <p class="copyright">2014&copy;WeiPHP</p>
+        <script type="text/javascript">
+			$('.submit-btn').click(function(){
+				//$.Dialog.loading();//loading等待调用  loading完成$.Dialog.close();关闭loading
+				//$.Dialog.success();//成功调用 提示一秒后自动关闭
+				if($('#truename').val()!=undefined && $('#truename').val()==""){
+					$.Dialog.fail("请填写姓名！");//成功调用 提示一秒后自动关闭
+					return false;
+				}
+				if($('#mobile').val()!=undefined && $('#mobile').val()==""){
+					$.Dialog.fail("请填写联系方式！");//成功调用 提示一秒后自动关闭
+					return false;
+				}
+				if($('#content').val()==""){
+					$.Dialog.fail("请填写留言内容！");//成功调用 提示一秒后自动关闭
+					return false;
+				}
+				})
+		</script>
+    </div>
+</body>
+</html>

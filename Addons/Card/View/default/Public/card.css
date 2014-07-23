@@ -1,0 +1,35 @@
+@charset "utf-8";
+/* CSS Document by jacy use in vipcard */
+html{ height:100%;}
+body{ min-height:100%;background: url(vipbg1.jpg) repeat-y right 0, url(vipbg2.jpg) repeat-y left 0, url(vipbg3.jpg) repeat-x 0 0, url(vipbg4.jpg) repeat 0 0, #864c2c;
+-webkit-background-size: 3.5px 23.5px, 3.5px 23.5px, 304.5px 93px, 313px 23.5px;
+background-size: 3.5px 23.5px, 3.5px 23.5px, 304.5px 93px, 313px 23.5px;}
+.body{ background:none}
+.card{ position:relative; width:90%; margin:20px auto; background-size:87% auto; background-position:center top; background-repeat:no-repeat;background-image:url(card_bg_1.png);}
+
+.card_img{ max-height:100px; margin-left:35px;}
+.card_name{ height:100px; width:100%; font-size:16px; font-weight:bold; display:block; line-height:60px; text-align:center;}
+.card_mask{ position:absolute; top:90px; left:0; width:100%; height:100px; background:url(vipmsk.png) center top no-repeat; background-size:100% auto;}
+.card_num{position: absolute;right: 50px;top: 60px; font-size:18px;}
+.geted{ background:none;}
+.geted img{ margin:0 auto; display:block;}
+.geted .card_name{ position:absolute; top:0; left:0;}
+.geted  .card_num{ bottom:20px; top:auto}
+
+.card_info{ margin-top:60px}
+.get_card_info{ margin-top:20px;}
+.card_info a{ display:block}
+h6{ font-size:18px; font-weight:bold}
+.page_title{ font-size:24px; color:#fff; line-height:40px; height:40px; text-align:center}
+.score_nav{ display:-webkit-box;}
+.score_nav a{ text-align:center;}
+.score_nav a.cur{ background-color:#ccc; color:#fff;}
+.score_list{ display:table; width:100%; font-size:12px;}
+.score_list span{ text-align:left; display:table-cell; width:33.3%;padding:5px;}
+.score_list_top{ background-color:#ddd; font-size:14px;}
+.all_score{ text-align:right; color:#33ab07}
+.select_month{ position:relative; margin-bottom:10px;}
+.select_month div{padding:10px 10px 10px 50px; background-repeat:no-repeat; background-position:10px center; background-size:30px 30px; border:none; background-color:#fecf76}
+.select_month div p{background-repeat:no-repeat; background-position:right center; background-size:15px 15px;}
+.select_month div p span{ font-size:12px; color:#999}
+.select_month select{ position:absolute; height:60px; top:0; left:0; opacity:0; z-index:100;}

@@ -1,0 +1,61 @@
+<include file="Public/mobile_head"/>	
+<link href="{:ADDON_PUBLIC_PATH}/leaflets.css?v={:SITE_VERSION}" rel="stylesheet" type="text/css">
+<body id="leaflets">
+	<div class="container body">
+    	<h1>{$config.title}</h1>
+        <div class="qrcode">
+        	<img src="{$config.img}"/>
+        </div>
+        <div class="qr_tips">请使用微信扫描二维码关注此公众号</div>
+        <div class="desc">
+        	{$config.info}
+        </div>
+        <p class="copyright">{$config.copyright}</p>
+    </div>
+	
+</body>
+<script type="text/javascript">
+$('#shape').click(function(event){
+	if(event.target.tagName == "SPAN"){
+		$(event.target).addClass('on');
+		$(this).unbind("click");
+		var audio = new Audio();
+		//audio.src = "{:ADDON_PUBLIC_PATH}/hit.mp3";
+		//audio.play();
+		setTimeout(function(){openSuccessDialog();},2000);//测试代码
+		$.ajax({
+			url:"url",
+			data:{},
+			dataType:"json",
+			success:function(data){
+				if(data.result=="sucess"){
+						$(event.target).addClass('luck');
+						setTimeout(function(){
+							openSuccessDialog();
+						},2000)
+					
+					}else{
+						setTimeout(function(){
+							openErrorDialog();
+						},2000)
+					}
+				}
+			});
+	}
+})
+function openSuccessDialog(){
+	var successHtml = "<div class='common_dialog lqcg'>"
+		+"<h6>你的运气太好了！</h6><p class='p_10'>你获得了精美礼物一份，请联系客服领取。</p>"
+		+"<div class='tb'><a class='btn m_15 flex_1' href='#'>去领取</a></div>"
+		+"</div>"
+		$.Dialog.open(successHtml);
+	}
+function openErrorDialog(){
+	var successHtml = "<div class='common_dialog lqcg'>"
+		+"<h6>很抱歉！没有砸中，还需继续努力</h6><p class='p_10'>你还有10次机会。</p>"
+		+"<div class='tb'><a class='btn m_15 flex_1' href='#'>在砸一次</a></div>"
+		+"</div>"
+		$.Dialog.open(successHtml);
+	}
+</script>
+</html>

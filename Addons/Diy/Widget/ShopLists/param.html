@@ -1,0 +1,104 @@
+<!--继承的父类模板位于：Application\Home\View\default\Addons\param.html -->
+<extend name="param"/>
+<block name="css">
+<link href="{:ADDON_PUBLIC_PATH}/css/diy.css?v={:SITE_VERSION}" rel="stylesheet" type="text/css">
+</block>
+<!--参数配置模块 一般情况widget里的param.html继承此模板后只需要重写baseSetting代码块即可-->
+<block name="baseSetting">
+<form id="baseSettingForm" class="edit_module_form form-horizontal">
+	<div class="form-item">
+    	<label class="item-label">显示模板:<span class="check-tips"></span></label>
+        <div class="controls">
+			<select name="template" id="template">
+                <option value="simple" <eq name="template" value="simple">selected</eq> >一列商品列表模板</option>
+                <option value="towrowsimple" <eq name="template" value="towrowsimple">selected</eq> >二列无背景模板</option>
+                <option value="towrowwaterfall" <eq name="template" value="towrowwaterfall">selected</eq> >二列瀑布流模板</option>
+                <option value="towrowalbum" <eq name="template" value="towrowalbum">selected</eq> >二列相册风格模板</option>
+                <option value="towrowgrid" <eq name="template" value="towrowgrid">selected</eq> >二列格子风格模板</option>
+                <option value="towrowcard" <eq name="template" value="towrowcard">selected</eq> >二列卡片风格模板</option>
+                <option value="towrowtable" <eq name="template" value="towrowtable">selected</eq> >二列表格风格模板</option>
+                <option value="threerowtable" <eq name="template" value="threerowtable">selected</eq> >三列图片报价模板</option>
+                <option value="threerowblock" <eq name="template" value="threerowblock">selected</eq> >三列标题描述图片模板</option>
+
+                <option value="$widget_id" id="custom_template" <eq name="template" value="widget_id">selected</eq> >自定义模板</option>
+
+			</select>
+		</div>
+        <a class="edithtml" href="javascript:;">编辑模板</a>
+	</div>
+	<div class="form-item">
+    	<label class="item-label">数据源:<span class="check-tips"></span></label>
+        <div class="controls">
+           <php>$data_from = intval($data_from);</php>
+           <label class="radio"> <input type="radio" value="0" name="data_from" onClick="chang_data_from(this)" <eq name="data_from" value="0">checked="checked"</eq>>全部商品</label>
+           <label class="radio"> <input type="radio" value="2" name="data_from" onClick="chang_data_from(this)" <eq name="data_from" value="2">checked="checked"</eq>>部分商品</label>
+           <label class="radio"> <input type="radio" value="1" name="data_from" onClick="chang_data_from(this)" <eq name="data_from" value="1">checked="checked"</eq>>指定商品</label>
+		</div>
+	</div>  
+	<div class="form-item" id="data_ids" style="display:<neq name="data_from" value="1">none</neq>">
+    	<label class="item-label">商品ID:</label>
+        <div class="controls">
+        <span class="check-tips" style="padding:0">请输入商品ID，多个ID以英文逗号分割。如不清楚商品ID，可以查看商品管理的列表页面里的第一列数据</span><br/><br/>
+           <label class="textarea" style=" width:510px;">
+			<textarea class="textarea" name="data_ids" style=" width:500px;">{$data_ids}</textarea></label>
+		</div>
+	</div>  
+	<div class="form-item" id="data_condition" style="display:<neq name="data_from" value="2">none</neq>">
+    	<label class="item-label">过滤条件:</label>
+        <div class="controls">
+        <span class="check-tips" style="padding:0">
+        按分类过滤：cate_id=分类ID,多个分类ID用英文逗号分割，如果是动态的分类ID，用"[cate_id]"代替<br/>
+        按关键词搜索：search_key=关键词,多个关键词用英文逗号分割，如果是动态关键词，用"[search_key]"代替<br/>
+        购物车清单：shopping_list=1<br/>
+        动态的分类ID（或关键词）具体数值是通过从GET或者POST里的参数名为cate_id（或search_key)取得<br/>
+        以上条件可以混合使用，如可这样输入：cate_id=1,2,3&search_key=[search_key]&shopping_list=1<br/>
+        </span><br/><br/>
+           <label class="textarea" style=" width:510px;">
+			<textarea class="textarea" name="data_condition" style=" width:500px;">{$data_condition}</textarea></label>
+		</div>
+	</div>             
+	<div class="form-item">
+    	<label class="item-label">每页数:<span class="check-tips"></span></label>
+        <div class="controls">
+           <input name="list_row" type="number" value="10">
+		</div>
+	</div> 
+	<div class="form-item">
+    	<label class="item-label">排序:<span class="check-tips"></span></label>
+        <div class="controls">
+			<select name="order" id="order">
+                <option value="" <eq name="order" value="">selected</eq> >无排序</option>
+                <option value="id desc" <eq name="order" value="id desc">selected</eq> >按发布时间从新到旧</option>
+                <option value="id asc" <eq name="order" value="id asc">selected</eq> >按发布时间从旧到新</option>
+                <option value="view_count desc" <eq name="order" value="view_count desc">selected</eq> >按浏览量从大到小</option>
+                <option value="view_count asc" <eq name="order" value="view_count asc">selected</eq> >按浏览量从小到大</option>
+			</select>           
+		</div>
+	</div>         
+    <div class="form-item cf">
+    	<label class="item-label"></label>
+        <div class="controls">
+           <button type="button" id="confirm" class="btn submit-btn ajax-post" target-form="form-horizontal">确 定</button>
+           <button type="button" class="btn preview_btn">预 览</button>
+        </div>
+    </div>
+</form>
+</block>
+
+<block name="script">
+<script src="{:ADDON_PUBLIC_PATH}/js/form.js?v={:SITE_VERSION}" type="text/javascript"></script> 
+<script type="text/javascript">
+function chang_data_from(obj){
+  var val = $(obj).val();
+  $('#data_condition').hide();
+  $('#data_ids').hide();
+	   
+  if(val=='1'){
+	  $('#data_ids').show();
+  }else if(val=='2'){
+	  $('#data_condition').show();
+  }
+};
+</script>
+</script>
+</block>

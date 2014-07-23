@@ -1,0 +1,27 @@
+<include file="Public/mobile_head"/>	
+<link href="{:ADDON_PUBLIC_PATH}/css.css?v={:SITE_VERSION}" rel="stylesheet" type="text/css">
+<body>
+	<div id="container" class="container">
+    	<div class="lead_box">
+        	<h6>请填写你的资料</h6>
+            <form id="form" action="{:U('profile?survey_id='.$_GET['survey_id'])}" method="post">
+            <div class="lead_content">            
+            	<div class="form-item cf">
+                  	<label class="item-label">填写你的名称</label>
+                    <div class="controls">
+                     <input type="text" placeholder="输入你的名称" class="text input-medium" name="nickname" value="{$info.nickname}">
+                    </div>
+                </div>
+                <div class="form-item cf">
+                    <label class="item-label">输入你的手机号<span class="check-tips"></span></label>
+                    <div class="controls">
+                     <input type="tel" placeholder="输入你的手机号" class="text input-medium" name="mobile" value="{$info.mobile}">
+                    </div>
+                </div>            
+            </div>
+            <input class="lead_btn" id="submit" type="submit" value="开始调研">
+            </form>
+	</div>
+    <p class="copyright">{$system_copy_right}</p>
+</body>
+</html>

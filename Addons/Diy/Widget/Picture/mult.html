@@ -1,0 +1,10 @@
+<!--继承的父类模板位于：Application\Home\View\default\Addons\widget.html -->
+<extend name="widget"/>
+
+<block name="widget_content">
+<ul class="picture_mult">
+<volist name="imgId" id="vo" key="k">
+	<li><a href="{$url[$k]}"><img src="{$vo|get_cover_url}"/></a></li>
+</volist>
+</ul>
+</block>

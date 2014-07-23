@@ -1,0 +1,2 @@
+<?phpnamespace Addons\UserCenter\Model;use Home\Model\WeixinModel;/** * UserCenter的微信模型 */class WeixinAddonModel extends WeixinModel {	var $config = array ();	function reply($dataArr, $keywordArr = array()) {	}	// 关注时的操作	function subscribe($dataArr) {		// 增加积分		add_credit ( 'subscribe' );		$info = D ( 'Common/Follow' )->init_follow ( $dataArr ['FromUserName'] );	}	// 取消关注公众号事件	public function unsubscribe() {		// 增加积分		add_credit ( 'unsubscribe' );	}}
+        	

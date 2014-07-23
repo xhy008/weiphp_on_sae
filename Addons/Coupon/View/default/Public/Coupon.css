@@ -1,0 +1,32 @@
+@charset "utf-8";
+/* CSS Document by jacy use in vipcard */
+body{ padding:0; margin:0;}
+.body{background:url(bg.jpg) repeat;}
+.container{ max-width:640px; min-width:320px; margin:0 auto;}
+.scr_top>img{ width:80%;margin:20px auto; display:block}
+.block_out{ margin:10px auto; width:77%; color:#fff}
+.block_inner h6{ background:url(title_bg.jpg) no-repeat; height:40px; width:100px; margin:0; line-height:40px; padding:0 30px; background-size:100% 100%; color:#fff; font-weight:bold;text-align:center}
+.block_inner p{ padding:10px; font-size:15px;}
+.gift_list{ overflow:hidden; zoom:1}
+.gift_list li{ float:left; width:50%; margin-bottom:10px; text-align:center}
+.gift_list li p{ font-weight:bold}
+.gift_list li img{ width:80%;}
+.gift_list li span{ display:block; text-align:center}
+.gift_history li{ display:table; width:100%;border-bottom:1px dotted #eee}
+.gift_history li span{ display:table-cell; font-size:12px; padding:5px; }
+.gift_history li span.col_1{ width:55%}
+.gift_history li span.col_2{ width:20%}
+.gift_history li span.col_3{ width:25%}
+.gift_history li:last-child{ border:none}
+.copyright{ color:#4f030f}
+.over_text { padding:20px; color:#FCC; text-align:center}
+.over_text h3{ font-size:18px; margin:15px 0;}
+.prev_get{ width:90%; margin:50px auto;}
+.prev_get .mid{ width:100%; background:url(bg_mid.jpg) repeat-y; background-size:100% auto; overflow:hidden; zoom:1;}
+.prev_get .top{width:100%; height:40px; background:url(bg_top.jpg) no-repeat; background-size:100% auto;}
+.prev_get .btm{width:100%;  height:40px;background:url(bg_btm.jpg) no-repeat; background-size:100% auto;}
+.get_text{ text-align:left; font-size:16px; color:#d10867; margin:20px 40px 30px; padding:10px; line-height:30px; background-color:#fff;}
+.get_text .num{ padding:2px 8px; border-radius:20px; background-color:#b80158; margin-right:5px; color:#fff}
+.get_btn{ width:50%; height:auto}
+.prev_get h6{ line-height:50px; font-size:18px;}
+.get_error{ padding-top:50px; background:url(face.png) center 0 no-repeat; background-size:40px 40px; text-align:center; color:#6a0314; font-size:18px;}

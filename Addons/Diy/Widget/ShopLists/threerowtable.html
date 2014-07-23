@@ -1,0 +1,19 @@
+<!--继承的父类模板位于：Application\Home\View\default\Addons\widget.html -->
+<extend name="widget"/>
+
+<block name="widget_content">
+<div class="diy_shop shopdetail_threerow_table_list">
+    <ul>
+    <volist name="list.list_data" id="product">
+    	<li>
+        	<a href="{:addons_url('Shop://Shop/detail',array('id'=>$product[id]))}">
+                <div class="img_wrap">{$product.cover|get_img_html}
+                <p class="price">￥{$product.discount_price} <del>￥{$product.market_price}</del></p>
+                </div>
+        	</a>
+        </li>
+        </volist>
+    </ul>
+    {$list._page}
+</div>
+</block>

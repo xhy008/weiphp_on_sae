@@ -1,0 +1,33 @@
+<include file="Public/mobile_head"/>	
+<link href="{:ADDON_PUBLIC_PATH}/css.css?v={:SITE_VERSION}" rel="stylesheet" type="text/css">
+<body>
+<div id="container" class="container">
+    <div class="top"></div>
+    <div class="rotate"></div>
+    <div class="lead_box">
+        <h6>测试结果</h6>
+        <div class="lead_content">
+            <div class="intro">
+            <p>你的得分是：{$score}分</p>
+            	<p>{$tip}</p>
+            </div>
+        </div>
+        <notempty name="event_url">
+        <a class="lead_btn" href="{$event_url}">参加抽奖活动</a>
+        </notempty>
+        <input class="lead_btn" id="submit" type="button" onClick="closepage()" value="返回微信">
+        </form>
+        </div>
+        <div class="rotate"></div>
+    <div class="bottom">
+        <p class="copyright">{$system_copy_right}</p>
+    </div>
+</div>
+    
+<script type="text/javascript">
+function closepage(){
+	WeixinJSBridge.call('closeWindow');
+}
+</script>
+</body>
+</html>

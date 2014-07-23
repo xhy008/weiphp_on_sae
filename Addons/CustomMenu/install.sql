@@ -1,0 +1,18 @@
+CREATE TABLE IF NOT EXISTS `wp_custom_menu` (
+`id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+`url`  varchar(255)   NULL  COMMENT '关联URL',
+`keyword`  varchar(100) NULL  COMMENT '关联关键词',
+`title`  varchar(50) NOT NULL  COMMENT '菜单名',
+`pid`  tinyint(2) NULL  DEFAULT 0 COMMENT '一级菜单',
+`sort`  tinyint(4)  NULL  DEFAULT 0 COMMENT '排序号',
+`token`  varchar(255) NOT NULL  COMMENT 'Token',
+PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci CHECKSUM=0 ROW_FORMAT=DYNAMIC DELAY_KEY_WRITE=0;
+INSERT INTO `wp_model` (`name`,`title`,`extend`,`relation`,`need_pk`,`field_group`,`attribute_list`,`template_list`,`template_add`,`template_edit`,`list_grid`,`list_row`,`search_key`,`search_list`,`create_time`,`update_time`,`status`,`engine_type`) VALUES ('custom_menu','自定义菜单','0','','1','1:基础','','','','','title:菜单名\r\nkeyword:关联关键词\r\nurl:关联URL\r\nsort:排序号\r\nid:操作:[EDIT]|编辑,[DELETE]|删除','10','title','','1394518309','1394720290','1','MyISAM');
+INSERT INTO `wp_attribute` (`name`,`title`,`field`,`type`,`value`,`remark`,`is_show`,`extra`,`model_id`,`is_must`,`status`,`update_time`,`create_time`,`validate_rule`,`validate_time`,`error_info`,`validate_type`,`auto_rule`,`auto_time`,`auto_type`) VALUES ('url','关联URL','varchar(255)   NULL','string','','','1','','0','0','1','1394519090','1394519090','','3','','regex','','3','function');
+INSERT INTO `wp_attribute` (`name`,`title`,`field`,`type`,`value`,`remark`,`is_show`,`extra`,`model_id`,`is_must`,`status`,`update_time`,`create_time`,`validate_rule`,`validate_time`,`error_info`,`validate_type`,`auto_rule`,`auto_time`,`auto_type`) VALUES ('keyword','关联关键词','varchar(100) NULL','string','','关联关键词和关联URL选填一项','1','','0','0','1','1394519232','1394519054','','3','','regex','','3','function');
+INSERT INTO `wp_attribute` (`name`,`title`,`field`,`type`,`value`,`remark`,`is_show`,`extra`,`model_id`,`is_must`,`status`,`update_time`,`create_time`,`validate_rule`,`validate_time`,`error_info`,`validate_type`,`auto_rule`,`auto_time`,`auto_type`) VALUES ('title','菜单名','varchar(50) NOT NULL','string','','可创建最多 3 个一级菜单，每个一级菜单下可创建最多 5 个二级菜单。编辑中的菜单不会马上被用户看到，请放心调试。','1','','0','0','1','1394519941','1394518988','','3','','regex','','3','function');
+INSERT INTO `wp_attribute` (`name`,`title`,`field`,`type`,`value`,`remark`,`is_show`,`extra`,`model_id`,`is_must`,`status`,`update_time`,`create_time`,`validate_rule`,`validate_time`,`error_info`,`validate_type`,`auto_rule`,`auto_time`,`auto_type`) VALUES ('pid','一级菜单','tinyint(2) NULL','select','0','如果是一级菜单，选择“无”即可','1','0:无','0','0','1','1394519296','1394518930','','3','','regex','','3','function');
+INSERT INTO `wp_attribute` (`name`,`title`,`field`,`type`,`value`,`remark`,`is_show`,`extra`,`model_id`,`is_must`,`status`,`update_time`,`create_time`,`validate_rule`,`validate_time`,`error_info`,`validate_type`,`auto_rule`,`auto_time`,`auto_type`) VALUES ('sort','排序号','tinyint(4)  NULL','num','0','数值越小越靠前','1','','0','0','1','1394523288','1394519175','','3','','regex','','3','function');
+INSERT INTO `wp_attribute` (`name`,`title`,`field`,`type`,`value`,`remark`,`is_show`,`extra`,`model_id`,`is_must`,`status`,`update_time`,`create_time`,`validate_rule`,`validate_time`,`error_info`,`validate_type`,`auto_rule`,`auto_time`,`auto_type`) VALUES ('token','Token','varchar(255) NOT NULL','string','','','0','','0','0','1','1394526820','1394526820','','3','','regex','get_token','1','function');
+UPDATE `wp_attribute` SET model_id= (SELECT MAX(id) FROM `wp_model`) WHERE model_id=0;

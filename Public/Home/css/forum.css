@@ -1,0 +1,55 @@
+@charset "utf-8";
+/* 
+	CSS Document 
+  	@author jacy 
+  	mail:51daxigua@gmail.com 
+	use forum
+*/
+*{ padding:0; margin:0;}
+li,ul{ list-style:none}
+img{ border:none}
+body{ font-family: "微软雅黑","Microsoft Yahei",Tahoma, Geneva, sans-serif; font-size:14px; line-height:20px; color:#666; background:#f4f4f4;}
+a{ color:#333; text-decoration:none}
+a:hover{ color:#30c109; text-decoration:none;}
+.fl{ float:left}
+.fr{ float:right}
+.wrap{ width:1000px; margin:0 auto;}
+.clear{ clear:both; content:""}
+.gray{ color:#aaa; font-size:13px; font-weight:normal}
+/* head */
+.forum-container{ width:1000px; margin:20px auto; overflow:hidden; zoom:1}
+.forum-container .l{ float:left; width:700px;}
+.forum-container .r{ float:right; width:270px;}
+.forum-container h3{ line-height:50px; color:#30c109; height:50px; clear:both}
+.forum_list{ border-top:5px solid #30c109; background-color:#fff}
+.forum_list li{ border-bottom:1px dashed #ddd; padding:15px 15px 15px 15px; position:relative}
+.forum_list li:hover{ background-color:#f2fde3}
+.forum_list .user_head{ position:absolute; left:15px; top:15px; border:1px solid #ddd; height:50px; width:50px; background:url(../images/default_head_50.png) no-repeat; display:none}
+.forum_list .title{ line-height:30px; font-size:16px; font-weight:bold;}
+.forum_list .top{ color:#f23617}
+.forum_list .info{ overflow:hidden; zoom:1; padding-bottom:5px;}
+a.public_btn{ background-color:#30c109; height:34px; line-height:34px; margin-top:8px; padding:0 20px; color:#fff; border-radius:10px;}
+a.public_btn:hover{ color:#fff; background-color:#2db409}
+.sidebar{ border-top:5px solid #ccc;background-color:#fafafa}
+.sidebar p{ padding:10px; line-height:24px;}
+.sidebar li{ border-bottom:1px solid #ddd;}
+.sidebar a{ display:block; height:40px; line-height:40px; padding:0 10px; font-size:16px;}
+.sidebar a:hover{ background-color:#f4f4f4}
+.pagination{ height:60px; margin:30px 13px;}
+.pagination a,.pagination .current{ border:1px solid #eee; padding:3px 10px; margin:0 5px;}
+.pagination a:hover,.pagination .current{ background-color:#30c109; color:#fff}
+.topic_content{ padding:10px 15px 30px; background-color:#fff; line-height:24px; word-break:break-all}
+.topic_content p.title{ font-size:20px; font-weight:bold; line-height:30px; color:#333; text-indent:0;}
+.topic_content p{ padding:3px 0; text-indent:2em;}
+.topic_content img{ max-width:680px;}
+.store_list li{ padding-right:100px;}
+p.download_p{ text-indent:0; margin-top:20px;}
+.download_plus{ background-color:#30c109; color:#fff; border-radius:5px; padding:3px 5px; position:absolute; right:15px; top:15px; font-size:12px;}
+.download_plus:hover{ color:#fff}
+.plus_shot{ padding:10px; background-color:#fafafa; border-radius:10px;}
+.plus_shot h5{ line-height:40px; font-weight:bold; font-size:18px;}
+.plus_shot img{ padding:10px 0;}
+.thumb_pic{ padding:10px 0;}
+.thumb_pic img{ width:100px; height:100px; margin-right:10px;}
+#uyan_frame{ background:#fff; border-top:1px dashed #ddd; padding:20px 15px;}
+#uyan_top{ margin-bottom:10px;}

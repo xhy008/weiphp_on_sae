@@ -1,0 +1,17 @@
+<form action="__ADDONROOT__/Play/{$pay_type}/alipayapi.php" method="post">
+					<input type="hidden" name="out_trade_no" value="{$config['out_trade_no']}" />
+					<input type="hidden" name="subject" value="{$config['subject']}" />
+					<input type="text" name="price" value="{$config['price']}" placeholder="充值金额" />
+					<input type="hidden" name="logistics_fee" value="{$config['logistics_fee']}" />
+					<input type="hidden" name="logistics_type" value="{$config['logistics_type']}" />
+					<input type="hidden" name="logistics_payment" value="{$config['logistics_payment']}" />
+					<input type="hidden" name="body" value="{$config['body']}" />
+					<input type="hidden" name="show_url" value="{$config['show_url']}" />
+					<input type="hidden" name="receive_name" value="{$config['receive_name']}" />
+					<input type="hidden" name="receive_address" value="{$config['receive_address']}" />
+					<input type="hidden" name="receive_zip" value="{$config['receive_zip']}" />
+					<input type="hidden" name="receive_mobile" value="{$config['receive_mobile']}" />
+					<input type="hidden" name="receive_phone" value="{$config['receive_phone']}" />
+					<input type="submit" value='在线充值' alt="在线充值" name="sub"  />
+				
+</form>

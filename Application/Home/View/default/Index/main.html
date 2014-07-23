@@ -1,0 +1,109 @@
+<extend name="Base/common" />
+<block name="body">
+  <div class="span9 page_message">
+    <section id="contents"> <include file="Addons/_nav" />
+      <div class="table-bar">
+        <div class="fl">
+        	<div class="page" style="margin:0"> {$_page|default=''} </div>
+        </div>
+        <!-- 高级搜索 -->
+        <div class="search-form fr cf">
+          <div class="sleft">
+            <input type="text" name="{$model['search_key']|default='title'}" class="search-input" value="{:I('title')}" placeholder="请输入关键字">
+            <a class="sch-btn" href="javascript:;" id="search" url="{:U('main',array('model'=>$model['name']))}"><i class="btn-search"></i></a> </div>
+        </div>
+      </div>
+      
+      <!-- 数据列表 -->
+      <div class="data-table">
+        <div class=" table-striped">
+          <table cellpadding="0" cellspacing="1">
+            <!-- 表头 -->
+            <thead>
+              <tr>
+                <th width="100">名称</th>
+                <th>描述</th>
+                <th width="50">状态</th>
+                <th width="50">操作</th>
+              </tr>
+            </thead>
+            
+            <!-- 列表 -->
+            <tbody>
+              <volist name="list_data" id="data">
+                <tr style="color: {$data.color}">
+                  <td>{$data.title}</td>
+                  <td>{$data.description}</td>
+                  <td class="use_status">{$data.status_title}</td>
+                  <td><a class="use_btn" href="{:U('setStatus','addon='.$data['name'].'&status='.$data['status'])}">{$data.action}</a></td>
+                </tr>
+              </volist>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="table-bar" style="margin-bottom:20px">
+        <div class="fl">
+        	<div class="page" style="margin:0"> {$_page|default=''} </div>
+        </div>
+        
+      </div>
+    </section>
+  </div>
+</block>
+<block name="script"> 
+  <script type="text/javascript">
+$(function(){
+	//搜索功能
+	$("#search").click(function(){
+		var url = $(this).attr('url');
+        var query  = $('.search-form').find('input').serialize();
+        query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+        query = query.replace(/^&/g,'');
+        if( url.indexOf('?')>0 ){
+            url += '&' + query;
+        }else{
+            url += '?' + query;
+        }
+		window.location.href = url;
+	});
+
+    //回车自动提交
+    $('.search-form').find('input').keyup(function(event){
+        if(event.keyCode===13){
+            $("#search").click();
+        }
+    });
+	//ajax 提交启用
+	$('.use_btn').click(function(){
+		var href = $(this).attr('href');
+		var _this =$(this);
+		if(href.indexOf("1.html")!=-1){
+			//禁用
+			$.get(href,function(){
+				updateAlert("更新成功!","alert-success");
+				_this.attr('href',href.replace("1.html","0.html"));
+				_this.text("启用");
+				_this.parents('tr').attr('style','color:#ccc');
+				_this.parents('tr').find('.use_status').text("已禁用");;
+			});
+		}else{
+				//启用
+				$.get(href,function(){
+					updateAlert("更新成功!","alert-success");
+					_this.attr('href',href.replace("0.html","1.html"));
+					_this.text("禁用");
+					_this.parents('tr').removeAttr('style');
+					_this.parents('tr').find('.use_status').text("已启用");
+				});
+				}
+		setTimeout(function(){
+			$('#top-alert').find('.close').click();
+			},3000);		
+		return false;
+		
+		});
+
+})
+</script> 
+</block>

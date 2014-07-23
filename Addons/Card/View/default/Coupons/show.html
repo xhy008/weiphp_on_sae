@@ -1,0 +1,42 @@
+<include file="Public/mobile_head"/>	
+<link href="{:ADDON_PUBLIC_PATH}/card.css?v={:SITE_VERSION}" rel="stylesheet" type="text/css">
+
+<body>
+	<div id="container" class="container body">
+    	<h5 class="page_title top_line">优惠券</h5>
+    	<div class="single_item m_15" style="margin-top:50px">
+        	<volist name='list' id="vo">
+                 <a class="p_10 fixedH" href="#">
+                    <span class="fl"><img width="30" class="fl mr_10" src="__IMG__/m/pic_quan.png"/>五月优惠券发放</span>
+                    <span class="fr btn gray_btn">已领取</span>
+                    <!-- <span class="fr btn">领取</span> -->
+                </a>
+                <div class="single_item_line"></div>
+            </volist> 
+                   
+        </div>
+     
+       
+        <if condition="empty($list)" >
+        	<div class="empty_default">
+            	<p><img src="{:ADDON_PUBLIC_PATH}/no_coupon.png"/><br/>会员卡目前还没优惠券~</p>
+            </div>
+        </if>
+        <p class="copyright">{$system_copy_right}</p>
+        <nav class="bottom_nav">
+            <a class="icon_card" href="{:addons_url('Card://Card/showCard')}">会员卡</a>
+        <!--        <a class="icon_crown" href="{:addons_url($_REQUEST ['_addons'].'://'.$_REQUEST ['_controller'].'/introduction')}">特权</a>-->
+            <a class="icon_time" href="{:addons_url('Card://notice/show')}">最新通知</a>
+            <a class="icon_tag cur" href="{:addons_url('Card://coupons/show')}">优惠券</a>
+        <!--        <a class="icon_gift" href="{:addons_url($_REQUEST ['_addons'].'://'.$_REQUEST ['_controller'].'/exchange')}">兑换</a>
+            <a class="icon_time" href="{:addons_url($_REQUEST ['_addons'].'://'.$_REQUEST ['_controller'].'/score')}">签到</a>-->
+        </nav>     
+        <div class="bottom_nav_blank"></div>       
+    </div>
+</body>
+<script type="text/javascript">
+document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+	WeixinJSBridge.call('hideToolbar');
+});
+</script>
+</html>

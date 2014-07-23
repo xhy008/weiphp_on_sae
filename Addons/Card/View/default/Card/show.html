@@ -1,0 +1,43 @@
+<include file="Public/mobile_head"/>	
+<link href="{:ADDON_PUBLIC_PATH}/card.css?v={:SITE_VERSION}" rel="stylesheet" type="text/css">
+
+<body>
+	<div id="container" class="container body">
+        <div class="p_10"> 
+            <div class="vipcard_content">
+                <div class="card" style="background-image:url({$config.background_url});">
+                    <span class="card_name">{$config.title}</span>
+                    <!--<span class="card_num">卡号：{$config.length}</span>-->
+                    <div class="card_mask"></div>
+                </div>
+                <div class="card_info">
+                    <div class="tb"><a href="{:addons_url('Card://Card/writeCardInfo')}" class="btn m_15 flex_1">点击领取会员卡</a></div>
+                    <p class="m_15 gray_txt"><center>微信会员卡时代</center></p>
+                    <div class="single_item m_15">
+                        <a class="p_10 arrow_icon mr_10" href="{:addons_url('Card://Card/introduction')}" >会员卡使用说明</a>
+<!--                        <div class="single_item_line"></div>
+                        <a class="p_10 arrow_icon mr_10" href="{:addons_url($_REQUEST ['_addons'].'://'.$_REQUEST ['_controller'].'/storeList')}" target="_blank">适用门店电话及地址</a>-->
+                    </div>
+                    <div class="single_item m_15">
+                        <a class="p_10 arrow_icon mr_10" href="http://api.map.baidu.com/marker?location=31.308707,121.523804&title={$config.address}&name={$config.address}&content={$config.address}&output=html&src=weiphp">地址：{$config.address}</a>
+                        <div class="single_item_line"></div>
+                        <a class="p_10 arrow_icon mr_10" href="tel:13155333122">电话：{$config.phone}</a>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <p class="copyright">{$system_copy_right}</p>
+    </div>
+    
+</body>
+<script type="text/javascript">
+		if($('#select_background').val()==11){
+			var cardBgUrl = $("#hidden_background_custom").val();
+		}else{
+			var cardBgUrl = '{:ADDON_PUBLIC_PATH}/card_bg_'+$('#select_background').val()+".png";
+
+		}	
+		$('#cardBg').attr("href",cardBgUrl);
+</script>
+</html>

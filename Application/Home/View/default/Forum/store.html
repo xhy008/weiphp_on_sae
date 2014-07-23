@@ -1,0 +1,38 @@
+<include file="Index/_head" />
+    <div class="forum-container">
+    	<div class="l">
+        	<h3>微信插件下载、上传分享区</h3>
+            <ul class="forum_list store_list">
+               <volist name='list_data' id='vo'>
+            	<li>
+                	<!--<a href="#"><img class="user_head" src="" /></a>-->
+                    <div class="list_content">
+                    	<p class="info">
+                        	<span class="fl gray">{$vo.uid|get_nickname}  {$vo.cTime|time_format}<!-- | 回复：{$vo.reply_count|intval}--></span>
+                            <!--<span class="fr gray">浏览：{$vo.view_count|intval}</span>-->
+                        </p>
+                        <a class="title <neq name="vo[is_top]" value="0">top</neq>" href="{:U('home/forum/store_detail','id='.$vo['id'])}"><neq name='vo[is_top]' value="0">[置顶] </neq>{$vo.title} <!--<span class="gray">(1212K)</span>--></a>
+                        <div class="thumb">
+                        	<p>{$vo.content|htmlspecialchars_decode|getShort=100}</p>
+                            <php>$img_list = array_filter(array($vo['img_1'],$vo['img_2'],$vo['img_3'],$vo['img_4']));  if($img_list) { </php>
+                            <div class="thumb_pic">
+                               <volist name='img_list' id='img'>
+                            	  <a href="{:U('home/forum/store_detail','id='.$vo['id'])}" data-pic="{$img|get_cover_url}"><img src="{$img|get_cover_url}" /></a>
+                                </volist>
+                            </div>
+                            <php> } </php>
+                        </div>
+                        
+                    </div>
+                    <a href="{:U('home/forum/download','id='.$vo['id'].'&attach='.$vo['attach'])}" class="download_plus">下载 {$vo.download_count|intval}</a>
+                </li>
+                </volist>
+            </ul>
+            <div class="pagination">
+                {$_page|default=''}
+			</div>
+            
+        </div>
+    	<include file="store_right" />
+    </div>
+<include file="Index/_footer" />

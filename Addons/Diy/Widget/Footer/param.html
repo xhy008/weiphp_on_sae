@@ -1,0 +1,52 @@
+<!--继承的父类模板位于：Application\Home\View\default\Addons\param.html -->
+<extend name="param"/>
+<block name="css">
+<link href="{:ADDON_PUBLIC_PATH}/css/diy.css?v={:SITE_VERSION}" rel="stylesheet" type="text/css">
+</block>
+<!--标签切换模块-->
+<block name="tab">
+<div class="param_tab"><a class="cur setting" href="javascript:;">参数配置</a></div>
+</block>
+<!--参数配置模块 一般情况widget里的param.html继承此模板后只需要重写baseSetting代码块即可-->
+<block name="baseSetting">
+<form id="baseSettingForm" class="edit_module_form form-horizontal">
+	<div class="form-item">
+    	<label class="item-label">显示模板:<span class="check-tips"></span></label>
+        <div class="controls">
+			<select name="template" id="template">
+					<option value="simple" <eq name="template" value="simple">selected</eq> >简约黑色菜单</option>
+                    <option value="icon" <eq name="template" value="icon">selected</eq> >带图标黑色菜单</option>
+                    <option value="pop" <eq name="template" value="pop">selected</eq> >弹出式菜单</option>
+
+                    <option value="$widget_id" id="custom_template" <eq name="template" value="widget_id">selected</eq> >自定义模板</option>
+
+			</select>
+		</div>
+        <a class="edithtml" href="javascript:;">编辑模板</a>
+	</div>
+    
+    <div class="form-item">
+    	<label class="item-label">数据源:<span class="check-tips"></span></label>
+        <div class="controls">
+			<select name="data_from" id="data_from">
+					<option value="shop_footer" <eq name="data_from" value="shop_footer">selected</eq> >微商店的底部导航</option>
+                    <option value="weisite_footer" <eq name="data_from" value="weisite_footer">selected</eq> >微官网的底部导航</option>
+			</select>
+		</div>
+	</div>
+    
+    <div class="form-item cf">
+    	<label class="item-label"></label>
+        <div class="controls">
+           <button type="button" id="confirm" class="btn submit-btn ajax-post" target-form="form-horizontal">确 定</button>
+           <button type="button" class="btn preview_btn">预 览</button>
+        </div>
+    </div>
+</form>
+</block>
+<!--高级配置模块-->
+<block name="editwidget">
+</block>
+<block name="script">
+<script src="{:ADDON_PUBLIC_PATH}/js/form.js?v={:SITE_VERSION}" type="text/javascript"></script> 
+</block>

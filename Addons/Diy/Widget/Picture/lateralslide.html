@@ -1,0 +1,28 @@
+<!--继承的父类模板位于：Application\Home\View\default\Addons\widget.html -->
+<extend name="widget"/>
+
+<block name="widget_content">
+<section class="banner square_slide_banner banner_{$widget_id}">
+    <ul>
+      <volist name="imgId" id="vo" key="k">
+          <li><a href="{$url[$k]}"><img src="{$vo|get_cover_url}"/></a><span class="title">{$title[$k]}</span></li>
+      </volist>    
+    </ul>
+    <span class="identify">
+    	<volist name="imgId" id="vo" key="k">
+    		<em></em>   
+        </volist>       
+    </span>
+    <a class="prevBtn" href="javascript:;"></a>
+    <a class="nextBtn" href="javascript:;"></a>
+</section>
+</block>
+
+<!--JS模块-->
+<block name="script">
+<script type="text/javascript">
+setTimeout(function(){
+	$.WeiPHP.squarePicSlide(false,0,$('.layout_item').width(),400,'.banner_{$widget_id} .prevBtn','.banner_{$widget_id} .nextBtn');
+	},400)
+</script>
+</block>

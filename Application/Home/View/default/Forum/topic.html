@@ -1,0 +1,32 @@
+<include file="Index/_head" />
+<div class="forum-container">
+	<div class="l">
+		<h3>这里是WeiPHP求助、交流和分享的社区</h3>
+		<ul class="forum_list">
+			<li class="detail_top"><!--<a href="#"><img class="user_head" src="" /></a>-->
+				<div class="list_content">
+					<p class="info">
+						<span class="fl gray">
+                        <strong>{$data.uid|get_nickname}</strong>  
+                        {$data.cTime|time_format}  
+                         <!-- | 回复：{$data.reply_count|intval}-->
+                        <eq name='data.uid' value="$mid">
+                        	<a href="{:U('home/forum/form',array('id'=>$data['id'],'model'=>$model[id]))}">[编辑]</a>
+                        </eq>
+                        </span>
+                        <span class="fr gray">浏览：{$data.view_count|intval}</span>
+					</p>
+				</div></li>
+		</ul>
+		<div class="topic_content">
+        	<p class="title">{$data.title}</p>
+        	{$data.content|htmlspecialchars_decode}
+            <if condition="!empty($data['attach'])">
+            <p class="download_p"> <a href="{:U('home/forum/download','id='.$data['id'].'&attach='.$data['attach'])}" class="download_plus" style="padding: 10px 20px; position: static">下载附件</a> </p>
+            </if>
+        </div>
+	{:hook('documentDetailAfter',$data)}
+	</div>
+	<include file="form_right" />
+</div>
+<include file="Index/_footer" />

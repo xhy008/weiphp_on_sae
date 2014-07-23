@@ -1,0 +1,68 @@
+<extend name="Base/common" />
+<block name="header">
+</block>
+
+<block name="body">
+
+<section>
+	<ul class="tab-nav nav">
+      <li class="current"><a href="javascript:;">修改密码<span class="arrow fa fa-sort-up"></span></a></li>
+    </ul>
+	<div class="span12 tab-content" style="margin:50px">
+        <form class="login-form" action="__SELF__" method="post">
+          <div class="control-group">
+            <label class="control-label" for="inputPassword">原密码</label>
+            <div class="controls">
+              <input type="password" id="inputPassword"  class="span3" placeholder="请输入密码"  errormsg="密码为6-20位" nullmsg="请填写密码" datatype="*6-20" name="old">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="inputPassword">新密码</label>
+            <div class="controls">
+              <input type="password" id="inputPassword"  class="span3" placeholder="请输入密码"  errormsg="密码为6-20位" nullmsg="请填写密码" datatype="*6-20" name="password">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="inputPassword">确认密码</label>
+            <div class="controls">
+              <input type="password" id="inputPassword" class="span3" placeholder="请再次输入密码" recheck="password" errormsg="您两次输入的密码不一致" nullmsg="请填确认密码" datatype="*" name="repassword">
+            </div>
+            <div class="controls Validform_checktip text-warning"></div>
+          </div>
+          <div class="control-group">
+            <div class="controls">
+              <button type="submit" class="btn submit-btn">提 交</button>
+            </div>
+          </div>
+        </form>
+	</div>
+</section>
+</block>
+
+<block name="side"></block>
+<block name="script">
+	<script type="text/javascript">
+
+    	$(document)
+	    	.ajaxStart(function(){
+	    		$("button:submit").addClass("log-in").attr("disabled", true);
+	    	})
+	    	.ajaxStop(function(){
+	    		$("button:submit").removeClass("log-in").attr("disabled", false);
+	    	});
+
+    	$("form").submit(function(){
+    		var self = $(this);
+    		$.post(self.attr("action"), self.serialize(), success, "json");
+    		return false;
+
+    		function success(data){
+    			if(data.status){
+    				window.location.href = data.url;
+    			} else {
+    				self.find(".Validform_checktip").text(data.info);
+    			}
+    		}
+    	});
+	</script>
+</block>

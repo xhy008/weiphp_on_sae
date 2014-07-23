@@ -1,0 +1,22 @@
+<!--继承的父类模板位于：Application\Home\View\default\Addons\widget.html -->
+<extend name="widget"/>
+
+<block name="widget_content">
+<div class="diy_shop search_box">
+	<form>
+    	<input class="keyword" type="text" placeholder="搜索商品" name="keyword" id="keyword"/>
+        <span class="cancel">取消</span>
+    </form>
+</div>
+</block>
+<block name="script">
+<script type="text/javascript">
+$('#keyword').focus(function(){
+	$('.search_box .cancel').show();
+})
+$('.search_box .cancel').click(function(){
+	$('#keyword').blur();
+	$(this).hide();
+	});
+</script>
+</block>

@@ -1,0 +1,20 @@
+
+    <!-- 底部
+    ================================================== -->
+<footer class="footer">
+      <div class="container">
+          <p>
+          	<a href="{:U('Home/Index/about')}" target="_blank">关于我们</a>  |  
+            <a href="{:U('home/index/help')}" target="_blank">使用说明</a>   |   
+            本系统由<a href="http://www.weiphp.cn" target="_blank">weiphp</a>强力驱动
+            </p>
+      </div>
+</footer>
+
+<include file="Public/var"/>
+<block name="script"></block> <!-- 用于加载js代码 -->
+<!-- 页面footer钩子，一般用于加载插件JS文件和JS代码 -->
+{:hook('pageFooter', 'widget')}
+<div class="hidden"><!-- 用于加载统计代码等隐藏元素 -->
+	<block name="hidden"></block>
+</div>

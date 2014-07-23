@@ -1,0 +1,124 @@
+<extend name="Base/login_base" />
+<block name="body">
+<div class="login_top_btn">
+      <php> if(!C('SYSTEM_CLOSE_REGISTER')) { </php><a class="btn" href="{:U('User/register')}">新用户注册</a> <php> } </php>
+      <php> if(!C('SYSTEM_CLOSE_ADMIN')) { </php><a class="btn" href="{:U('admin/index/index')}" target="_blank">后台管理</a> <php> } </php>
+      <php> if(!C('SYSTEM_CLOSE_WIKI')) { </php><a class="btn" href="http://www.weiphp.cn/wiki" target="_blank">二次开发教程</a> <php> } </php>
+      <php> if(!C('SYSTEM_CLOSE_BBS')) { </php><a class="btn" href="http://bbs.weiphp.cn" target="_blank">官方论坛</a> <php> } </php>
+</div>
+<section class="login_box">
+	<form class="login-form" action="__SELF__" method="post">
+    	<a href="{:SITE_URL}">
+        <php> if(!C('SYSTEM_LOGO')) { </php>
+       		<div class="logo_icon"></div>
+       		<div class="logo_text"><span class="beta"></span></div>
+            
+            <php> } else { </php>
+            <img src="{:C('SYSTEM_LOGO')}" />
+            <php> } </php>
+    	</a>
+      	<div class="form_title">
+        	简洁强大的微信公众平台开发框架
+      	</div>
+          <div class="form_body">
+          		<div class="input_panel">
+                  <div class="control-group">
+                    <label class="control-label" for="inputEmail">用户名</label>
+                    <div class="controls">
+                      <span class="fa fa-user"></span>
+                      <input type="text" id="inputEmail" class="span3" placeholder="请输入用户名"  ajaxurl="/member/checkUserNameUnique.html" errormsg="请填写1-16位用户名" nullmsg="请填写用户名" datatype="*1-16" value="" name="username">
+                    </div>
+                  </div>
+                  <div class="control-group">
+                    <label class="control-label" for="inputPassword">密码</label>
+                    <div class="controls">
+                      <span class="fa fa-key"></span>
+                      <input type="password" id="inputPassword"  class="span3" placeholder="请输入密码"  errormsg="密码为6-20位" nullmsg="请填写密码" datatype="*6-20" name="password">
+                    </div>
+                  </div>
+                  <php>if(C('WEB_SITE_VERIFY')) { </php>
+                  <div class="control-group">
+                    <label class="control-label" for="inputPassword">验证码</label>
+                    <div class="controls">
+                       <span class="fa fa-keyboard-o"></span>
+                      <input type="text" id="verify" class="span3" placeholder="请输入验证码"  errormsg="请填写5位验证码" nullmsg="请填写验证码" datatype="*5-5" name="verify">
+                      <a href="javascript:;" class="reloadverify_a">换一张?</a>
+                    </div>
+                  </div>
+                  
+                  <php> } </php>
+               </div>
+              <php>if(C('WEB_SITE_VERIFY')) { </php>
+              
+              <div class="control-group">
+                <label class="control-label"></label>
+                <div class="controls">
+                    <img class="verifyimg reloadverify" alt="点击切换" src="{:U('verify')}" style="cursor:pointer;">
+                </div>
+              </div>
+              <php> } </php>
+              <div class="controls Validform_checktip text-warning"></div>
+              <div class="control-group">
+                <div class="controls">
+				  <!--[if !IE]><!-->  
+                  <input type="checkbox" id="checkbox" class="regular-checkbox"/><label for="checkbox"></label>
+				  <!--<![endif]-->
+				  <!--[if IE]>
+                        <input type="checkbox" id="checkbox"/>
+				  <![endif]-->
+				  自动登陆
+                </div>
+                <div class="controls">
+                  <button type="submit" class="btn btn-large">登 陆</button>
+                </div>
+              </div>
+          </div>
+       </form>
+</section>
+</block>
+<block name="side"> </block>
+<block name="script">
+	<script type="text/javascript">       
+    	$(document)		   
+	    	.ajaxStart(function(){
+	    		$("button:submit").addClass("log-in").attr("disabled", true);
+	    	})
+	    	.ajaxStop(function(){
+	    		$("button:submit").removeClass("log-in").attr("disabled", false);
+	    	});
+
+
+    	$("form").submit(function(){
+    		var self = $(this);
+    		$.post(self.attr("action"), self.serialize(), success, "json");
+    		return false;
+
+    		function success(data){
+    			if(data.status){
+    				window.location.href = data.url;
+    			} else {
+    				self.find(".Validform_checktip").text(data.info);
+    				//刷新验证码
+    				$(".reloadverify").click();
+    			}
+    		}
+    	});
+
+		$(function(){
+			var verifyimg = $(".verifyimg").attr("src");
+            $(".reloadverify,.reloadverify_a").click(function(){
+                if( verifyimg.indexOf('?')>0){
+                    $(".verifyimg").attr("src", verifyimg+'&random='+Math.random());
+                }else{
+                    $(".verifyimg").attr("src", verifyimg.replace(/\?.*$/,'')+'?'+Math.random());
+                }
+            });
+			$('input').focus(function(){
+				$(this).parent().find('.fa').css('color','#1dbd03');
+				})
+			$('input').blur(function(){
+				$(this).parent().find('.fa').css('color','#aaa');
+				})
+		});
+	</script>
+</block>

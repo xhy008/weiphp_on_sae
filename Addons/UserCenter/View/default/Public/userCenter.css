@@ -1,0 +1,16 @@
+@charset "utf-8";
+/* CSS Document by jacy use in 微信用户中心手机页面 */
+html{ height:100%;}
+body{}
+.box{ margin:20px 15px; min-height:50px; border-radius:10px; background-color:#fff; box-shadow:0 1px 1px #ddd; line-height:22px; color:#666; padding:10px; overflow:hidden; zoom:1}
+.user_box{ position:relative; min-height:80px;}
+.head{ width:80px; height:80px; float:left; margin-right:10px;}
+.user_box .edit{ position:absolute; width:30px; height:30px; top:10px; right:10px; background-color:#ddd; padding:5px; border-radius:10px;}
+.box h6{ line-height:40px; font-size:18px;}
+.item{  border-bottom:1px solid #eee; padding:10px 0; float:left; width:100%}
+.item .td{ float:left; color:#666}
+.item .title{ width:50%}
+.item .count{ width:20%}
+.item .to{ width:30%; color:#090; text-align:right}
+.unbind{ padding:15px; margin-top:200px;}
+.unbind p{ margin:20px 0; text-align:center}

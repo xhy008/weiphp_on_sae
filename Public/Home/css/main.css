@@ -1,0 +1,50 @@
+@charset "utf-8";
+/* 
+	CSS Document 
+  	@author jacy 
+  	mail:51daxigua@gmail.com 
+*/
+*{ padding:0; margin:0;}
+li,ul{ list-style:none}
+img{ border:none}
+body{ font-family: "微软雅黑","Microsoft Yahei",Tahoma, Geneva, sans-serif; font-size:14px; line-height:20px;}
+a{ color:#666; text-decoration:none}
+a:hover{ color:#333; text-decoration:underline;}
+.fl{ float:left}
+.fr{ float:left}
+.wrap{ width:1000px; margin:0 auto;}
+.clear{ clear:both; content:""}
+/* head */
+.head{ height:100px; width:100%; background:#2d383e;}
+.head .logo{ display:block;width:270px; height:100px; text-indent:-9999px; overflow:hidden; background:url(../images/logo.jpg) no-repeat}
+.head .nav{ float:right; margin-top:50px;}
+.head .nav a{ color:#a4a4a4; margin:0 20px;}
+.head .nav a:hover{ color:#fff; text-decoration:none}
+.head .nav a.cur{ color:#fff; font-weight:bold; font-size:16px;}
+/* banner */
+.banner{ height:485px; width:100%; background:#545460;}
+.banner_wrap{ width:1100px; margin:0 auto}
+.banner .desc_pic{ float:left; margin-top:55px; width:584px; height:431px; text-indent:-9999px; background:url(../images/desc_pic.jpg) no-repeat;}
+.banner .text_wrap{ float:right; margin-right:20px;}
+.banner .text_wrap .desc_title{width:390px; height:94px; text-indent:-9999px; background:url(../images/desc_title.jpg) no-repeat; margin:70px 0 0 10px;}
+.banner .text_wrap ul{ margin:20px 0 0 20px;}
+.banner .text_wrap li{ color:#e3e3e3; font-size:16px; margin-bottom:20px;}
+.banner .text_wrap li span{ color:#fff; font-size:18px; padding:5px 10px; margin-right:15px; background:url(../images/li_icon.jpg) no-repeat;}
+.download{ width:225px; height:85px; display:block; color:#fff; font-size:20px; line-height:85px; text-align:center; margin:30px; background:url(../images/download_btn.jpg) no-repeat;}
+.download:hover{ background-position:0 -85px; color:#fff}
+/* func list */
+.func ul{ margin:30px auto; overflow:hidden; zoom:1}
+.func ul li{ float:left; width:350px; height:200px; padding:30px 0 0 100px;}
+.func ul li h4{ font-size:18px; font-weight:bold; line-height:30px;}
+.func ul li p{ margin-top:10px; line-height:24px;}
+.func ul li.func_1{ background:url(../images/func_pic_1.jpg) no-repeat;}
+.func ul li.func_2{ background:url(../images/func_pic_2.jpg) no-repeat; float:right}
+.func ul li.func_3{ background:url(../images/func_pic_3.jpg) no-repeat;}
+.func ul li.func_4{ background:url(../images/func_pic_4.jpg) no-repeat; float:right}
+
+/* foot */
+.footer{ background:#dbdbdc; padding:20px 0;}
+.foot_wrap{ position:relative;}
+.foot_nav a{ margin:0 20px 0  0; font-size:12px; line-height:30px;}
+.copyright{ color:#999; font-size:12px;}
+.foot_logo{ position:absolute; width:222px; height:38px; right:0; top:0; background:url(../images/foot_logo.jpg) no-repeat;}

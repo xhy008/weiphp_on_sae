@@ -1,0 +1,31 @@
+<!--继承的父类模板位于：Application\Home\View\default\Addons\widget.html -->
+<extend name="widget"/>
+
+<block name="widget_content">
+<div class="diy_shop shopdetail_tworow_waterfall_list">
+    <ul>
+    <volist name="list.list_data" id="product">
+    	<li>
+        	<a href="{:addons_url('Shop://Shop/detail',array('id'=>$product[id]))}">
+            	{$product.cover|get_img_html}
+                <h6>{$product.title}</h6>
+				<p class="price">￥{$product.discount_price}</p>
+                <p class="info">浏览：{$product.view_count} |  购买：{$product.bug_count}</p>
+        	</a>
+        </li>
+        </volist>
+    </ul>
+    {$list._page}
+    
+<!--    <ul>
+    	<li>
+        	<a href="#">
+            	<img src="http://img03.taobaocdn.com/bao/uploaded/i3/T1RgFCFltgXXXXXXXX_!!0-item_pic.jpg_220x10000.jpg"/>
+                <h6>one more 日系甜美淑女连衣裙,ML,S,14Q1one more 日系甜美淑女连衣裙</h6>
+				<p class="price">￥23566</p>
+                <p class="info">浏览：1222 |  购买：1222</p>
+        	</a>
+        </li>
+    </ul>-->
+</div>
+</block>

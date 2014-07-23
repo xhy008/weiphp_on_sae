@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<include file="Public/head"/>
+</head>
+<body id="login_body" <php>if(C('LOGIN_BACKGROUP')) {</php> style="background:url('{:C('LOGIN_BACKGROUP')}') no-repeat scroll center center rgba(0, 0, 0, 0)" <php> } </php> >
+	<!-- 主体 -->
+    <php>
+    $m = strtolower(MODULE_NAME);
+    $c = strtolower(CONTROLLER_NAME);
+    $a = strtolower(ACTION_NAME);
+    
+    $ad = ucfirst ( parse_name ( $_REQUEST['_addons'], 1 ) );
+    $navClass[$ad] = 'active';
+    $navClass[$m.'_'.$c.'_'.$a] = 'active';
+    $addonList = D ( 'Addons' )->getWeixinList (false, array(), true);
+    </php>
+	<block name="body"></block>
+	<!-- /主体 -->
+
+	<!-- 底部 -->
+	<include file="Public/footer"/>
+	<!-- /底部 -->
+</body>
+</html>

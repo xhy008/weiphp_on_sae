@@ -1,0 +1,238 @@
+<extend name="Base/common" />
+<block name="body">
+  <div class="span9 page_message">
+    <section id="contents">
+      <include file="Addons/_nav" />
+      <div class="tab-content"> 
+        <!-- 表单 -->
+        <php> $post_url || $post_url = U('add?model='.$model['id']);</php>
+        <form id="form" action="{$post_url}" method="post" class="form-horizontal form-center">
+          <!-- 基础文档模型 -->
+          <volist name=":parse_config_attr($model['field_group'])" id="group">
+            <div id="tab{$key}" class="tab-pane <eq name="key" value="1">in
+              </eq>
+              tab{$key}">
+              <volist name="fields[$key]" id="field">
+                <if condition="$field['is_show'] == 4">
+                  <input type="hidden" class="text input-large" name="{$field.name}" value="{:I($field[name], $field[value])}">
+                </if>
+                <if condition="$field['is_show'] == 1 || $field['is_show'] == 2 || ($field['is_show'] == 5 && I($field['name']))">
+                  <div class="form-item cf" rel="{$field.name}">
+                    <label class="item-label">
+                    <notempty name="field.is_must"><span class="need_flag">*</span></notempty>
+                    {$field['title']}
+                    <span class="check-tips">
+                      <notempty name="field['remark']">（{$field['remark']}）</notempty>
+                      </span></label>
+                    <div class="controls">
+                      <switch name="field.type">
+                        <case value="num">
+                          <input type="text" class="text input-medium" name="{$field.name}" value="{:I($field[name], $field[value])}">
+                        </case>
+                        <case value="string">
+                          <input type="text" class="text input-large" name="{$field.name}" value="{:I($field[name], $field[value])}">
+                        </case>
+                        <case value="textarea">
+                          <label class="textarea input-large">
+                            <textarea name="{$field.name}">{:I($field[name], $field[value])}</textarea>
+                          </label>
+                        </case>
+                        <case value="datetime">
+                          <input type="text" name="{$field.name}" class="text input-large time" value="{:I($field[name], $field[value])}" placeholder="请选择时间" />
+                        </case>
+                        <case value="date">
+                          <input type="text" name="{$field.name}" class="text input-large date" value="{:I($field[name], $field[value])}" placeholder="请选择日期" />
+                        </case>                        
+                        <case value="bool">
+                          <select name="{$field.name}">
+                            <volist name=":parse_field_attr($field['extra'])" id="vo"> <option value="{$key}" 
+                              <eq name="field.value" value="$key">selected</eq>
+                              >{$vo}
+                              </option>
+                            </volist>
+                          </select>
+                        </case>
+                        <case value="select">
+                          <select name="{$field.name}">
+                            <volist name=":parse_field_attr($field['extra'])" id="vo"> <option value="{$key}" 
+                              <eq name="field.value" value="$key">selected</eq>
+                              >{$vo}
+                              </option>
+                            </volist>
+                          </select>
+                        </case>
+                        <case value="cascade">
+                        <div id="cascade_{$field.name}"></div>
+                        {:hook('cascade', array('name'=>$field['name'],'value'=>$field['value'],'extra'=>$field['extra']))}
+                        </case>                        
+                        <case value="radio">
+                          <volist name=":parse_field_attr($field['extra'])" id="vo">
+                            <div class="check-item">
+							<!--[if !IE]><!-->  
+								  <input type="radio" class="regular-radio" value="{$key}" id="{$field.name}_{$key}" name="{$field.name}"
+								  <eq name="field.value" value="$key">checked</eq> />
+								  <label for="{$field.name}_{$key}"></label>{$vo} 
+							   <!--<![endif]-->
+							   <!--[if IE]>
+							       <input type="radio" value="{$key}" 
+								   id="{$field.name}_{$key}" name="{$field.name}" 
+								  <eq name="field.value" value="$key">checked="checked"</eq> />
+								  <label for="{$field.name}_{$key}"></label>{$vo}
+							   <![endif]-->
+                             </div>
+                          </volist>
+                        </case>
+                        <case value="checkbox">
+                          <volist name=":parse_field_attr($field['extra'])" id="vo">
+                            <div class="check-item">
+                              <input type="checkbox" class="regular-radio" value="{$key}" id="{$field.name}_{$key}" name="{$field.name}[]"
+                              <in name="key" value="$field['value']" >checked="checked"</in> >
+                              <label for="{$field.name}_{$key}"></label>{$vo} 
+                              </div>
+                          </volist>
+                        </case>
+                        <case value="editor">
+                          <label class="textarea">
+                            <textarea name="{$field.name}"></textarea>
+                            {:hook('adminArticleEdit', array('name'=>$field['name'],'value'=>$field['value']))} </label>
+                        </case>
+                        <case value="picture">
+                          <div class="controls uploadrow" title="点击修改图片">
+                            <input type="file" id="upload_picture_{$field.name}">
+                            <input type="hidden" name="{$field.name}" id="cover_id_{$field.name}"/>
+                            <div class="upload-img-box">
+                              <notempty name="data[$field['name']]">
+                                <div class="upload-pre-item"><img width="120" height="120" src="__ROOT__{$data[$field['name']]|get_cover='path'}"/></div>
+                              </notempty>
+                            </div>
+                          </div>
+                          <script type="text/javascript">
+								//上传图片
+							    /* 初始化上传插件 */
+								$("#upload_picture_{$field.name}").uploadify({
+							        "height"          : 120,
+							        "swf"             : "__STATIC__/uploadify/uploadify.swf",
+							        "fileObjName"     : "download",
+							        "buttonText"      : "上传图片",
+							        "uploader"        : "{:U('home/File/uploadPicture',array('session_id'=>session_id()))}",
+							        "width"           : 120,
+							        'removeTimeout'	  : 1,
+							        'fileTypeExts'	  : '*.jpg; *.png; *.gif;',
+							        "onUploadSuccess" : uploadPicture{$field.name}
+							    });
+								function uploadPicture{$field.name}(file, data){
+							    	var data = $.parseJSON(data);
+							    	var src = '';
+							        if(data.status){
+							        	$("#cover_id_{$field.name}").val(data.id);
+							        	src = data.url || '__ROOT__' + data.path;
+							        	$("#cover_id_{$field.name}").parent().find('.upload-img-box').html(
+							        		'<div class="upload-pre-item"><img width="120" height="120" src="' + src + '"/></div>'
+							        	);
+										$('.weixin-cover-pic').attr('src',src);
+							        } else {
+							        	updateAlert(data.info);
+							        	setTimeout(function(){
+							                $('#top-alert').find('button').click();
+							                $(that).removeClass('disabled').prop('disabled',false);
+							            },1500);
+							        }
+							    }
+								</script> 
+                        </case>
+                        <case value="file">
+                          <div class="controls">
+                            <input type="file" id="upload_file_{$field.name}" title="点击修改文件">
+                            <input type="hidden" name="{$field.name}" value="{$data[$field['name']]}"/>
+                            <div class="upload-img-box">
+                              <present name="data[$field['name']]">
+                                <div class="upload-pre-file"><span class="upload_icon_all"></span>{$data[$field['name']]}</div>
+                              </present>
+                            </div>
+                          </div>
+                          <script type="text/javascript">
+								//上传图片
+							    /* 初始化上传插件 */
+								$("#upload_file_{$field.name}").uploadify({
+							        "height"          : 120,
+							        "swf"             : "__STATIC__/uploadify/uploadify.swf",
+							        "fileObjName"     : "download",
+							        "buttonText"      : "上传附件",
+							        "uploader"        : "{:U('File/upload',array('session_id'=>session_id()))}",
+							        "width"           : 120,
+							        'removeTimeout'	  : 1,
+							        "onUploadSuccess" : uploadFile{$field.name}
+							    });
+								function uploadFile{$field.name}(file, data){
+									var data = $.parseJSON(data);
+							        if(data.status){
+							        	var name = "{$field.name}";
+							        	$("input[name="+name+"]").val(data.id);
+							        	$("input[name="+name+"]").parent().find('.upload-img-box').html(
+							        		"<div class=\"upload-pre-file\"><span class=\"upload_icon_all\"></span>" + data.name + "</div>"
+							        	);
+							        } else {
+							        	updateAlert(data.info);
+							        	setTimeout(function(){
+							                $('#top-alert').find('button').click();
+							                $(that).removeClass('disabled').prop('disabled',false);
+							            },1500);
+							        }
+							    }
+								</script> 
+                        </case>
+                        <default/>
+                        <input type="text" class="text input-large" name="{$field.name}" value="{:I($field[name], $field[value])}">
+                      </switch>
+                    </div>
+                  </div>
+                </if>
+              </volist>
+          </volist>
+          <div class="form-item cf">
+            <button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">确 定</button>
+             </div>
+             
+        </form>
+        </div>
+        <include file="Addons/weixinPreview" />
+      </div>
+    </section>
+  </div>
+</block>
+<block name="script">
+  <link href="__STATIC__/datetimepicker/css/datetimepicker.css?v={:SITE_VERSION}" rel="stylesheet" type="text/css">
+  <php>if(C('COLOR_STYLE')=='blue_color') echo '
+    <link href="__STATIC__/datetimepicker/css/datetimepicker_blue.css?v={:SITE_VERSION}" rel="stylesheet" type="text/css">
+    ';</php>
+  <link href="__STATIC__/datetimepicker/css/dropdown.css?v={:SITE_VERSION}" rel="stylesheet" type="text/css">
+  <script type="text/javascript" src="__STATIC__/datetimepicker/js/bootstrap-datetimepicker.min.js"></script> 
+  <script type="text/javascript" src="__STATIC__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js?v={:SITE_VERSION}" charset="UTF-8"></script> 
+  <script type="text/javascript">
+$('#submit').click(function(){
+    $('#form').submit();
+});
+
+$(function(){
+    $('.time').datetimepicker({
+        format: 'yyyy-mm-dd hh:ii',
+        language:"zh-CN",
+        minView:2,
+        autoclose:true
+    });
+    $('.date').datetimepicker({
+        format: 'yyyy-mm-dd',
+        language:"zh-CN",
+        minView:2,
+        autoclose:true
+    });	
+    showTab();
+	$('#form select').change(change_event(this));
+	$('#form input[name="radio"]').change(change_event(this));
+	$('#form input[name="checkbox"]').change(change_event(this));
+});
+function change_event(obj){
+	
+}
+</script> 
+</block>

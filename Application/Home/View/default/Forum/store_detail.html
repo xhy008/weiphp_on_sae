@@ -1,0 +1,38 @@
+<include file="Index/_head" />
+<div class="forum-container">
+  <div class="l">
+    <h3>社区 微信插件下载、上传分享区</h3>
+    <ul class="forum_list">
+      <li><!--<a href="#"><img class="user_head" src="" /></a>-->
+        <div class="list_content">
+          <p class="info"> <span class="fl gray">{$data.uid|get_nickname} | 浏览：{$data.view_count|intval}<!-- | 回复：{$data.reply_count|intval}--></span> 
+          <eq name='data.uid' value="$mid">
+          <span class="fl gray"> | <a href="{:U('home/forum/form',array('id'=>$data['id'],'model'=>$model[id]))}">编辑</a></span> 
+          </eq>          
+          <span class="fr gray">{$data.cTime|time_format}</span> </p>
+        </div>
+      </li>
+    </ul>
+    <div class="topic_content">
+    <p class="title">{$data.title}</p>
+    <p class="download_p"> <a href="{:U('home/forum/download','id='.$data['id'].'&attach='.$data['attach'])}" class="download_plus" style="padding: 10px 20px; position: static">下载</a> 
+    下载次数：{$data.download_count|intval} </p>
+    
+    <div class="content">{$data.content|htmlspecialchars_decode}</div>
+    
+    <php>$img_list = array_filter(array($data['img_1'],$data['img_2'],$data['img_3'],$data['img_4']));  if($img_list) { </php>
+    <div class="plus_shot">
+    	<h5>应用截图</h5>
+    
+        <volist name='img_list' id='img'>
+          <a href="{$img|get_cover_url}" target="_blank"><img src="{$img|get_cover_url}" /></a><br/>
+        </volist>
+    </div>  
+    <php> } </php>
+            
+    <p class="download_p"> <a href="{:U('home/forum/download','id='.$data['id'].'&attach='.$data['attach'])}" class="download_plus" style="padding: 10px 20px; position: static">下载</a> 
+    下载次数：{$data.download_count|intval} </p>
+    </div>
+    {:hook('documentDetailAfter',$data)} </div>
+  <include file="store_right" /> </div>
+<include file="Index/_footer" />

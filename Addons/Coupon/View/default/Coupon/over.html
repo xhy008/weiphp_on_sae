@@ -1,0 +1,20 @@
+<include file="Public/mobile_head"/>
+<link href="{:ADDON_PUBLIC_PATH}/Coupon.css?v={:SITE_VERSION}" rel="stylesheet" type="text/css">
+<body id="scratch">
+	<div class="container body" style="position:relative">
+    	<div class="scr_top" style="margin:100px auto 0; text-align:center">
+        	<a href="#"><img src="{:ADDON_PUBLIC_PATH}/face.jpg"/></a>
+        </div>
+        <div class="over_text">
+        	<h3>抱歉，{$error}</h3>
+            <p>请关注我们后面推出的更多优惠活动。</p>
+        </div>
+        <p class="copyright" style="position:absolute; bottom:20px; width:100%">{$system_copy_right}</p>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+var h=$(document).height();
+$('.container').height(h);
+</script>
+</html>

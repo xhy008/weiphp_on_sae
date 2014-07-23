@@ -1,0 +1,3 @@
+INSERT INTO `wp_keyword` (`keyword`,`token`,`addon`,`aim_id`,`cTime`,`keyword_type`,`extra_text`,`extra_int`,`keyword_length`) VALUES ('股票', '0', 'Juhe', '0', '1393210483', '0', '', '0','2');
+INSERT INTO `wp_keyword` (`keyword`,`token`,`addon`,`aim_id`,`cTime`,`keyword_type`,`extra_text`,`extra_int`,`keyword_length`) VALUES ('黄金', '0', 'Juhe', '0', '1393210483', '0', '', '0','2');
+INSERT INTO `wp_keyword` (`keyword`,`token`,`addon`,`aim_id`,`cTime`,`keyword_type`,`extra_text`,`extra_int`,`keyword_length`) VALUES ('货币汇率', '0', 'Juhe', '0', '1393210483', '0', '', '0','4');

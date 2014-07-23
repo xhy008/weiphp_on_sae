@@ -1,0 +1,35 @@
+@charset "utf-8";
+/* CSS Document by jacy use in vipcard */
+body{ padding:0; margin:0;}
+.body{background:#90150d;}
+.container{ max-width:640px; min-width:320px; margin:0 auto;}
+.scr_top>img{ width:100%;}
+.area{ position:relative;}
+.area img{ width:100%;}
+.scratch_area{ position:absolute; top:40%; left:50%; width:100%; min-height:100px;}
+.prize_text{position: absolute;
+height: 150px;
+width: 301px;
+font-size: 30px;
+left: 50%;
+margin-left: -150px;
+text-align: center;
+color:#bb400a; z-index:1;}
+.scratch_area canvas{z-index:10; position:absolute; left:50%; z-index:10}
+.block_out{ border-radius:10px; background-color:#e3effb; margin:10px; padding:3px;}
+.block_inner{ border:1px dashed #dc2804; border-radius:10px; background-color:#fff}
+.block_inner h6{ border-top-left-radius:10px; border-top-right-radius:10px; background-color:#dc2804; color:#fff; line-height:30px; text-align:center}
+.block_inner p{ padding:10px;}
+.gift_list{ overflow:hidden; zoom:1}
+.gift_list li{ float:left; width:50%; margin-bottom:10px; text-align:center}
+.gift_list li p{ font-weight:bold; white-space:nowrap}
+.gift_list li img{ width:80%;}
+.gift_list li span{ display:block; text-align:center}
+.gift_history li{ display:table; width:100%;border-bottom:1px dotted #eee}
+.gift_history li span{ display:table-cell; font-size:12px; padding:5px; }
+.gift_history li span.col_1{ width:55%}
+.gift_history li span.col_2{ width:20%}
+.gift_history li span.col_3{ width:25%}
+.gift_history li:last-child{ border:none}
+.block_inner .empty-tips{ padding:10px; text-align:center}
+.block_inner .repeat_tips{ background-color:#f9f1c9; text-align:center; border-radius:20px; padding:10px; margin:20px;}

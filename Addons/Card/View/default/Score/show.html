@@ -1,0 +1,60 @@
+<include file="Public/mobile_head"/>	
+<link href="{:ADDON_PUBLIC_PATH}/card.css?v={:SITE_VERSION}" rel="stylesheet" type="text/css">
+
+<body>
+	<div class="container">
+    	<img src="{:ADDON_PUBLIC_PATH}/sign_in_pic.jpg" width="100%"/>
+    	<div class="p_10"> 
+            <div class="tb"><a href="#" target="_blank" class="btn yellow_btn m_15 flex_1">点击签到,赚积分</a></div>
+            <div class="single_item tb score_nav">
+            	<a class="p_10 flex_1 btl bbl cur" href="#">总积分<br/>100</a>
+                <a class="p_10 flex_1" href="#">签到积分<br/>50</a>
+                <a class="p_10 flex_1 btr bbr" href="#">消费积分<br/>50</a>
+            </div>
+            <div class="single_item mt_10 p_10">
+            	<div class="select_month">
+                	<div class="current_month icon_date">
+                    	<p class="icon_arrow_down">12月份签到及积分情况<br/>
+                        <span>点击此处查看其他月份</span></p>
+                    </div>
+                    <select name="date" id="date" class="score_date mb_10 icon_date">
+                        <option value="12">12月</option>
+                        <option value="11">11月</option>
+                    </select>
+                </div>
+                <div class="score_list score_list_top">
+                	<span>日期</span>
+                    <span>获取情况</span>
+                    <span>积分</span>
+                </div>
+                <div class="score_list">
+                	<span>2014-12-12</span>
+                    <span>签到</span>
+                    <span>200积分</span>
+                </div>
+                <div class="score_list">
+                	<span>2014-10-12</span>
+                    <span>测试</span>
+                    <span>100积分</span>
+                </div>
+                <p class="all_score">本月合计：1331积分</p>
+            </div>
+        </div>
+        <p class="copyright">2014&copy;WeiPHP</p>
+    </div>
+    <nav class="bottom_nav">
+    	<a class="icon_card" href="#">会员卡</a>
+        <a class="icon_crown" href="#">特权</a>
+        <a class="icon_tag" href="#">优惠券</a>
+        <a class="icon_gift" href="#">兑换</a>
+        <a class="icon_time cur" href="#">签到</a>
+    </nav>
+    <div class="bottom_nav_blank"/>
+    <script type="text/javascript">
+    	$('#date').change(function(){
+			//选择月份跳转
+			window.location.href="#month="+$(this).val();	
+		});
+    </script>
+</body>
+</html>

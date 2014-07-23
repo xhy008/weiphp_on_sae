@@ -1,0 +1,1 @@
+DELETE FROM wp_keyword WHERE addon='Robot';

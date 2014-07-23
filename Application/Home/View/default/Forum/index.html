@@ -1,0 +1,27 @@
+<include file="Index/_head" />
+    <div class="forum-container">
+    	<div class="l">
+        	<h3>这里是WeiPHP求助、交流和分享的社区</h3>
+            <ul class="forum_list">
+               <volist name='list_data' id='vo'>
+            	<li>
+                	<!--<a href="#"><img class="user_head" src="" /></a>-->
+                    <div class="list_content">
+                        
+                        <p class="info">
+                        	<span class="fl"><strong>{$vo.uid|get_nickname}</strong>
+                              <span class="gray">{$vo.cTime|time_format}</span><!-- | 回复：{$vo.reply_count|intval}--></span>
+                            <span class="fr gray">浏览：{$vo.view_count|intval}</span>
+                        </p>
+                        <a class="title <neq name="vo[is_top]" value="0">top</neq>" href="{:U('home/forum/topic','id='.$vo['id'])}"><neq name='vo[is_top]' value="0">[置顶] </neq>{$vo.title}</a>
+                    </div>
+                </li>
+                </volist>
+            </ul>
+            <div class="pagination">
+            {$_page|default=''}
+			</div>
+        </div>
+    	<include file="form_right" />
+    </div>
+<include file="Index/_footer" />

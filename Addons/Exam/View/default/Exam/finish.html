@@ -1,0 +1,26 @@
+<include file="Public/mobile_head"/>	
+<link href="{:ADDON_PUBLIC_PATH}/css.css?v={:SITE_VERSION}" rel="stylesheet" type="text/css">
+<body>
+	<div id="container" class="container">
+    	<div class="top"></div>
+    	<div class="lead_box">
+        	<h6><if condition="empty($info['finish_tip'])">考试完成，谢谢参与<else/>{$info.finish_tip}</if></h6>
+            <p class="course">你的得分为：<span>{$score}分</span></p>
+        	
+         <php>$event_url = event_url ( '微考试', $info[id] ); if(!empty($event_url)) { </php>
+        <a class="share_btn" href="{$event_url}">参加抽奖活动</a>
+        <php> } </php>
+        
+            <a href="javascript:;" onClick="closepage();" class="share_btn">返回微信</a>
+        </div>
+        <div class="bottom"></div>
+    </div>
+    <p class="copyright">{$system_copy_right}</p>
+    
+<script type="text/javascript">
+function closepage(){
+	WeixinJSBridge.call('closeWindow');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+/**
+ * weiphp公用css
+ */
+/* 登录 */
+#login_body{ background:url(../images/login_bg.jpg) no-repeat center center;}
+#login_body footer{ display:none}
+.login_box,.reg_box{ width:400px; margin:50px auto; color:#ddd}
+.login_box{ margin-top:100px;}
+.login_box a{ color:#fff; font-size:15px;}
+.login_box a:hover{ color:#1dbd03}
+.logo_icon{ width:60px; height:60px; margin:0 auto; background:url(../images/logo_80.png) center center no-repeat;}
+.logo_text{ height:30px; margin:20px 0 10px; background:url(../images/logo_text.png) center top no-repeat; position:relative}
+.logo_text .beta{ position:absolute; height:24px; width:76px; right:45px; top:0; background:url(../images/beta2.0.png) no-repeat}
+.form_title{text-align:center; color:#ccc; font-size:16px; display:none}
+.login_box .form_body{ margin-top:30px;}
+.login_box .control-label{ display:none}
+.login_box .controls{ margin:20px auto 0; display:block; width:308px; position:relative}
+.login_box input{ padding-left:35px; width:262px;}
+.login_box .controls .fa{ position:absolute; top:10px; left:10px; font-size:20px; color:#aaa;}
+.list_img {width:50px;}
+.login_box .verifyimg{ margin-top:10px; width:100%}
+.login_box .btn{ width:100%;}
+.login_box .reloadverify_a{ position:absolute; top:10px; right:10px;}
+.reg_box input{ width:256px;}
+.reg_box .control-group{ overflow:hidden;zoom:1; margin-top:20px;}
+.reg_box .control-label{ width:70px; height:30px; float:left; text-align:right; padding-right:15px; line-height:30px;}
+.reg_box .controls{ float:left;}
+.reg_box .verifyimg{ width:274px;}
+.reg_box .btn{ padding:10px 0; margin-top:15px; width:274px;}
+.login_top_btn{ position:absolute; top:20px; right:20px;}
+.login_top_btn .btn{ background-color:RGBA(255,255,255,.3); color:#fff; padding:8px 20px; border-radius:30px; margin:10px;}
+.login_top_btn .btn:hover{ background-color:#fff; color:#1dbd03}
+.text-warning{ color:#F60; margin-top:5px}
+/* login end */
+
+/* 头部 */
+.navbar{ height:50px; width:100%; background:url(../images/login_bg.jpg) no-repeat; position:fixed; top:0; z-index:10000;}
+.brand{ padding:5px 10px; display:block; float:left;}
+.top_nav{ float:right; margin-right:10px;}
+.top_nav a{ color:#fff;}
+.top_nav li.dropdown{ position:relative;}
+.top_nav li:hover{ background:#111}
+.top_nav li.dropdown>a{ line-height:50px; width:90px; height:50px; overflow:hidden; padding:0 20px;}
+.top_nav li.admin_nav>a{ width:70px;}
+.top_nav li.dropdown>a:hover{ background:#111;}
+.top_nav li.dropdown ul{ position:absolute; width:100%; top:50px; left:0; background:#222;position: absolute;
+color:#fff;
+float: none;
+min-width: 100%;
+padding: 0;
+margin: 0;
+list-style: none;
+border: none;
+-webkit-border-radius: 0;
+-moz-border-radius: 0;
+border-radius: 0;
+-webkit-box-shadow: none;
+-moz-box-shadow: none;
+box-shadow: none;
+-webkit-background-clip: none;
+-moz-background-clip: none;
+background-clip: none;}
+.top_nav li.dropdown ul li{ float:none}
+.top_nav li.dropdown ul a{ display:block; height:40px; line-height:40px; padding:0 20px;}
+.top_nav li.dropdown ul a:hover{ background:#111;}
+.top_nav .dropdown-menu > li > a{ color:#fff}
+
+/* 侧栏 */
+.sidebar{ position:fixed; top:50px; left:0; bottom:0; width:180px; border-top:3px solid #1dbd03; background:url(../images/login_bg.jpg) no-repeat; overflow-y:auto; overflow-x:hidden; padding-bottom:30px;}
+.sidebar li a{ display:block;color:#ddd; height:40px; border-bottom:1px solid #161e38; border-top:1px solid #000; line-height:40px; padding:0 10px;}
+.sidebar li a:hover{ color:#6b6a89;}
+.sidebar li.active a{ color:#1dbd03}
+.sidebar .fa{ font-size:15px; padding-right:10px;}
+.sidebar .arrow{ color:#ddd; font-size:10px; padding-left:10px;}
+.sidebar li .sidenav_sub a{ padding-left:35px;}
+.sidebar li .sidenav_sub li{ position:relative;}
+.sidebar li .sidenav_sub li .active_arrow{ position:absolute; right:0; top:0; height:100%; width:14px; background:url(../images/arrow_left.png) center center no-repeat; display:none}
+.sidebar li .sidenav_sub li.active .active_arrow{ display:block}
+/* 主栏 */
+.main_body{ margin:50px 0 0 180px; min-height:800px; background:#fff;}
+/* 微信预览 */
+.has-weixinpreivew{ overflow:hidden; zoom:1}
+.has-weixinpreivew form{ float:left; width:65%}
+.weixin-preview{ float:right; width:320px; margin-right:20px;}
+.weixin-preview .preview-tips{line-height:50px; font-size:14px; text-align:center;}
+.weixin-preview .weixin-box{ border-radius:10px; border:1px solid #ccc; background:#fff; padding:10px 15px; box-shadow:0 0 3px #999;}
+.weixin-box img{ width:290px; height:145px; margin:10px 0 5px; background:#ddd}
+.weixin-box .weixin-title{ font-size:16px; color:#222; line-height:20px; max-height:40px; overflow:hidden;}
+.weixin-box .weixin-content{ font-size:14px; color:#666; line-height:20px; max-height:40px; overflow:hidden}
+/* 多图文预览 */
+.weixin-muti-preview{ width:320px; margin:0 auto; border:1px solid #ccc; background-color:#fff; box-shadow:0 0 2px #ddd; border-radius:10px;}
+.weixin-muti-preview li{ border-bottom:1px solid #ccc; padding:10px; list-style:none; height:60px; position:relative; z-index:10;}
+.weixin-muti-preview p{ height:60px; line-height:30px; padding:0 70px 0 0;overflow:hidden;}
+.weixin-muti-preview img{ width:60px; height:60px;position:absolute; top:10px; right:10px;}
+.weixin-muti-preview .del{ position:absolute; left:0; bottom:0; right:0; top:0; background-color:RGBA(0,0,0,.2); text-align:center; line-height:80px; z-index:1001; color:#C00; display:none}
+.weixin-muti-preview li:first-child{ height:150px;}
+.weixin-muti-preview li:first-child p{ position:absolute; bottom:0; left:0; right:0; z-index:1000; background-color:RGBA(0,0,0,.6); color:#fff; line-height:30px; height:30px; margin:0 10px 10px 10px; padding:0 5px; white-space:nowrap; overflow:hidden;}
+.weixin-muti-preview li:first-child img{ width:300px; height:150px;}
+.weixin-muti-preview li:first-child .del{ line-height:160px;}
+.form-item-div{ width:320px; margin:20px auto;}
+.form-item-div input{ width:300px;}
+/* 顶部提示 */
+.top-alert-tips{position:fixed; top:0; left:50%; margin-left:-300px; width:600px; z-index:10099; background:#1dbd03; border-bottom-left-radius:10px;border-bottom-right-radius:10px; color:#fff; height:50px; line-height:50px; white-space:nowrap; padding:0 20px;}
+.alert-success{background:#1dbd03;}
+.alert-error{background:#fb1d0f;}
+.top-alert-tips .close{ position:absolute; top:10px; right:0px; width:30px; height:30px; line-height:30px; color:#fff; font-size:22px;}
+/* 底部footer */
+.footer{ padding:10px 20px 10px 160px; text-align: right; background-color:#eee; clear:both}
+.footer p{ color:#666;}
+.footer p a{ color:#333;}
+/* 会员卡 */
+.card_preview{ position:relative; float:left; width:300px; height:179px; margin-right:40px; box-shadow:0 0 6px #666; border-radius:8px;}
+.card_preview #cardBg{ width:100%; height:100%; position:absolute; left:0; top:0;}
+.card_preview .card_num{ position:absolute; bottom:10px; right:10px; font-size:18px; text-shadow:0 1px #fff; color:#000; font-weight:bold;}
+.card_preview .card_name{ position:absolute; top:20px; left:20px; z-index:100; font-size:20px; font-weight:bold;}
+
+/* 模板 */
+.template_select{ float:left; width:100%;zoom:1; margin:0 0 20px;}
+.template_select li{ float:left; position:relative; margin:0 25px; width:170px; height:410px; text-align:center; list-style:none; cursor:pointer}
+.template_select li .phone{ width:170px; height:353px; position:relative; background:url(../images/m/iphone0.png) no-repeat;}
+.template_select li .phone img{ position:absolute; width:144px; height:240px; top:55px;left:13.5px;}
+.template_select li.selected .phone,.template_select li.hover .phone{ background:url(../images/m/iphone1.png) no-repeat;}
+.template_item p{ padding-top:10px;}
+.template_item input{ display:inline; vertical-align:middle; margin:0 5px 0 0 ;}
+.template_item label{ display:inline;}
+.template_item .use_tips{ position:absolute; top:50px; right:170px; background:#333; padding:10px; color:#fff; width:150px; border-radius:10px; text-align:left; display:none}
+/* 必须项 */
+.need_flag{ color: #F00;
+vertical-align: -6px;
+font-size: 20px;}

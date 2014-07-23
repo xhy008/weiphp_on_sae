@@ -1,0 +1,32 @@
+<meta charset="UTF-8">
+<meta content="遵循Apache2开源协议,免费提供使用,微信功能插件化开发,多公众号管理,配置简单" name="keywords"/>
+<meta content="weiphp 简洁强大开源的微信公众平台开发框架微信功能插件化开发,多公众号管理,配置简单" name="description"/>
+<link rel="shortcut icon" href="{:SITE_URL}/favicon.ico">
+<title><php>echo empty($page_title) ? C('WEB_SITE_TITLE') : $page_title;</php></title>
+<link href="__STATIC__/font-awesome/css/font-awesome.min.css?v={:SITE_VERSION}" rel="stylesheet">
+<link href="__CSS__/base.css?v={:SITE_VERSION}" rel="stylesheet">
+<link href="__CSS__/module.css?v={:SITE_VERSION}" rel="stylesheet">
+<link href="__CSS__/weiphp.css?v={:SITE_VERSION}" rel="stylesheet">
+<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+<script src="__STATIC__/bootstrap/js/html5shiv.js?v={:SITE_VERSION}"></script>
+<![endif]-->
+<block name="style"></block>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="__STATIC__/jquery-1.10.2.min.js"></script>
+<![endif]-->
+<!---蓝锂002适配修改 QQ:125682133--->
+<!--[if gte IE 9]><!-->
+<script type="text/javascript" src="__STATIC__/jquery-2.0.3.min.js"></script>
+<!--<![endif]-->
+<script type="text/javascript" src="__STATIC__/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
+<script type="text/javascript" src="__JS__/dialog.js?v={:SITE_VERSION}"></script>
+<script type="text/javascript" src="__JS__/admin_common.js?v={:SITE_VERSION}"></script>
+<script type="text/javascript" src="__JS__/admin_image.js?v={:SITE_VERSION}"></script>
+<script type="text/javascript">
+var  STATIC = "__STATIC__";
+var  ROOT = "__ROOT__";
+</script>
+<!-- 页面header钩子，一般用于加载插件CSS文件和代码 -->
+{:hook('pageHeader')}

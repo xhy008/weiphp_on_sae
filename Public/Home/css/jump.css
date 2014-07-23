@@ -1,0 +1,14 @@
+/**
+ * weiphp jump
+ */
+*{ padding: 0; margin: 0; }
+body{ background: #fff; font-family: '微软雅黑'; color: #333; font-size: 16px; }
+.system-message{ width:500px; height:300px; margin:150px auto; background-color:#f4f4f4; box-shadow:0 1px 1px #ddd; text-align:center }
+.system-message h1.error{ height:150px; background:#f23617 url(../images/jump_err.png) no-repeat center center }
+.system-message h1.success{ height:150px; background:#30c109 url(../images/jump_success.png) no-repeat center center }
+.system-message .jump{ padding-top: 10px}
+.system-message .jump a{ color: #333;}
+.system-message .success,.system-message .error{ line-height: 1.8em; font-size: 36px }
+.system-message .success{ color:#30c109}
+.system-message .error{ color:#f23617}
+.system-message .detail{ font-size: 12px; line-height: 20px; margin-top: 12px; display:none}

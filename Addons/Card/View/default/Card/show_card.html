@@ -1,0 +1,69 @@
+<include file="Public/mobile_head"/>	
+<link href="{:ADDON_PUBLIC_PATH}/card.css?v={:SITE_VERSION}" rel="stylesheet" type="text/css">
+
+<body>
+	<div class="container body">
+        <div class="p_10"> 
+            <div class="vipcard_content">
+                <div class="card geted">
+                	<img src="{$config.background_url}" width="90%"/>
+                    <span class="card_name">{$config.title}</span>
+                    <span class="card_num">卡号：{$info.number}</span>
+                </div>
+                <div class="card_info get_card_info">
+                    
+                    <p class="m_15"><strong><center>使用时向服务员出示此卡</center></strong></p>
+                    <!--<div class="single_item tb score_nav m_15">
+                        <a class="p_10 flex_1 btl bbl" href="#">总积分<br/>100</a>
+                        <a class="p_10 flex_1" href="#">签到积分<br/>50</a>
+                        <a class="p_10 flex_1 btr bbr" href="#">消费积分<br/>50</a>
+                    </div>-->
+                    <div class="single_item m_15">
+                        <a class="p_10 arrow_icon mr_10" href="{:addons_url ( 'Card://notice/show' )}">最新通知<!--<span class="tip_count">1</span>--></a>
+<!--                        <div class="single_item_line"></div>
+                        <a class="p_10 arrow_icon mr_10" href="#" target="_blank">会员卡特权<span class="tip_count">13</span></a>-->
+                        <div class="single_item_line"></div>
+                        <a class="p_10 arrow_icon mr_10" href="{:addons_url ( 'Card://coupons/show' )}">会员优惠券</a>
+						<div class="single_item_line"></div>
+                        <!--<a class="p_10 arrow_icon mr_10" href="{:addons_url ( 'Card://score/score' )}" target="_blank">我的积分<span class="tip_count">1</span></a>-->
+                    </div>
+                    <!--<div class="single_item m_15">
+                        <a class="p_10 arrow_icon mr_10" href="#" target="_blank">签到赚积分<span class="tip_count_yellow">今日未签到</span></a>
+                        <div class="single_item_line"></div>
+                        <a class="p_10 arrow_icon mr_10" href="#" target="_blank">个人资料</a>
+                       
+                    </div>-->
+                    <div class="single_item m_15">
+                        <a class="p_10 arrow_icon mr_10" href="{:addons_url('Card://Card/introduction')}" >会员卡使用说明</a>
+                         <div class="single_item_line"></div>
+                        <a class="p_10 arrow_icon mr_10" href="{:addons_url ( 'Card://Card/writeCardInfo' )}">个人资料</a>
+<!--                        <div class="single_item_line"></div>
+                        <a class="p_10 arrow_icon mr_10" href="{:addons_url($_REQUEST ['_addons'].'://'.$_REQUEST ['_controller'].'/storeList')}" target="_blank">适用门店电话及地址</a>-->
+                    </div>
+                    <div class="single_item m_15">
+                        <a class="p_10 arrow_icon mr_10" href="http://api.map.baidu.com/marker?location=31.308707,121.523804&title={$config.address}&name={$config.address}&content={$config.address}&output=html&src=weiphp">地址：{$config.address}</a>
+                        <div class="single_item_line"></div>
+                        <a class="p_10 arrow_icon mr_10" href="tel:13155333122">电话：{$config.phone}</a>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <p class="copyright">{$system_copy_right}</p>
+    </div>
+    <nav class="bottom_nav">
+        <a class="icon_card cur" href="{:addons_url('Card://Card/showCard')}">会员卡</a>
+    <!--        <a class="icon_crown" href="{:addons_url($_REQUEST ['_addons'].'://'.$_REQUEST ['_controller'].'/introduction')}">特权</a>-->
+        <a class="icon_time" href="{:addons_url('Card://notice/show')}">最新通知</a>
+        <a class="icon_tag" href="{:addons_url('Card://coupons/show')}">优惠券</a>
+    <!--        <a class="icon_gift" href="{:addons_url($_REQUEST ['_addons'].'://'.$_REQUEST ['_controller'].'/exchange')}">兑换</a>
+        <a class="icon_time" href="{:addons_url($_REQUEST ['_addons'].'://'.$_REQUEST ['_controller'].'/score')}">签到</a>-->
+    </nav>
+    <div class="bottom_nav_blank"></div>
+</body>
+<script type="text/javascript">
+document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+	WeixinJSBridge.call('hideToolbar');
+});
+</script>
+</html>

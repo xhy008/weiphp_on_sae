@@ -1,0 +1,30 @@
+<IfModule mod_rewrite.c>
+Options +FollowSymlinks
+
+# 为了正常启用URL Rewrite，请将apache配置文件中“LoadModule rewrite_module modules/mod_rewrite.so”
+# 前的注释去掉，并将apache的DocumentRoot开启AllowOverride
+# 
+# 如下所示为apache下httpd.conf的代码片段：
+# <Directory "YourDocumentRoot">
+#   Options Indexes FollowSymLinks ExecCGI Includes
+#   AllowOverride All
+#   Order allow,deny
+#   Allow from all
+# </Directory>
+#
+RewriteEngine on
+
+# 根目录名称 [注意：前后都有"/"]
+# 请将下面的“/weiphp/”替换成您的根目录名称。如：
+# 如果您的站点地址为：http://abc.com，那么请将“/weiphp/”替换为"/"
+# 如果您的站点地址为：http://abc.com/d/e/f，那么请将“/weiphp/”替换为"/d/e/f/"
+
+RewriteBase /wp/
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ index.php/$1 [QSA,PT,L]
+
+#RewriteRule ^(.*)/ad/(.*?)/(.*).html$ $1/home/addons/execute/_addons/$2/_action/$3 [L]
+#RewriteRule ^(.*)/ad/(.*?)/(.*?)/(.*).html$ $1/home/addons/execute/_addons/$2/_controller/$3/_action/$4 [L]
+</IfModule>

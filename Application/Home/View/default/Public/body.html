@@ -1,0 +1,70 @@
+<block name="header"></block>
+<php>
+$m = strtolower(MODULE_NAME);
+$c = strtolower(CONTROLLER_NAME);
+$a = strtolower(ACTION_NAME);
+
+//验证登录
+if(!is_login()){
+   Cookie ( '__forward__', $_SERVER ['REQUEST_URI'] );
+   redirect(U('home/user/login'));
+}
+
+$ad = ucfirst ( parse_name ( $_REQUEST['_addons'], 1 ) );
+$navClass[$ad] = 'active';
+$navClass[$m.'_'.$c.'_'.$a] = 'active';
+$addonList = D ( 'Addons' )->getWeixinList (false, array(), true);
+
+$categorys = M ( 'addon_category' )->order ( 'sort asc, id desc' )->select ();
+foreach($categorys as &$cate){
+   foreach($addonList as $k=>$a){
+      if($cate['id']==intval($a['cate_id'])){
+           $cate['addons'][] = $a;
+           unset($addonList[$k]);
+      }
+   }
+}
+</php>
+<div id="main-container" class="container">
+	<div class="sidebar">
+    	<ul class="sidenav">
+          <li>
+              <a class="sidenav_parent" href="javascript:;"><b class="ficon fa fa-plus-square"></b>账号管理</a>
+              <ul class="sidenav_sub" style="display:none">
+                  <li class="{$navClass['home_memberpublic_lists']}"> <a href="{:U('Home/MemberPublic/lists')}">公众号管理 </a> <b class="active_arrow"></b></li>
+                  <li class="{$navClass['home_index_main']}"> <a href="{:U('Home/Index/main')}">插件管理 </a> <b class="active_arrow"></b></li>
+                  <li class="{$navClass['home_creditconfig_lists']}"> <a href="{:U('Home/CreditConfig/lists')}">积分配置 </a> <b class="active_arrow"></b></li>
+                  <li class="{$navClass['home_keyword_lists']}"> <a href="{:U('Home/Keyword/lists')}">关键词维护 </a> <b class="active_arrow"></b></li>
+                  <li class="{$navClass['home_cascade_lists']}"> <a href="{:U('Home/Cascade/lists')}">级联数据管理 </a> <b class="active_arrow"></b></li>
+             </ul>
+          </li>
+          
+          <volist name='categorys' id='ca'>
+          <li>
+              <a class="sidenav_parent" href="javascript:;"><b class="ficon fa fa-plus-square"></b>{$ca.title}</a>
+              <ul class="sidenav_sub" style="display:none">
+                  <volist name='ca.addons' id='vo'>
+                      <li class="{$navClass[$vo[name]]}"> <a href="{$vo[addons_url]}" title="{$vo.description}"> 
+                      <i class="icon-chevron-right"><php>if(!empty($vo['icon'])) { </php> <img src="{$vo.icon}" /> <php> } </php> </i>
+                      {$vo.title} </a><b class="active_arrow"></b></li>
+                  </volist>
+             </ul>
+          </li>          
+          </volist>
+          
+          <li>
+              <a class="sidenav_parent" href="javascript:;"><b class="ficon fa fa-plus-square "></b>其它功能</a>
+              <ul class="sidenav_sub" style="display:none">
+              <volist name='addonList' id='vo'>
+              <li class="{$navClass[$vo[name]]}"> <a href="{$vo[addons_url]}" title="{$vo.description}"> 
+              <i class="icon-chevron-right"><php>if(!empty($vo['icon'])) { </php> <img src="{$vo.icon}" /> <php> } </php> </i>
+              {$vo.title} </a> </li>
+              </volist>
+              </ul>
+          </li>
+        </ul>
+  </div>
+<div class="main_body">
+	<block name="body"></block>
+</div>
+</div>

@@ -1,0 +1,22 @@
+@charset "utf-8";
+/* CSS Document */
+html{ height:100%;}
+body{ min-height:100%; background:url(content.png) repeat;}
+.lead_box{ border:2px dashed #C30;  background-color:#fb9e66;  border-radius:10px; margin:20px; padding:10px;}
+.lead_box h6{color:#fff;text-align:center;font-size:18px; font-weight:bold; line-height:40px; border-bottom:1px dashed #C30; text-shadow:1px 2px #C00;}
+.lead_content{border-top:1px dashed #fff; color:#76190d; font-size:16px; padding:15px;}
+.lead_btn{ border-radius:10px; background-color:#b62613; -moz-box-shadow:0 1px 2px #531007;-webkit-box-shadow:0 1px 2px #531007;box-shadow:0 1px 2px #531007; padding:10px; color:#fff; width:200px; margin:20px auto; display:block; text-align:center; font-size:20px; position:relative; border:none}
+.lead_btn:active{ background-color:#de250c}
+.lead_btn:active span.next_arr em{ background-color:#de250c}
+input[type='text'],input[type='tel'],select,textarea{ border:1px solid #C30;}
+.check-tips{ color:#c7210b}
+.lead_box .do h6{ border:none; text-shadow:none; color:#76190d; margin-bottom:10px}
+.lead_box .do{ border:none}
+.radio,.checkbox{ display:block; margin:0; text-align:left; border:1px solid #fe9524; background:#fde0af}
+.do .form-item{}
+.w_tips{ padding:10px 0; color:#c7210b; font-size:13px;}
+span.next_arr{ height:45px; width:20px; overflow:hidden; position:absolute; top:0; right:-16px;}
+span.next_arr em{ height:26px; width:26px; background:#b62613; -webkit-transform:rotate(45deg);-moz-transform:rotate(45deg);transform:rotate(45deg); position:absolute; left:-12px; top:8px; -moz-box-shadow:1px 1px 1px #991f0f;-webkit-box-shadow:1px 1px 1px #991f0f;box-shadow:1px 1px 1px #991f0f;}
+.lead_over{ padding:10px 30px; font-size:16px; text-align:center}
+.share_btn{ border-radius:24px; height:40px; width:200px; 
+line-height:40px; border:2px solid #090; color:#060; text-align:center; display:block; margin:20px auto;}

@@ -1,0 +1,376 @@
+<extend name="Base/common" />
+<block name="body">
+  <script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
+  <!-- 标签页导航 -->
+  <div class="span9 page_message">
+    <section id="contents">
+      <ul class="tab-nav nav">
+        <li class=""><a href="{:U('lists')}">投票列表</a></li>
+        <li class="current"><a href="###">编辑投票<b class="arrow fa fa-sort"></b></a></li>
+      </ul>
+      <div class="tab-content"> 
+        <!-- 表单 -->
+        <form id="form" action="{:U('edit?model='.$model['id'])}" method="post" class="form-horizontal">
+          <!-- 基础文档模型 -->
+          <volist name=":parse_config_attr($model['field_group'])" id="group">
+            <div id="tab{$key}" class="tab-pane <eq name="key" value="1">in
+              </eq>
+              tab{$key}">
+              <volist name="fields[$key]" id="field">
+                <if condition="$field['is_show'] == 4">
+                  <input type="hidden" class="text input-large" name="{$field.name}" value="{$data[$field['name']]}">
+                </if>
+                <if condition="$field['is_show'] == 1 || $field['is_show'] == 3 || ($field['is_show'] == 5 && I($field['name']) )">
+                  <div class="form-item cf">
+                    <label class="item-label">{$field['title']}<span class="check-tips">
+                      <notempty name="field['remark']">（{$field['remark']}）</notempty>
+                      </span></label>
+                    <div class="controls">
+                      <switch name="field.type">
+                        <case value="num">
+                          <input type="text" class="text input-medium" name="{$field.name}" value="{$data[$field['name']]}">
+                        </case>
+                        <case value="string">
+                          <input type="text" class="text input-large" name="{$field.name}" value="{$data[$field['name']]}">
+                        </case>
+                        <case value="textarea">
+                          <label class="textarea input-large">
+                            <textarea name="{$field.name}">{$data[$field['name']]}</textarea>
+                          </label>
+                        </case>
+                        <case value="datetime">
+                          <input type="text" name="{$field.name}" class="text input-large time" value="{$data[$field['name']]|time_format}" placeholder="请选择时间" />
+                        </case>
+                        <case value="bool">
+                          <select name="{$field.name}">
+                            <volist name=":parse_field_attr($field['extra'])" id="vo"> <option value="{$key}" 
+                              <eq name="data[$field['name']]" value="$key">selected</eq>
+                              >{$vo}
+                              </option>
+                            </volist>
+                          </select>
+                        </case>
+                        <case value="select">
+                          <select name="{$field.name}">
+                            <volist name=":parse_field_attr($field['extra'])" id="vo"> <option value="{$key}" 
+                              <eq name="data[$field['name']]" value="$key">selected</eq>
+                              >{$vo}
+                              </option>
+                            </volist>
+                          </select>
+                        </case>
+                        <case value="radio">
+                          <volist name=":parse_field_attr($field['extra'])" id="vo">
+                          <div class="check-item">
+                            <input type="radio" value="{$key}" class="regular-radio" id="{$field.name}_{$key}" name="{$field.name}" 
+                              <eq name="data[$field['name']]" value="$key">checked="checked"</eq>
+                              /> <label for="{$field.name}_{$key}"></label>{$vo}
+                           </div>
+                          </volist>
+                        </case>
+                        <case value="checkbox">
+                          <volist name=":parse_field_attr($field['extra'])" id="vo">
+                            <label class="checkbox"> <input type="checkbox" value="{$key}" name="{$field.name}[]" 
+                              <in name="key" value="$data[$field['name']]" >checked="checked"</in>
+                              >{$vo} </label>
+                          </volist>
+                        </case>
+                        <case value="editor">
+                          <label class="textarea" style="width:600px">
+                            <textarea name="{$field.name}">{$data[$field['name']]}</textarea>
+                            {:hook('adminArticleEdit', array('name'=>$field['name'],'value'=>$data[$field['name']]))} </label>
+                        </case>
+                        <case value="picture">
+                        <div class="controls uploadrow" title="点击修改图片">
+                            <input type="file" id="upload_picture_{$field.name}">
+                            <input type="hidden" name="{$field.name}" id="cover_id_{$field.name}" value="{$data[$field['name']]}"/>
+                            
+                            <div class="upload-img-box" rel="img">
+                              <notempty name="data[$field['name']]">
+                                <div class="upload-pre-item"><img width="120" height="120" src="__ROOT__{$data[$field['name']]|get_cover='path'}"/></div>
+                              </notempty>
+                            </div>
+                          </div>
+                         
+                          <script type="text/javascript">
+								//上传图片
+							    /* 初始化上传插件 */
+								$("#upload_picture_{$field.name}").uploadify({
+							        "height"          : 120,
+							        "swf"             : "__STATIC__/uploadify/uploadify.swf",
+							        "fileObjName"     : "download",
+							        "buttonText"      : "上传图片",
+							        "uploader"        : "{:U('home/File/uploadPicture',array('session_id'=>session_id()))}",
+							        "width"           : 120,
+							        'removeTimeout'	  : 1,
+							        'fileTypeExts'	  : '*.jpg; *.png; *.gif;',
+							        "onUploadSuccess" : uploadPicture{$field.name}
+							    });
+								function uploadPicture{$field.name}(file, data){
+							    	var data = $.parseJSON(data);
+							    	var src = '';
+							        if(data.status){
+							        	$("#cover_id_{$field.name}").val(data.id);
+							        	src = data.url || '__ROOT__' + data.path;
+							        	$("#cover_id_{$field.name}").parent().find('.upload-img-box').html(
+							        		'<div class="upload-pre-item"><img width="120" height="120" src="' + src + '"/></div>'
+							        	);
+										$('.weixin-cover-pic').attr('src',src);
+							        } else {
+							        	updateAlert(data.info);
+							        	setTimeout(function(){
+							                $('#top-alert').find('.close').click();
+							                $(that).removeClass('disabled').prop('disabled',false);
+							            },1500);
+							        }
+							    }
+								</script> 
+                        </case>
+                        <case value="file">
+                          <div class="controls uploadrow">
+                          	
+                                <input type="file" id="upload_file_{$field.name}">
+                                <input type="hidden" name="{$field.name}" value="{$data[$field['name']]}"/>
+                                <div class="upload-img-box">
+                                  <present name="data[$field['name']]">
+                                    <div class="upload-pre-file"><span class="upload_icon_all"></span>{$data[$field['name']]|get_table_field=###,'id','name','File'}</div>
+                                  </present>
+                                </div>
+                             
+                          </div>
+                          <script type="text/javascript">
+								//上传图片
+							    /* 初始化上传插件 */
+								$("#upload_file_{$field.name}").uploadify({
+							        "height"          : 120,
+							        "swf"             : "__STATIC__/uploadify/uploadify.swf",
+							        "fileObjName"     : "download",
+							        "buttonText"      : "上传附件",
+							        "uploader"        : "{:U('File/upload',array('session_id'=>session_id()))}",
+							        "width"           : 120,
+							        'removeTimeout'	  : 1,
+							        "onUploadSuccess" : uploadFile{$field.name}
+							    });
+								function uploadFile{$field.name}(file, data){
+									var data = $.parseJSON(data);
+							        if(data.status){
+							        	var name = "{$field.name}";
+							        	$("input[name="+name+"]").val(data.id);
+							        	$("input[name="+name+"]").parent().find('.upload-img-box').html(
+							        		"<div class=\"upload-pre-file\"><span class=\"upload_icon_all\"></span>" + data.name + "</div>"
+							        	);
+							        } else {
+							        	updateAlert(data.info);
+							        	setTimeout(function(){
+							                $('#top-alert').find('button').click();
+							                $(that).removeClass('disabled').prop('disabled',false);
+							            },1500);
+							        }
+							    }
+								</script> 
+                        </case>
+                        <default/>
+                        <input type="text" class="text input-large" name="{$field.name}" value="{$data[$field['name']]}">
+                      </switch>
+                    </div>
+                  </div>
+                </if>
+              </volist>
+              <div class="form-item cf">
+                    <label class="item-label">文字/图片投票<span class="check-tips">
+                                            </span></label>
+                    <div class="controls">
+                      <div class="check-item">
+                              <input type="radio" name="is_img" value="0" class="regular-radio" id="is_img_0" <if condition="$data[is_img]==0">checked</if> onClick="changeOption()"><label for="is_img_0"> </label>
+                              文字投票
+                           </div>
+                           <div class="check-item">   
+                              <input type="radio" name="is_img" value="1" class="regular-radio" id="is_img_1" <if condition="$data[is_img]==1">checked</if> onClick="changeOption()">
+                              <label for="is_img_1"> </label>图片投票   
+                        
+                        </div>
+                     </div>
+                  </div>
+            </div>
+                          <!--选项--->
+<div class="form-item cf">
+<label class="item-label">选项<span class="check-tips"> </span></label>
+<div class="controls">
+<div id="option_list">
+	<table id="option_list" class="add_list_table" cellpadding="0" cellspacing="1">
+      
+      <tr class="add_list add_list_head" <if condition="empty($option_list)">style="display:none"</if>>
+      	<td class="pic_td">图片</td>
+        <td>标题</td>
+        <td>排序</td>
+        <td>操作</td>
+      </tr>
+  <volist name='option_list' id='vo'>
+      
+      <tr class="add_list">
+     	<td class="pic_td">
+        <div class="uploadrow" title="更改图片">
+        <input type="file" class="uploadImage" id="uploadImage_exist_{$vo.id}" rel="{$vo.id}">
+        <input type="hidden" name="image[{$vo.id}]" id="cover_id_{$vo.id}"/>
+        <div class="upload-img-box">
+          <notempty name="vo.image">
+            <div class="upload-pre-item"><img width="120" height="120" src="__ROOT__{$vo.image|get_cover='path'}"/></div>
+          </notempty>
+        </div>
+        </div>
+        </td>
+        <td>
+        <input type="text" value="{$vo.name}" name="name[{$vo.id}]" class="text input-large" style="width:250px">&nbsp;
+        </td>
+        <td>
+        <input type="text" value="{$vo.order}" name="order[{$vo.id}]" class="optionSort text input-large" style="width:80px">&nbsp;
+        </td>
+        <td>
+        <a href="javascript:;" onClick="delOpt(this)" class="fr btn btn-yellow" >删除</a>
+        </td>
+       </tr>
+      </volist>
+  	</table>
+  </div>
+  <p><a href="javascript:;" class="btn btn-yellow mt_10 mb_10" onClick="addOpt()" >增加选项</a></p>
+  <div id="top-alert" class="fixed alert alert-error" style="display: none;">
+  <button class="close fixed" style="margin-top: 4px;">&times;</button>
+  <div class="alert-content">这是内容</div>
+  </div>
+</div>
+<script type="text/javascript">
+//上传图片
+/* 初始化上传插件 */
+var node = '';
+function initPuls(){
+	$(".uploadImage").each(function(index, obj) {
+		var id = $(obj).attr('rel');
+		if(id>0)
+			node = '#uploadImage_exist_'+id;
+		else
+		    node = '#uploadImage_'+(0-id);
+		
+		$(node).uploadify({
+			"height"          : 120,
+			"swf"             : "__STATIC__/uploadify/uploadify.swf",
+			"fileObjName"     : "download",
+			"buttonText"      : "上传图片",
+			"uploader"        : "{:U('home/File/uploadPicture',array('session_id'=>session_id()))}",
+			"width"           : 120,
+			'removeTimeout'	  : 1,
+			'fileTypeExts'	  : '*.jpg; *.png; *.gif;',
+			"onUploadSuccess" : function(file, data, response) {
+                uploadPictureimage(file, data, id);
+            }
+	    });
+	});
+}
+
+function uploadPictureimage(file, data, id){
+	var data = $.parseJSON(data);
+	var src = '';
+	if(data.status){
+		$("#cover_id_"+id).val(data.id);
+		src = data.url || '__ROOT__' + data.path;
+		$("#cover_id_"+id).parent().find('.upload-img-box').html(
+			'<div class="upload-pre-item"><img width="120" height="120" src="' + src + '"/></div>'
+		);
+	} else {
+		updateAlert(data.info);
+		setTimeout(function(){
+			$('#top-alert').find('button').click();
+			$(that).removeClass('disabled').prop('disabled',false);
+		},1500);
+	}
+}
+
+function addOpt(){
+	var i = 1;
+	$('.optionSort').each(function(){i++;});
+	var id = 0-i;
+	
+	var html = '<tr class="add_list"><td class="pic_td"><div class="uploadrow" title="更改图片">'
+		+'<input type="file" class="uploadImage" id="uploadImage_'+i+'" rel="'+id+'"/>'
+		+'<input type="hidden" name="image['+id+']" id="cover_id_'+id+'"/>'
+		+'<div class="upload-img-box"></div>'
+		+'</div></td><td>'
+		+'<input type="text" value="" name="name['+id+']" class="text input-large" style="width:250px">'
+		+'</td><td>'
+		+'<input type="text" value="'+i+'" name="order['+id+']" class="optionSort text input-large" style="width:80px">&nbsp;'
+		+'</td><td>'
+		+'<a href="###" onClick="delOpt(this)" class="fr btn btn-yellow" >删除</a></td></tr>';
+	$('#option_list').append(html);
+	initPuls(); 
+    changeOption();
+	$('.add_list_head').show();
+}
+function delOpt(obj){
+	$(obj).parents('tr').remove();
+}
+function changeOption(){
+	var val = $('input[name="is_img"]:checked').val();
+	console.log(val);
+	if(val!=1){
+	   $('.uploadify').each(function() {
+          if($(this).attr('id')!='upload_picture_picurl') $(this).hide();
+       });
+	   $('.upload-img-box').each(function() {
+          if($(this).attr('rel')!='img') $(this).hide();
+       });
+	    $('.pic_td').hide();
+	}else{
+	   $('.uploadify').each(function() {
+          $(this).show();
+       });	
+	   $('.upload-img-box').each(function() {
+          $(this).show();
+       });	   
+	    $('.pic_td').show();	
+	}
+}
+$(function(){ 
+   initPuls(); 
+   changeOption(); 
+});
+</script> 
+            </div>
+            
+          </volist>
+          <div class="form-item cf">
+            <input type="hidden" name="id" value="{$data.id}">
+            <button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">确 定</button>
+          </div>
+        </form>
+        <!-- 预览 -->
+        <include file="Addons/weixinPreview" />  
+      </div>
+    </section>
+  </div>
+  </div>
+</block>
+<block name="script">
+<link href="__STATIC__/datetimepicker/css/datetimepicker.css?v={:SITE_VERSION}" rel="stylesheet" type="text/css">
+<php>
+if(C('COLOR_STYLE')=='blue_color') echo '
+<link href="__STATIC__/datetimepicker/css/datetimepicker_blue.css?v={:SITE_VERSION}" rel="stylesheet" type="text/css">
+';
+</php>
+<link href="__STATIC__/datetimepicker/css/dropdown.css?v={:SITE_VERSION}" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="__STATIC__/datetimepicker/js/bootstrap-datetimepicker.min.js"></script> 
+<script type="text/javascript" src="__STATIC__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js?v={:SITE_VERSION}" charset="UTF-8"></script> 
+<script type="text/javascript">
+$('#submit').click(function(){
+    $('#form').submit();
+});
+
+$(function(){
+	$('.time').datetimepicker({
+        format: 'yyyy-mm-dd hh:ii',
+        language:"zh-CN",
+        minView:2,
+        autoclose:true
+    });
+    showTab();
+});
+</script>
+</block>

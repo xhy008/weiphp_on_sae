@@ -1,0 +1,40 @@
+<include file="Public/mobile_head"/>
+<link href="{:ADDON_PUBLIC_PATH}/css/diy.css?v={:SITE_VERSION}" rel="stylesheet" type="text/css">
+<script src="{:ADDON_PUBLIC_PATH}/js/diy.js?v={:SITE_VERSION}" type="text/javascript"></script> 
+<body id="diyPreviewBody">
+	<div id="main-container" style="min-height: 402px;">
+  
+        <section id="contents"> 
+            <div class="iphone">
+            	<div class="i_top"></div>
+                <div class="i_mid">
+                	<div class="area" style="<notempty name="background">background-image:url({$background});</notempty>background-size:100% 100%;">
+                    	<div class="mobile_show preview_show" id="phoneArea">
+                        	<volist name="layouts" id="layout"> 
+                                <!-- 每行的布局处理 -->
+                                
+                                <div class="layout_row" data-type="{$layout.type}">
+                                   <volist name="layout.widgets" id="widget"> 
+                                     <!-- 每个布局里的模块处理 -->  
+                                    <div class="layout_item" <notempty name="widget.widget_height"> style="height:{$widget.widget_height}px"</notempty>>{$widget.html}</div>
+                                    </volist>
+                                </div>
+                            
+                            </volist>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="i_bottom"></div>
+            </div>
+        </section>
+  </div>
+</body>
+<script type="text/javascript">
+  	$(function(){
+		$('.layout_row').each(function(index, element) {
+            initItemLayoutAndAction($(this),$(this).data('type'));
+        });;
+		})
+</script>
+</html>

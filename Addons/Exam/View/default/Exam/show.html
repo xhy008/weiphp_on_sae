@@ -1,0 +1,37 @@
+<include file="Public/mobile_head"/>	
+<link href="{:ADDON_PUBLIC_PATH}/css.css?v={:SITE_VERSION}" rel="stylesheet" type="text/css">
+<body>
+	<div id="container" class="container">
+    	<div class="top"></div>
+    	<div class="lead_box">
+        	<h6>{$info.title}</h6>
+            <div class="lead_content">{$info.intro}
+            <notempty name="info.start_time"><p>考试开始时间：{$info.start_time|time_format}</p></notempty>
+            <notempty name="info.end_time"><p>考试结束时间：{$info.end_time|time_format}</p></notempty>
+            <notempty name="score"><p>&nbsp;</p><p>你上次的成绩为：{$score}分</p></notempty>
+            </div>
+            
+            <a href="javascript:void(0)" onClick="begin()" class="lead_btn">马上开始</a>
+        </div>
+        <div class="bottom"></div>
+        <p class="copyright">{$system_copy_right}</p>
+  	</div>  
+</body>
+</html>
+<script type="text/javascript">
+function begin(){
+	var start = {$info.start_time|intval};
+	var end = {$info.end_time|intval};
+	var now = {:time()};
+	if(start>0 && now<start){
+		$.Dialog.fail('考试时间还没到，请稍等');
+		return false;
+	}
+	if(end>0 && now>end){
+		$.Dialog.fail('考试已经结束，你来晚了');
+		return false;
+	}
+	
+	window.location.href="{:U('profile','exam_id='.$info[id])}";
+}
+</script>

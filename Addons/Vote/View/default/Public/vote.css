@@ -1,0 +1,24 @@
+@charset "utf-8";
+/* CSS Document */
+.body{ background:url(bg1.gif) repeat;}
+/*微信投票*/
+.vote_wrap{ width:100%;}
+article{ background:#fff; border-bottom:2px solid #33ab07}
+article .img_wrap{ position:relative; min-height:20px;}
+article img{ width:100%; display:block;}
+article h2{ position:absolute; bottom:0; left:0; right:0; width:100%; padding:10px; background-color:RGBA(0,0,0,0.5); color:#fff}
+article .time{ margin:10px; color:#33ab07}
+.choice_list{ padding:10px;}
+.vote_info{line-height:1.5em; padding:10px;}
+.databar{height:10px;margin:5px 12px 0 0;border-radius:4px; background:#fff; border:1px solid #33ab07; }
+.actual_data{height:10px;border-radius:3px; background:#33ab07;}
+.vote_type{ margin:10px 10px 0; color:#33ab07; line-height:1.5em}
+.choice_list li{ margin:10px 0; background:#fafafa; padding:10px; border-radius:5px;}
+.choice_list li img{ max-width:100%;}
+.choice_list .databar{ -webkit-box-flex:9;}
+.choice_list .count{ -webkit-box-flex:1;}
+
+
+
+
+

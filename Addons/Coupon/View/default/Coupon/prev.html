@@ -1,0 +1,48 @@
+<include file="Public/mobile_head"/>
+<link href="{:ADDON_PUBLIC_PATH}/Coupon.css?v={:SITE_VERSION}" rel="stylesheet" type="text/css">
+<body id="scratch">
+	<div class="container body" style="position:relative">
+    	<div class="prev_get">
+        	<div class="top"></div>
+            <div class="mid">
+            	<div class="get_text">
+                	<h6>已获得的优惠券</h6>
+                    <p class="list">
+                        <volist name="my_sn_list" id="sn">
+                SN码&nbsp;&nbsp;：{$sn.sn}<br/>
+                状 态&nbsp;&nbsp;：<eq name="sn.is_use" value="1">已使用<else />未使用</eq><br/>
+                有效期：{$data.start_time|time_format} 至 {$data.end_time|time_format}<br/>
+                        </volist>    
+                          	
+                    </p>
+                </div>
+                <div class="get_text">
+                	<h6>领取条件</h6>
+                    <p class="list">
+                        <volist name="condition" id="vo">
+                        <span class="num">{$key+1}</span>{$vo} <br/>
+                        </volist>    
+                          	
+                    </p>
+                </div>
+                <notempty name="error">
+                    <h3 class="get_error">
+                        {$error}
+                    </h3>
+                <else />
+            		<center><a href="{:U('set_sn_code',array('id'=>$data[id]))}"><img class="get_btn" src="{:ADDON_PUBLIC_PATH}/get_btn.jpg"/></a></center>
+                </notempty>
+                
+            </div>
+            <div class="btm"></div>
+        </div>
+        
+        <p class="copyright">{$system_copy_right}</p>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+var h=$(document).height();
+$('.container').css("min-height",h);
+</script>
+</html>

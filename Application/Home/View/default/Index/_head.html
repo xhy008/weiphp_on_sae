@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+<include file="Public/head" />
+<link type="text/css" rel="stylesheet" href="__CSS__/about.css?v={:SITE_VERSION}" />
+</head>
+<body>
+	<div class="head">
+    	<div class="wrap">
+        	<h1 class="fl"><a class="logo" href="{:SITE_URL}" title="返回首页">首家开源的微信公众平台开发框架微信功能插件化开发,多公众号管理,配置简单</a></h1>
+            <div class="nav">
+            	<a <if condition="ACTION_NAME eq 'index' and CONTROLLER_NAME eq 'Index'">class="cur"</if> href="{:U('home/index/index')}">首页</a>
+                <!--<a <if condition="ACTION_NAME eq 'store' and CONTROLLER_NAME eq 'Forum'">class="cur"</if> href="{:U('home/forum/store')}">讨论区</a>-->
+               
+                <a <if condition="ACTION_NAME eq 'help'">class="cur"</if> href="{:U('home/index/help')}">帮助中心</a>
+                <a href="{:U('home/index/main')}">管理中心</a>
+                 <a <if condition="CONTROLLER_NAME eq 'Developer'">class="cur"</if> href="{:U('home/Developer/myApps')}">开发者中心</a>
+                
+                <a href="{:U('home/index/cloud')}" class="has_icon">专属云主机<em class="icon"><img src="__IMG__/new.gif" alt=""/></em></a>
+                <a href="http://bbs.weiphp.cn" target="_blank">论坛</a>
+            </div>
+        </div>
+    </div>
+<!-- 提示 -->
+<div id="top-alert" class="top-alert-tips alert-error" style="display: none;">
+  <a class="close" href="javascript:;"><b class="fa fa-times-circle"></b></a>
+  <div class="alert-content">这是内容</div>
+</div>    
