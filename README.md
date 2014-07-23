@@ -8,7 +8,7 @@ WeiPHP的SAE移植版本。
 
 相关链接：
 -------------
-> SAE：http://sae.sina.com.cn/ <br />
-> WeiPHP：http://www.weiphp.cn/ <br />
-> WeiPHP论坛：http://bbs.weiphp.cn/ <br />
-> 我的帖子：http://bbs.weiphp.cn/thread-1037-1-1.html <br />
+> SAE：<a href="http://sae.sina.com.cn/" target="_blank">http://sae.sina.com.cn/</a> <br />
+> WeiPHP：<a href="http://www.weiphp.cn/" target="_blank">http://www.weiphp.cn/</a> <br />
+> WeiPHP论坛：<a href="http://bbs.weiphp.cn/" target="_blank">http://bbs.weiphp.cn/</a> <br />
+> 我的帖子：<a href="http://bbs.weiphp.cn/thread-1037-1-1.html" target="_blank">http://bbs.weiphp.cn/thread-1037-1-1.html</a> <br />
