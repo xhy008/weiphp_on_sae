@@ -110,8 +110,11 @@ class PictureModel extends Model{
             throw new \Exception('缺少参数:md5');
         }
         /* 查找文件 */
+        /*
 		$map = array('md5' => $file['md5'],'sha1'=>$file['sha1'],);
         return $this->field(true)->where($map)->find();
+        */
+        return false;
     }
 
     /**
