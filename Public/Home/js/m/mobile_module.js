@@ -23,10 +23,10 @@ var WeiPHP_RAND_COLOR = ["#ff6600","#ff9900","#99cc00","#33cc00","#0099cc","#339
 				}
 			})
 	}
-	
+
 	function initFixedLayout(){
 		var navHeight = $('#fixedNav').height();
-		$('#fixedContainer').height($(window).height()-navHeight);	
+		$('#fixedContainer').height($(window).height()-navHeight);
 	}
 	//banner
 	function banner(isAuto,delayTime){
@@ -41,7 +41,8 @@ var WeiPHP_RAND_COLOR = ["#ff6600","#ff9900","#99cc00","#33cc00","#0099cc","#339
 		$('.banner li .title').each(function(index, element) {
             $(this).text($(this).text().length>15?$(this).text().substring(0,15)+" ...":$(this).text());
         });
-		var flipsnap = Flipsnap('.banner ul');
+		//var flipsnap = Flipsnap('.banner ul');
+		var flipsnap = Flipsnap('.banner ul', {distance: screenWidth});
 		flipsnap.element.addEventListener('fstouchend', function(ev) {
 			$('.identify em').eq(ev.newPoint).addClass('cur').siblings().removeClass('cur');
 		}, false);
@@ -57,7 +58,7 @@ var WeiPHP_RAND_COLOR = ["#ff6600","#ff9900","#99cc00","#33cc00","#0099cc","#339
 				}else{
 					point++;
 					}
-				
+
 				},delayTime)
 		}
 	}
@@ -79,7 +80,7 @@ var WeiPHP_RAND_COLOR = ["#ff6600","#ff9900","#99cc00","#33cc00","#0099cc","#339
 		$('.identify em').eq(0).addClass('cur');
 		var point = 0;
 		if(isAuto){
-			
+
 			setInterval(function(){
 				//console.log(point);
 				flipsnap.moveToPoint(point);
@@ -108,7 +109,7 @@ var WeiPHP_RAND_COLOR = ["#ff6600","#ff9900","#99cc00","#33cc00","#0099cc","#339
 				point = 0;
 				}
 			$('.identify em').eq(point).addClass('cur').siblings().removeClass('cur');
-			
+
 			});
 	}
 	//随机颜色
@@ -144,7 +145,7 @@ $(function(){
 				$(this).removeClass('active')
 				}
 		});
-	
+
 	//打开成员详情
 	$('.member_item').click(function(){
 		var detail = $(this).find('.detail').html();
@@ -160,7 +161,7 @@ $(function(){
 		var $icon = $(this).parent("label").find(".icon");
 		if(!$icon.hasClass("selected"))$icon.addClass('selected');
 		$(this).parents("li").siblings().find(".icon").removeClass("selected");
-		
+
 	});
 	$(".testing li input[type='checkbox']").change(function(){
 		var $icon = $(this).parent("label").find(".icon");
@@ -170,9 +171,9 @@ $(function(){
 			}else{
 				$icon.removeClass('selected');
 				}
-		
-		
-		
+
+
+
 	});
-	
+
 })
