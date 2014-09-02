@@ -3,15 +3,20 @@
   <div class="span9 page_message">
     <section id="contents"> 
       <include file="Addons/_nav" /> 
-      <if condition="$add_button || $del_button || $search_button">   
+      <if condition="$add_button || $del_button || $search_button || !empty($top_more_button)">   
       <div class="table-bar">
         <div class="fl">
           <empty name="model.extend">
 			<div class="tools">
-				<if condition="$add_button"><php> $add_url || $add_url = U('add?model='.$model['id']);</php><a class="btn" href="{$add_url}">新 增</a></if>
-				<if condition="$del_button"><php> $del_url || $del_url = U('del?model='.$model['id']);</php><button class="btn ajax-post confirm" target-form="ids" url="{$del_url}">删 除</button></if>    
+				<if condition="$add_button"><php> $add_url || $add_url = U('add?model='.$model['id'], $get_param);</php><a class="btn" href="{$add_url}">新 增</a></if>
+				<if condition="$del_button"><php> $del_url || $del_url = U('del?model='.$model['id'], $get_param);</php><button class="btn ajax-post confirm" target-form="ids" url="{$del_url}">删 除</button></if>    
                 <volist name="top_more_button" id="vo">
+                <if condition="$vo[is_buttion]">
+                <button class="btn {$vo.class}" target-form="ids" url="{$vo.url}">{$vo.title}</button>
+                <else />
                 <a class="btn" href="{$vo.url}">{$vo.title}</a>
+                </if>
+                &nbsp;
                 </volist>            
 			</div>
           </empty>
@@ -20,8 +25,9 @@
         <if condition="$search_button">
         <div class="search-form fr cf">
           <div class="sleft">
-            <php> $search_url || $search_url = addons_url($_REQUEST ['_addons'].'://'.$_REQUEST ['_controller'].'/lists',array('model'=>$model['name']));</php>
-            <input type="text" name="{$model['search_key']|default='title'}" class="search-input" value="{:I('title')}" placeholder="{$placeholder}">
+            <php> $get_param[model]=$model['name']; $search_url || $search_url = addons_url($_REQUEST ['_addons'].'://'.$_REQUEST ['_controller'].'/lists', $get_param);</php>
+            <php>empty($search_key) && $search_key=$model['search_key'];empty($search_key) && $search_key='title';</php>
+            <input type="text" name="{$search_key}" class="search-input" value="{:I($search_key)}" placeholder="{$placeholder}">
             <a class="sch-btn" href="javascript:;" id="search" url="{$search_url}"><i class="btn-search"></i></a> </div>
         </div>
         </if>

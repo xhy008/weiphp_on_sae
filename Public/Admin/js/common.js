@@ -317,3 +317,21 @@ function showBtn() {
 function closeUpdateTips(){
 	
 	}
+function change_event(obj){	
+	var hiderel = $(obj).attr('toggle-data');
+	if(hiderel=='')	return false;
+	
+	var arr = new Array();
+    arr = hiderel.split(",");
+    $.each(arr, function (index, tx) {		
+		var arr2 = new Array();
+		arr2 = tx.split("@");
+
+		if(arr2[1]=='hide'){
+		    $('.toggle-'+arr2[0]).hide();
+		}else{
+			$('.toggle-'+arr2[0]).show();
+		}
+	});
+	
+}	

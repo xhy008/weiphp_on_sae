@@ -2,7 +2,7 @@
 // +----------------------------------------------------------------------
 // | ThinkPHP [ WE CAN DO IT JUST THINK IT ]
 // +----------------------------------------------------------------------
-// | Copyright (c) 2006-2013 http://thinkphp.cn All rights reserved.
+// | Copyright (c) 2006-2014 http://thinkphp.cn All rights reserved.
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
@@ -26,6 +26,7 @@ abstract class Controller {
 	protected $uid = 0;
 	protected $user = array ();
 	protected $top_more_button = array ();
+	protected $get_param = array ();
 	
 	/**
 	 * 控制器参数
@@ -79,6 +80,15 @@ abstract class Controller {
 		$this->assign ( 'search_button', true );
 		$this->assign ( 'check_all', true );
 		$this->assign ( 'top_more_button', $this->top_more_button );
+		$diff = array (
+				'_addons' => 1,
+				'_controller' => 1,
+				'_action' => 1,
+				'm' => 1,
+				'id' => 1 
+		);
+		$this->get_param = array_diff_key ( $_GET, $diff );
+		$this->assign ( 'get_param', $this->get_param );
 		
 		// js,css的版本
 		if (APP_DEBUG) {
@@ -124,13 +134,15 @@ abstract class Controller {
 		// 当前登录者
 		$GLOBALS ['mid'] = $this->mid = intval ( $user ['uid'] );
 		$GLOBALS ['user'] = $user;
+		$GLOBALS ['myinfo'] = get_memberinfo ( $this->mid );
 		
 		// 当前访问对象的uid
 		$GLOBALS ['uid'] = $this->uid = intval ( $_REQUEST ['uid'] == 0 ? $this->mid : $_REQUEST ['uid'] );
 		
 		$this->assign ( 'mid', $this->mid ); // 登录者
 		$this->assign ( 'uid', $this->uid ); // 访问对象
-		                                     
+		$this->assign ( 'myinfo', $GLOBALS ['myinfo'] ); // 访问对象
+		                                                 
 		// 管理中心里的公众号列表
 		if ($this->mid) {
 			$link = M ( 'member_public_link' )->where ( 'uid=' . $this->mid )->order ( 'is_use desc' )->select ();
@@ -194,7 +206,7 @@ abstract class Controller {
 				}
 			} else {
 				if ($config ['bind_start'] != 0) {
-					$dao->replyText ( '请先<a href="' . $bind_url . '">绑定账号</a>再使用' );
+					$dao->replyText ( '请先<a href="' . $bind_url . '">绑定帐号</a>再使用' );
 					exit ();
 				}
 			}
@@ -530,9 +542,24 @@ abstract class Controller {
 				$this->assign ( 'jumpUrl', "javascript:history.back(-1);" );
 			
 			$this->display ( C ( 'TMPL_ACTION_ERROR' ) );
-			// 中止执行 避免出错后继续执行
-			exit ();
 		}
+		
+		// 中止执行 避免出错后继续执行
+		exit ();
+	}
+	/*
+	 * 导出数据
+	 */
+	public function outExcel($dataArr, $fileName = '', $sheet = false) {
+		require_once VENDOR_PATH . 'download-xlsx.php';
+		export_csv ( $dataArr, $fileName, $sheet );
+		unset ( $sheet );
+		unset ( $dataArr );
+	}
+	public function inExcel() {
+		require_once VENDOR_PATH . '/PHPExcel.php';
+		require_once VENDOR_PATH . 'PHPExcel/IOFactory.php';
+		require_once VENDOR_PATH . 'PHPExcel/Reader/Excel5.php';
 	}
 	
 	/**
@@ -581,7 +608,7 @@ abstract class Controller {
 		is_array ( $model ) || $model = $this->getModel ( $model );
 		
 		! empty ( $ids ) || $ids = I ( 'id' );
-		! empty ( $ids ) || $ids = array_unique ( ( array ) I ( 'ids', 0 ) );
+		! empty ( $ids ) || $ids = array_filter ( array_unique ( ( array ) I ( 'ids', 0 ) ) );
 		! empty ( $ids ) || $this->error ( '请选择要操作的数据!' );
 		
 		$Model = M ( get_table_name ( $model ['id'] ) );
@@ -609,7 +636,7 @@ abstract class Controller {
 		// 获取数据
 		$data = M ( get_table_name ( $model ['id'] ) )->find ( $id );
 		$data || $this->error ( '数据不存在！' );
-			
+		
 		$token = get_token ();
 		if (isset ( $data ['token'] ) && $token != $data ['token'] && defined ( 'ADDON_PUBLIC_PATH' )) {
 			$this->error ( '非法访问！' );
@@ -622,7 +649,7 @@ abstract class Controller {
 			if ($Model->create () && $Model->save ()) {
 				$this->_saveKeyword ( $model, $id );
 				
-				$this->success ( '保存' . $model ['title'] . '成功！', U ( 'lists?model=' . $model ['name'] ) );
+				$this->success ( '保存' . $model ['title'] . '成功！', U ( 'lists?model=' . $model ['name'], $this->get_param ) );
 			} else {
 				$this->error ( $Model->getError () );
 			}
@@ -646,13 +673,12 @@ abstract class Controller {
 			if ($Model->create () && $id = $Model->add ()) {
 				$this->_saveKeyword ( $model, $id );
 				
-				$this->success ( '添加' . $model ['title'] . '成功！', U ( 'lists?model=' . $model ['name'] ) );
+				$this->success ( '添加' . $model ['title'] . '成功！', U ( 'lists?model=' . $model ['name'], $this->get_param ) );
 			} else {
 				$this->error ( $Model->getError () );
 			}
 		} else {
 			$fields = get_model_attribute ( $model ['id'] );
-			
 			$this->assign ( 'fields', $fields );
 			$this->meta_title = '新增' . $model ['title'];
 			
@@ -839,6 +865,7 @@ abstract class Controller {
 		$key = $keyArr [0];
 		$placeholder = isset ( $keyArr [1] ) ? $keyArr [1] : '请输入关键字';
 		$this->assign ( 'placeholder', $placeholder );
+		$this->assign ( 'search_key', $key );
 		
 		if (isset ( $_REQUEST [$key] ) && ! isset ( $map [$key] )) {
 			$map [$key] = array (

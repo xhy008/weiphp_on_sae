@@ -2,19 +2,19 @@
  * weiphp公用css
  */
 /* 登录 */
-#login_body{ background:url(../images/login_bg.jpg) no-repeat center center;}
+#login_body{ background:url(../images/login_bg.jpg) no-repeat center top}
 #login_body footer{ display:none}
-.login_box,.reg_box{ width:400px; margin:50px auto; color:#ddd}
+.login_box,.reg_box{ width:400px; margin:50px auto; color:#666; padding:30px 100px;}
 .login_box{ margin-top:100px;}
 .login_box a{ color:#fff; font-size:15px;}
 .login_box a:hover{ color:#1dbd03}
 .logo_icon{ width:60px; height:60px; margin:0 auto; background:url(../images/logo_80.png) center center no-repeat;}
 .logo_text{ height:30px; margin:20px 0 10px; background:url(../images/logo_text.png) center top no-repeat; position:relative}
-.logo_text .beta{ position:absolute; height:24px; width:76px; right:45px; top:0; background:url(../images/beta2.0.png) no-repeat}
+.logo_text .beta{ position:absolute; height:24px; width:76px; right:45px; top:0; background:url(../images/beta2.0.png) no-repeat; display:none}
 .form_title{text-align:center; color:#ccc; font-size:16px; display:none}
 .login_box .form_body{ margin-top:30px;}
 .login_box .control-label{ display:none}
-.login_box .controls{ margin:20px auto 0; display:block; width:308px; position:relative}
+.login_box .controls{ margin:20px auto 0; display:block; width:308px; position:relative; color:#fff}
 .login_box input{ padding-left:35px; width:262px;}
 .login_box .controls .fa{ position:absolute; top:10px; left:10px; font-size:20px; color:#aaa;}
 .list_img {width:50px;}
@@ -23,26 +23,26 @@
 .login_box .reloadverify_a{ position:absolute; top:10px; right:10px;}
 .reg_box input{ width:256px;}
 .reg_box .control-group{ overflow:hidden;zoom:1; margin-top:20px;}
-.reg_box .control-label{ width:70px; height:30px; float:left; text-align:right; padding-right:15px; line-height:30px;}
+.reg_box .control-label{ width:70px; height:30px; float:left; text-align:right; padding-right:15px; line-height:30px; color:#fff}
 .reg_box .controls{ float:left;}
 .reg_box .verifyimg{ width:274px;}
 .reg_box .btn{ padding:10px 0; margin-top:15px; width:274px;}
 .login_top_btn{ position:absolute; top:20px; right:20px;}
-.login_top_btn .btn{ background-color:RGBA(255,255,255,.3); color:#fff; padding:8px 20px; border-radius:30px; margin:10px;}
-.login_top_btn .btn:hover{ background-color:#fff; color:#1dbd03}
+.login_top_btn .btn{ background-color:RGBA(255,255,255,.4); color:#fff; padding:8px 20px; border-radius:30px; margin:10px;}
+.login_top_btn .btn:hover{ background-color:#fff; color:#333}
 .text-warning{ color:#F60; margin-top:5px}
 /* login end */
 
 /* 头部 */
-.navbar{ height:50px; width:100%; background:url(../images/login_bg.jpg) no-repeat; position:fixed; top:0; z-index:10000;}
+.navbar{ height:50px; width:100%; background:url(../images/login_bg.jpg) no-repeat; position:fixed; top:0; border-bottom:2px solid #222; z-index:10000;}
 .brand{ padding:5px 10px; display:block; float:left;}
-.top_nav{ float:right; margin-right:10px;}
+.top_nav{ float:right; padding:0 10px 0 130px;}
 .top_nav a{ color:#fff;}
 .top_nav li.dropdown{ position:relative;}
-.top_nav li:hover{ background:#111}
+.top_nav li:hover{ background:#222}
 .top_nav li.dropdown>a{ line-height:50px; width:90px; height:50px; overflow:hidden; padding:0 20px;}
 .top_nav li.admin_nav>a{ width:70px;}
-.top_nav li.dropdown>a:hover{ background:#111;}
+.top_nav li.dropdown>a:hover{ background:#222;}
 .top_nav li.dropdown ul{ position:absolute; width:100%; top:50px; left:0; background:#222;position: absolute;
 color:#fff;
 float: none;
@@ -66,10 +66,10 @@ background-clip: none;}
 .top_nav .dropdown-menu > li > a{ color:#fff}
 
 /* 侧栏 */
-.sidebar{ position:fixed; top:50px; left:0; bottom:0; width:180px; border-top:3px solid #1dbd03; background:url(../images/login_bg.jpg) no-repeat; overflow-y:auto; overflow-x:hidden; padding-bottom:30px;}
+.sidebar{ position:fixed; top:50px; left:0; bottom:0; width:180px; background:url(../images/login_bg.jpg) no-repeat; overflow-y:auto; overflow-x:hidden; padding-bottom:30px;}
 .sidebar li a{ display:block;color:#ddd; height:40px; border-bottom:1px solid #161e38; border-top:1px solid #000; line-height:40px; padding:0 10px;}
 .sidebar li a:hover{ color:#6b6a89;}
-.sidebar li.active a{ color:#1dbd03}
+.sidebar li.active a{ color:#1bb801; background:#fff; font-weight:bold}
 .sidebar .fa{ font-size:15px; padding-right:10px;}
 .sidebar .arrow{ color:#ddd; font-size:10px; padding-left:10px;}
 .sidebar li .sidenav_sub a{ padding-left:35px;}

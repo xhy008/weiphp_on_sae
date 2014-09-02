@@ -169,10 +169,11 @@ class FormsValueController extends BaseController {
 			foreach ( $fields [1] as $vo ) {
 				$error_tip = ! empty ( $vo ['error_info'] ) ? $vo ['error_info'] : '请正确输入' . $vo ['title'] . '的值';
 				$value = $_POST [$vo ['name']];
-				if (($vo ['is_must'] && empty ( $value )) || (! empty ( $vo ['validate_rule'] ) && $this->regex ( $value, $vo ['validate_rule'] ))) {
+				if (($vo ['is_must'] && empty ( $value )) || (! empty ( $vo ['validate_rule'] ) && ! M()->regex ( $value, $vo ['validate_rule'] ))) {
 					$this->error ( $error_tip );
 					exit ();
 				}
+
 				$post [$vo ['name']] = $vo ['type'] == 'datetime' ? strtotime ( $_POST [$vo ['name']] ) : $_POST [$vo ['name']];
 				unset ( $_POST [$vo ['name']] );
 			}

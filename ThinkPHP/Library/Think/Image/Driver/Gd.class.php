@@ -75,9 +75,10 @@ class Gd{
      * 保存图像
      * @param  string  $imgname   图像保存名称
      * @param  string  $type      图像类型
+     * @param  integer $quality   图像质量     
      * @param  boolean $interlace 是否对JPEG类型图像设置隔行扫描
      */
-    public function save($imgname, $type = null, $interlace = true){
+    public function save($imgname, $type = null, $quality=80,$interlace = true){
         if(empty($this->img)) throw new Exception('没有可以被保存的图像资源');
 
         //自动获取图像类型
@@ -86,18 +87,15 @@ class Gd{
         } else {
             $type = strtolower($type);
         }
-
-        //JPEG图像设置隔行扫描
-        if('jpeg' == $type || 'jpg' == $type){
-            $type = 'jpeg';
-            imageinterlace($this->img, $interlace);
-        }
-
         //保存图像
-        if('gif' == $type && !empty($this->gif)){
+        if('jpeg' == $type || 'jpg' == $type){
+            //JPEG图像设置隔行扫描
+            imageinterlace($this->img, $interlace);
+            imagejpeg($this->img, $imgname,$quality);
+        }elseif('gif' == $type && !empty($this->gif)){
             $this->gif->save($imgname);
-        } else {
-            $fun = "image{$type}";
+        }else{
+            $fun  =   'image'.$type;
             $fun($this->img, $imgname);
         }
     }
@@ -297,7 +295,7 @@ class Gd{
      * @param  integer $locate 水印位置
      * @param  integer $alpha  水印透明度
      */
-    public function water($source, $locate = Image::IMAGE_WATER_SOUTHEAST){
+    public function water($source, $locate = Image::IMAGE_WATER_SOUTHEAST,$alpha=80){
         //资源检测
         if(empty($this->img)) throw new Exception('没有可以被添加水印的图像资源');
         if(!is_file($source)) throw new Exception('水印图像不存在');
@@ -388,7 +386,7 @@ class Gd{
 
             imagecopy($src, $this->img, 0, 0, $x, $y, $info[0], $info[1]);
             imagecopy($src, $water, 0, 0, 0, 0, $info[0], $info[1]);
-            imagecopymerge($this->img, $src, $x, $y, 0, 0, $info[0], $info[1], 100);
+            imagecopymerge($this->img, $src, $x, $y, 0, 0, $info[0], $info[1], $alpha);
 
             //销毁零时图片资源
             imagedestroy($src);

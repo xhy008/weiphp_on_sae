@@ -3,7 +3,7 @@
   <div class="span9 page_message">
     <section id="contents"> 
       <include file="Addons/_nav" /> 
-      <if condition="$add_button || $del_button || $search_button">   
+      <if condition="$add_button || $del_button || $search_button || !empty($top_more_button)">   
       <div class="table-bar">
         <div class="fl">
           <empty name="model.extend">
@@ -18,7 +18,8 @@
         <div class="search-form fr cf">
           <div class="sleft">
             <php> $search_url || $search_url = addons_url($_REQUEST ['_addons'].'://'.$_REQUEST ['_controller'].'/lists',array('model'=>$model['name']));</php>
-            <input type="text" name="{$model['search_key']|default='title'}" class="search-input" value="{:I('title')}" placeholder="请输入关键字">
+            <php>empty($search_key) && $search_key=$model['search_key'];empty($search_key) && $search_key='title';</php>
+            <input type="text" name="{$search_key}" class="search-input" value="{:I($search_key)}" placeholder="请输入关键字">
             <a class="sch-btn" href="javascript:;" id="search" url="{$search_url}"><i class="btn-search"></i></a> </div>
         </div>
         </if>

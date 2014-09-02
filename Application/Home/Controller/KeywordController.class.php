@@ -22,10 +22,11 @@ class KeywordController extends HomeController {
 		$nav [] = $res;
 		
 		$this->assign ( 'nav', $nav );
+		
 	}
 	public function lists() {
-		$this->assign ( 'add_button', false );
-		$this->assign( 'search_url', U ( 'lists' ));
+		// $this->assign ( 'add_button', false );
+		$this->assign ( 'search_url', U ( 'lists' ) );
 		
 		$model = $this->getModel ( 'keyword' );
 		
@@ -33,18 +34,20 @@ class KeywordController extends HomeController {
 		                                
 		// 解析列表规则
 		$list_data = $this->_list_grid ( $model );
-		foreach ( $list_data ['list_grids'] as &$vo ) {
-			if (isset ( $vo ['href'] )) {
-				$vo ['href'] = '[DELETE]|删除';
-			}
-		}		
+		$fields = $list_data ['fields'];
+		
+// 		foreach ( $list_data ['list_grids'] as &$vo ) {
+// 			if (isset ( $vo ['href'] )) {
+// 				$vo ['href'] = '[DELETE]|删除';
+// 			}
+// 		}
 		
 		// 搜索条件
 		$map = $this->_search_map ( $model, $fields );
-		$map['token'] = get_token();
-
+		$map ['token'] = get_token ();
+		
 		$row = empty ( $model ['list_row'] ) ? 20 : $model ['list_row'];
-
+		
 		empty ( $fields ) || in_array ( 'id', $fields ) || array_push ( $fields, 'id' );
 		$name = parse_name ( get_table_name ( $model ['id'] ), true );
 		$list_data ['list_data'] = M ( $name )->field ( empty ( $fields ) ? true : $fields )->where ( $map )->order ( 'id DESC' )->page ( $page, $row )->select ();
@@ -57,13 +60,13 @@ class KeywordController extends HomeController {
 			$list_data ['_page'] = $page->show ();
 		}
 		
-		$addons = M('addons')->where("type=1")->field('name,title')->select();
-		foreach($addons as $a){
-			$addonsArr[$a['name']] = $a['title'];
+		$addons = M ( 'addons' )->where ( "type=1" )->field ( 'name,title' )->select ();
+		foreach ( $addons as $a ) {
+			$addonsArr [$a ['name']] = $a ['title'];
 		}
 		
-		foreach($list_data ['list_data'] as &$vo){
-			$vo['addon'] = $addonsArr[$vo['addon']];
+		foreach ( $list_data ['list_data'] as &$vo ) {
+			$vo ['addon'] = $addonsArr [$vo ['addon']];
 		}
 		
 		$this->assign ( $list_data );
@@ -71,8 +74,17 @@ class KeywordController extends HomeController {
 		
 		$this->display ( 'Addons/lists' );
 	}
-	public function del(){
+	public function del() {
 		$model = $this->getModel ( 'keyword' );
-		parent::common_del ( $model);
+		parent::common_del ( $model );
+	}
+	public function edit() {
+		$model = $this->getModel ( 'keyword' );
+		parent::common_edit ( $model, 0, 'Addons/edit' );
+	}
+	public function add() {
+		$model = $this->getModel ( 'keyword' );
+		
+		parent::common_add ( $model, 'Addons/add' );
 	}
 }

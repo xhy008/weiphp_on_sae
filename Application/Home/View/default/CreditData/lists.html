@@ -17,8 +17,8 @@
         <if condition="$search_button">
         <div class="search-form fr cf">
           <div class="sleft">
-            <php> $search_url || $search_url = addons_url($_REQUEST ['_addons'].'://'.$_REQUEST ['_controller'].'/lists',array('model'=>$model['name']));</php>
-            <input type="text" name="nickname" class="search-input" value="{:I('title')}" placeholder="请输入用户名">
+            <php> $search_url || $search_url = U('Home/CreditData/lists',array('model'=>$model['name']));</php>
+            <input type="text" name="nickname" class="search-input" value="{:I('nickname')}" placeholder="请输入用户名">
             <a class="sch-btn" href="javascript:;" id="search" url="{$search_url}"><i class="btn-search"></i></a> </div>
         </div>
         </if>

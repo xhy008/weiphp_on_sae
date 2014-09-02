@@ -90,7 +90,7 @@ class MemberModel extends Model {
 		// 记录行为
 		action_log ( 'user_login', 'member', $uid, $uid );
 		
-		return true;
+		return $user;
 	}
 	
 	/**
@@ -147,6 +147,7 @@ class MemberModel extends Model {
 		}
 		
 		$_memberInfo [$uid] = $this->find ( $uid );
+		$_memberInfo [$uid] ['is_root'] = is_administrator ( $uid );
 		return $_memberInfo [$uid];
 	}
 }

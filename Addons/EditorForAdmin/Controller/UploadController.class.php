@@ -30,7 +30,7 @@ class UploadController extends AddonsController {
 		//$this->uploader = new Upload ( $setting, 'Local' );
 		$this->uploader = new Upload ( $setting, $pic_driver, $driverConf );
 		$info = $this->uploader->upload ( $_FILES );
-		
+		// dump($info);
 		if ($info) {
 			$dao = D ( 'Picture', 'Home' );
 			foreach ( $info as &$file ) {
@@ -38,11 +38,12 @@ class UploadController extends AddonsController {
 				
 				/* 已经存在文件记录 */
 				if (isset ( $file ['id'] ) && is_numeric ( $file ['id'] )) {
+					$file ['path'] = __ROOT__ . ltrim ( $file ['path'], "." );
 					continue;
 				}
 				
 				/* 记录文件信息 */
-				$file ['path'] = substr ( $setting ['rootPath'], 1 ) . $file ['savepath'] . $file ['savename'];
+				$file ['path'] = __ROOT__ .  ltrim ( $setting ['rootPath'], "." ) . $file ['savepath'] . $file ['savename'];
 				$file ['status'] = 1;
 				$file ['create_time'] = NOW_TIME;
 				if ($dao->create ( $file ) && ($id = $dao->add ())) {
@@ -63,7 +64,7 @@ class UploadController extends AddonsController {
 				'data' => '' 
 		);
 		$info = $this->upload ();
-		$img = $info ['imgFile'] ['rootpath'] . $info ['imgFile'] ['savepath'] . $info ['imgFile'] ['savename'];
+		$img = $info ['imgFile'] ['path'];
 		/* 记录附件信息 */
 		if ($img) {
 			$return ['id'] = $info ['imgFile'] ['id'];
@@ -81,15 +82,14 @@ class UploadController extends AddonsController {
 	// ueditor编辑器上传图片处理
 	public function ue_upimg() {
 		$info = $this->upload ();
-
-		// $img = $info ['imgFile'] ['rootpath'] . $info ['imgFile'] ['savepath'] . $info ['imgFile'] ['savename'];
+		// $img = $info ['imgFile'] ['path'];
 		$pic_driver = C('EDITOR_UPLOAD_DRIVER');
 		if (strtolower($pic_driver) == 'sae') {
 			$img = $info ['imgFile']['url'];
 		} else {
-			$img = $info ['imgFile'] ['rootpath'] . $info ['imgFile'] ['savepath'] . $info ['imgFile'] ['savename'];
+			$img = $info ['imgFile'] ['path'];
 		}
-
+		
 		$return = array ();
 		$return ['id'] = $info ['imgFile'] ['id'];
 		$return ['url'] = $img;

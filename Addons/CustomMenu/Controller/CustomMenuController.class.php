@@ -172,6 +172,11 @@ class CustomMenuController extends AddonsController {
 			$data = M ( get_table_name ( $model ['id'] ) )->find ( $id );
 			$data || $this->error ( '数据不存在！' );
 			
+		$token = get_token ();
+		if (isset ( $data ['token'] ) && $token != $data ['token'] && defined ( 'ADDON_PUBLIC_PATH' )) {
+			$this->error ( '非法访问！' );
+		}			
+			
 			$this->assign ( 'fields', $fields );
 			$this->assign ( 'data', $data );
 			$this->meta_title = '编辑' . $model ['title'];
@@ -197,7 +202,7 @@ class CustomMenuController extends AddonsController {
 			$info = M ( 'member_public' )->where ( $map )->find ();
 			
 			if (empty ( $info ['appid'] ) || empty ( $info ['secret'] )) {
-				$this->error ( '请先配置appid和secret', U ( 'home/member_public/edit', 'id=' . $info ['id'] ) );
+				$this->error ( '请先配置appid和secret', U ( 'home/MemberPublic/edit', 'id=' . $info ['id'] ) );
 			}
 			// 获取一级菜单
 			$map ['pid'] = 0;

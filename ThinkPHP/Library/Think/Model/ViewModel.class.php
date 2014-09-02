@@ -2,7 +2,7 @@
 // +----------------------------------------------------------------------
 // | ThinkPHP [ WE CAN DO IT JUST THINK IT ]
 // +----------------------------------------------------------------------
-// | Copyright (c) 2006-2013 http://thinkphp.cn All rights reserved.
+// | Copyright (c) 2006-2014 http://thinkphp.cn All rights reserved.
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
@@ -133,7 +133,7 @@ class ViewModel extends Model {
             $orders = explode(',',$order);
             $_order = array();
             foreach ($orders as $order){
-                $array = explode(' ',$order);
+                $array = explode(' ',trim($order));
                 $field   =   $array[0];
                 $sort   =   isset($array[1])?$array[1]:'ASC';
                 // 解析成视图字段

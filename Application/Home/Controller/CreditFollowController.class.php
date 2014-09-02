@@ -21,7 +21,7 @@ class CreditFollowController extends HomeController {
 		$res ['class'] = $act == 'creditconfig' ? 'current' : '';
 		$nav [] = $res;
 		
-		$res ['title'] = '积分流水账';
+		$res ['title'] = '积分流水帐';
 		$res ['url'] = U ( 'CreditData/lists' );
 		$res ['class'] = $act == 'creditdata' ? 'current' : '';
 		$nav [] = $res;
@@ -32,6 +32,8 @@ class CreditFollowController extends HomeController {
 		$nav [] = $res;
 		
 		$this->assign ( 'nav', $nav );
+		
+		$_GET['sidenav'] = 'home_creditconfig_lists';
 	}
 	public function lists() {
 		$this->assign ( 'add_button', false );
@@ -112,6 +114,11 @@ class CreditFollowController extends HomeController {
 		// 获取数据
 		$data = M ( get_table_name ( $model ['id'] ) )->find ( $id );
 		$data || $this->error ( '数据不存在！' );
+		
+		$token = get_token ();
+		if (isset ( $data ['token'] ) && $token != $data ['token'] && defined ( 'ADDON_PUBLIC_PATH' )) {
+			$this->error ( '非法访问！' );
+		}		
 		
 		if (IS_POST) {
 			$act = 'save';

@@ -2,7 +2,7 @@
 // +----------------------------------------------------------------------
 // | TOPThink [ WE CAN DO IT JUST THINK IT ]
 // +----------------------------------------------------------------------
-// | Copyright (c) 2006-2013 http://thinkphp.cn All rights reserved.
+// | Copyright (c) 2006-2014 http://thinkphp.cn All rights reserved.
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
@@ -30,7 +30,7 @@ class Mongo extends Db{
      */
     public function __construct($config=''){
         if ( !class_exists('mongoClient') ) {
-            E(L('_NOT_SUPPERT_').':mongoClient');
+            E(L('_NOT_SUPPORT_').':mongoClient');
         }
         if(!empty($config)) {
             $this->config   =   $config;

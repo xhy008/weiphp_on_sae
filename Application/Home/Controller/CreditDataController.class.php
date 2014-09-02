@@ -21,7 +21,7 @@ class CreditDataController extends HomeController {
 		$res ['class'] = $act == 'creditconfig' ? 'current' : '';
 		$nav [] = $res;
 		
-		$res ['title'] = '积分流水账';
+		$res ['title'] = '积分流水帐';
 		$res ['url'] = U ( 'CreditData/lists' );
 		$res ['class'] = $act == 'creditdata' ? 'current' : '';
 		$nav [] = $res;
@@ -32,6 +32,8 @@ class CreditDataController extends HomeController {
 		$nav [] = $res;
 		
 		$this->assign ( 'nav', $nav );
+		
+		$_GET['sidenav'] = 'home_creditconfig_lists';
 	}
 	public function lists() {		
 		$model = $this->getModel ( 'credit_data' );

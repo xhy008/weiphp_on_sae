@@ -211,7 +211,7 @@
      	<td class="pic_td">
         <div class="uploadrow" title="更改图片">
         <input type="file" class="uploadImage" id="uploadImage_exist_{$vo.id}" rel="{$vo.id}">
-        <input type="hidden" name="image[{$vo.id}]" id="cover_id_{$vo.id}"/>
+        <input type="hidden" name="image[{$vo.id}]" id="cover_id_{$vo.id}" value="{$vo.image}" />
         <div class="upload-img-box">
           <notempty name="vo.image">
             <div class="upload-pre-item"><img width="120" height="120" src="__ROOT__{$vo.image|get_cover='path'}"/></div>
@@ -364,10 +364,10 @@ $('#submit').click(function(){
 });
 
 $(function(){
-	$('.time').datetimepicker({
+    $('.time').datetimepicker({
         format: 'yyyy-mm-dd hh:ii',
         language:"zh-CN",
-        minView:2,
+        minView:0,
         autoclose:true
     });
     showTab();

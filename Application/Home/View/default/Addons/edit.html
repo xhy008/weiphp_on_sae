@@ -7,7 +7,7 @@
       <include file="Addons/_nav" />
       <div class="tab-content"> 
         <!-- 表单 -->
-        <php> $post_url || $post_url = U('edit?model='.$model['id']);</php>
+        <php> $post_url || $post_url = U('edit?model='.$model['id'], $get_param);</php>
         <form id="form" action="{:$post_url}" method="post" class="form-horizontal form-center">
           <!-- 基础文档模型 -->
           <volist name=":parse_config_attr($model['field_group'])" id="group">
@@ -19,7 +19,7 @@
                   <input type="hidden" class="text input-large" name="{$field.name}" value="{$data[$field['name']]}">
                 </if>
                 <if condition="$field['is_show'] == 1 || $field['is_show'] == 3 || ($field['is_show'] == 5 && I($field['name']) )">
-                  <div class="form-item cf">
+                  <div class="form-item cf toggle-{$field.name}">
                     <label class="item-label">
                     <notempty name="field.is_must"><span class="need_flag">*</span></notempty>
                     {$field['title']}
@@ -47,18 +47,18 @@
                         </case>                        
                         <case value="bool">
                           <select name="{$field.name}">
-                            <volist name=":parse_field_attr($field['extra'])" id="vo"> <option value="{$key}" 
+                            <volist name=":parse_field_attr($field['extra'])" id="vo"> <option value="{$key}" class="toggle-data" toggle-data="{$vo|get_hide_attr}"
                               <eq name="data[$field['name']]" value="$key">selected</eq>
-                              >{$vo}
+                              >{$vo|clean_hide_attr}
                               </option>
                             </volist>
                           </select>
                         </case>
                         <case value="select">
                           <select name="{$field.name}">
-                            <volist name=":parse_field_attr($field['extra'])" id="vo"> <option value="{$key}" 
+                            <volist name=":parse_field_attr($field['extra'])" id="vo"> <option value="{$key}" class="toggle-data" toggle-data="{$vo|get_hide_attr}"
                               <eq name="data[$field['name']]" value="$key">selected</eq>
-                              >{$vo}
+                              >{$vo|clean_hide_attr}
                               </option>
                             </volist>
                           </select>
@@ -71,15 +71,15 @@
                           <volist name=":parse_field_attr($field['extra'])" id="vo">
                           	<div class="check-item">
 							<!--[if !IE]><!-->  
-								<input type="radio" value="{$key}" class="regular-radio" id="{$field.name}_{$key}" name="{$field.name}" 
-								  <eq name="data[$field['name']]" value="$key">checked="checked"</eq>
-								  /><label for="{$field.name}_{$key}"></label> {$vo}
+								  <input type="radio" class="regular-radio toggle-data" value="{$key}" id="{$field.name}_{$key}" name="{$field.name}" toggle-data="{$vo|get_hide_attr}"
+								  <eq name="data[$field['name']]" value="$key">checked="checked"</eq> />
+								  <label for="{$field.name}_{$key}"></label>{$vo|clean_hide_attr} 
 							  <!--<![endif]-->
 							   <!--[if IE]>
 							       <input type="radio" value="{$key}" 
-								   id="{$field.name}_{$key}" name="{$field.name}" 
+								   id="{$field.name}_{$key}" name="{$field.name}" class="toggle-data" toggle-data="{$vo|get_hide_attr}"
 								  <eq name="data[$field['name']]" value="$key">checked="checked"</eq>/> 
-								  <label for="{$field.name}_{$key}"></label>{$vo}
+								  <label for="{$field.name}_{$key}"></label>{$vo|clean_hide_attr}
 							   <![endif]-->
                              </div>
                           </volist>
@@ -87,9 +87,9 @@
                         <case value="checkbox">
                           <volist name=":parse_field_attr($field['extra'])" id="vo">
                           	<div class="check-item">
-                             <input type="checkbox" value="{$key}" class="regular_checkbox" id="{$field.name}_{$key}" name="{$field.name}[]" 
-                              <in name="key" value="$data[$field['name']]" >checked="checked"</in>
-                              /><label for="{$field.name}_{$key}"></label>{$vo}
+                              <input type="checkbox" class="regular-checkbox toggle-data" value="{$key}" id="{$field.name}_{$key}" name="{$field.name}[]" toggle-data="{$vo|get_hide_attr}"
+                              <in name="key" value="$data[$field['name']]" >checked="checked"</in> >
+                              <label for="{$field.name}_{$key}"></label>{$vo|clean_hide_attr} 
                              </div>
                           </volist>
                         </case>
@@ -145,7 +145,7 @@
 								</script> 
                         </case>
                         <case value="file">
-                          <div class="controls uploadrow" title="点击修改">
+                          <div class="controls upload_file">
                             <input type="file" id="upload_file_{$field.name}">
                             <input type="hidden" name="{$field.name}" value="{$data[$field['name']]}"/>
                             <div class="upload-img-box">
@@ -158,7 +158,7 @@
 								//上传图片
 							    /* 初始化上传插件 */
 								$("#upload_file_{$field.name}").uploadify({
-							        "height"          : 120,
+							        "height"          : 30,
 							        "swf"             : "__STATIC__/uploadify/uploadify.swf",
 							        "fileObjName"     : "download",
 							        "buttonText"      : "上传附件",
@@ -204,37 +204,44 @@
       </div>
     </section>
   </div>
-  </div>
 </block>
 <block name="script">
-<link href="__STATIC__/datetimepicker/css/datetimepicker.css?v={:SITE_VERSION}" rel="stylesheet" type="text/css">
-<php>
-if(C('COLOR_STYLE')=='blue_color') echo '
-<link href="__STATIC__/datetimepicker/css/datetimepicker_blue.css?v={:SITE_VERSION}" rel="stylesheet" type="text/css">
-';
-</php>
-<link href="__STATIC__/datetimepicker/css/dropdown.css?v={:SITE_VERSION}" rel="stylesheet" type="text/css">
-<script type="text/javascript" src="__STATIC__/datetimepicker/js/bootstrap-datetimepicker.min.js"></script> 
-<script type="text/javascript" src="__STATIC__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script> 
-<script type="text/javascript">
+  <link href="__STATIC__/datetimepicker/css/datetimepicker.css?v={:SITE_VERSION}" rel="stylesheet" type="text/css">
+  <php>if(C('COLOR_STYLE')=='blue_color') echo '
+    <link href="__STATIC__/datetimepicker/css/datetimepicker_blue.css?v={:SITE_VERSION}" rel="stylesheet" type="text/css">
+    ';</php>
+  <link href="__STATIC__/datetimepicker/css/dropdown.css?v={:SITE_VERSION}" rel="stylesheet" type="text/css">
+  <script type="text/javascript" src="__STATIC__/datetimepicker/js/bootstrap-datetimepicker.min.js"></script> 
+  <script type="text/javascript" src="__STATIC__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js?v={:SITE_VERSION}" charset="UTF-8"></script> 
+  <script type="text/javascript">
 $('#submit').click(function(){
     $('#form').submit();
 });
 
-$(function(){
-	$('.time').datetimepicker({
+$(function(){    $('.time').datetimepicker({
         format: 'yyyy-mm-dd hh:ii',
         language:"zh-CN",
-        minView:2,
+        minView:0,
         autoclose:true
     });
-	$('.date').datetimepicker({
+    $('.date').datetimepicker({
         format: 'yyyy-mm-dd',
         language:"zh-CN",
         minView:2,
         autoclose:true
     });	
     showTab();
+	
+	$('.toggle-data').each(function(){
+		var data = $(this).attr('toggle-data');
+		if(data=='') return true;		
+		
+	     if($(this).is(":selected") || $(this).is(":checked")){
+			 change_event(this)
+		 }
+	});
+	
+	$('.toggle-data').bind("click",function(){ change_event(this) });
 });
-</script>
+</script> 
 </block>

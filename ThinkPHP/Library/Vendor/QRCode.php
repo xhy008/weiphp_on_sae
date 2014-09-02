@@ -8,7 +8,7 @@ class QRCode {
 		$this->token = TOKEN;
 		$this->appID = APP_ID;
 		$this->appSecret = APP_SECRET;
-		$this->accessToken = RUNTIME_PATH.TOKEN.'_access_token';
+		$this->accessToken = RUNTIME_PATH . TOKEN . '_access_token';
 		if (! file_exists ( $this->accessToken )) {
 			$this->AccessTokenGet ();
 		}
@@ -28,8 +28,7 @@ class QRCode {
 			return 'https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=' . $tempArr ['ticket'];
 		} else {
 			$this->ErrorLogger ( 'qrcode create falied.' );
-			$this->AccessTokenGet ();
-			$this->QrcodeCreate ();
+			return false;
 		}
 	}
 	

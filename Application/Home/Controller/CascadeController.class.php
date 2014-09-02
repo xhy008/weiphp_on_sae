@@ -22,12 +22,15 @@ class CascadeController extends HomeController {
 		$nav [] = $res;
 		
 		$this->assign ( 'nav', $nav );
-		
 		$this->model = $this->getModel ( 'common_category_group' );
 	}
 	public function lists() {
 		$this->assign ( 'search_url', U ( 'lists' ) );
 		$this->assign ( 'check_all', false );
+		
+		$map['token'] = get_token();
+		session ( 'common_condition', $map );
+		
 		parent::common_lists ( $this->model, 0, 'Addons/lists' );
 	}
 	public function del() {

@@ -59,7 +59,7 @@
                             <case value="radio">
                                 <volist name=":parse_field_attr($field['extra'])" id="vo">
                                 	<label class="radio">
-                                    <input type="radio" value="{$key}" name="{$field.name}" <eq name="data[$field['name']]" value="$key">checked="checked"</eq>>{$vo}
+                                    <input type="radio" value="{$key}" name="{$field.name}" <eq name="data[$field['name']]" value="$key">checked="checked"</eq> >{$vo}
                                 	</label>
                                 </volist>
                             </case>
@@ -193,10 +193,10 @@ $('#submit').click(function(){
 });
 
 $(function(){
-	$('.time').datetimepicker({
+    $('.time').datetimepicker({
         format: 'yyyy-mm-dd hh:ii',
         language:"zh-CN",
-        minView:2,
+        minView:0,
         autoclose:true
     });
     showTab();

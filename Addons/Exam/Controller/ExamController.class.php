@@ -149,6 +149,7 @@ class ExamController extends AddonsController {
 		$correct = array_map ( 'trim', $correct );
 		
 		$diff = array_diff ( $correct, $answer );
-		return empty ( $diff ) ? $question ['score'] : 0;
+		$diff2 = array_diff ( $answer, $correct );
+		return empty ( $diff ) && empty ( $diff2 ) ? $question ['score'] : 0;
 	}
 }

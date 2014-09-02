@@ -181,7 +181,7 @@ class UserController extends HomeController {
 	 */
 	public function profile() {
 		if (! is_login ()) {
-			$this->error ( '您还没有登陆', U ( 'User/login' ) );
+			$this->error ( '您还没有登录', U ( 'User/login' ) );
 		}
 		if (IS_POST) {
 			// 获取参数

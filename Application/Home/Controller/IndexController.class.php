@@ -101,12 +101,13 @@ class IndexController extends HomeController {
 		$data = M ( 'addons' )->where ( $map )->order ( 'id DESC' )->page ( $page, $row )->select ();
 		$token_status = D ( 'Common/AddonStatus' )->getList ( true );
 		
-		foreach ( $data as &$vo ) {
+		foreach ( $data as $k => &$vo ) {
 			if ($token_status [$vo ['name']] === '-1') {
-				$vo ['status_title'] = '无权限';
-				$vo ['action'] = '';
-				$vo ['color'] = '#CCC';
-				$vo ['status'] = 0;
+				unset ( $data [$k] );
+				// $vo ['status_title'] = '无权限';
+				// $vo ['action'] = '';
+				// $vo ['color'] = '#CCC';
+				// $vo ['status'] = 0;
 			} elseif ($token_status [$vo ['name']] === 0) {
 				$vo ['status_title'] = '已禁用';
 				$vo ['action'] = '启用';
@@ -171,5 +172,10 @@ class IndexController extends HomeController {
 		define ( 'ADDON_PUBLIC_PATH', ONETHINK_ADDON_PATH . 'Leaflets/View/default/Public' );
 		
 		$this->display ( SITE_PATH . '/Addons/Leaflets/View/default/Leaflets/show.html' );
+	}
+	// 定时任务调用入口
+	function cron() {
+		D ( 'Home/Cron' )->run ();
+		echo date ( 'Y-m-d H:i:s' ) . "\r\n";
 	}
 }

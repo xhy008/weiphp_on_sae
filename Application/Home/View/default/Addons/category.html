@@ -24,6 +24,9 @@
 				<div class="fold">折叠</div>
 				<div class="order">排序</div>
 				<!--<div class="order">发布</div>-->
+                <notempty name="group.has_admin">
+                <div class="has_admin">管理员</div>
+                </notempty>                
 				<div class="name">名称</div>
 			</div>
 			{:R('Category/tree', array($tree))}
@@ -58,7 +61,7 @@
 			$(".category {$level_path} .add-sub-cate").remove();
 
 			/* 实时更新分类信息 */
-			$(".category")
+			$(".table-striped")
 				.on("submit", "form", function(){
 					var self = $(this);
 					$.post(

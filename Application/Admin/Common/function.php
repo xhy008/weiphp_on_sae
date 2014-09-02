@@ -21,7 +21,7 @@ function get_model_by_id($id){
 function get_attribute_type($type=''){
     // TODO 可以加入系统配置
     static $_type = array(
-        'num'       =>  array('数字','int(10) NOT NULL'),
+        'num'       =>  array('数字','int(10) UNSIGNED NOT NULL'),
         'string'    =>  array('字符串','varchar(255) NOT NULL'),
         'textarea'  =>  array('文本框','text NOT NULL'),
         'datetime'  =>  array('时间','int(10) NOT NULL'),
@@ -105,37 +105,6 @@ function get_config_group($group=0){
     return $group?$list[$group]:'';
 }
 
-/**
- * select返回的数组进行整数映射转换
- *
- * @param array $map  映射关系二维数组  array(
- *                                          '字段名1'=>array(映射关系数组),
- *                                          '字段名2'=>array(映射关系数组),
- *                                           ......
- *                                       )
- * @author 朱亚杰 <zhuyajie@topthink.net>
- * @return array
- *
- *  array(
- *      array('id'=>1,'title'=>'标题','status'=>'1','status_text'=>'正常')
- *      ....
- *  )
- *
- */
-function int_to_string(&$data,$map=array('status'=>array(1=>'正常',-1=>'删除',0=>'禁用',2=>'未审核',3=>'草稿'))) {
-    if($data === false || $data === null ){
-        return $data;
-    }
-    $data = (array)$data;
-    foreach ($data as $key => $row){
-        foreach ($map as $col=>$pair){
-            if(isset($row[$col]) && isset($pair[$row[$col]])){
-                $data[$key][$col.'_text'] = $pair[$row[$col]];
-            }
-        }
-    }
-    return $data;
-}
 
 /**
  * 动态扩展左侧菜单,base.html里用到

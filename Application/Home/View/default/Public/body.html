@@ -1,18 +1,24 @@
 <block name="header"></block>
 <php>
-$m = strtolower(MODULE_NAME);
-$c = strtolower(CONTROLLER_NAME);
-$a = strtolower(ACTION_NAME);
-
 //验证登录
 if(!is_login()){
    Cookie ( '__forward__', $_SERVER ['REQUEST_URI'] );
    redirect(U('home/user/login'));
 }
 
-$ad = ucfirst ( parse_name ( $_REQUEST['_addons'], 1 ) );
-$navClass[$ad] = 'active';
-$navClass[$m.'_'.$c.'_'.$a] = 'active';
+if(isset($_GET['sidenav'])){
+    $navClass[$_GET['sidenav']] = 'active';
+}else{
+    $m = strtolower(MODULE_NAME);
+    $c = strtolower(CONTROLLER_NAME);
+    $a = strtolower(ACTION_NAME);
+    $navClass[$m] = $navClass[$m.'_'.$c] = $navClass[$m.'_'.$c.'_'.$a] = 'active';
+    
+    $ad = ucfirst ( parse_name ( $_REQUEST['_addons'], 1 ) );
+    $cl = ucfirst ( parse_name ( $_REQUEST['_controller'], 1 ) );
+    $navClass[$ad] = $navClass[$ad.'_'.$cl] = 'active';
+}
+
 $addonList = D ( 'Addons' )->getWeixinList (false, array(), true);
 
 $categorys = M ( 'addon_category' )->order ( 'sort asc, id desc' )->select ();
@@ -29,13 +35,13 @@ foreach($categorys as &$cate){
 	<div class="sidebar">
     	<ul class="sidenav">
           <li>
-              <a class="sidenav_parent" href="javascript:;"><b class="ficon fa fa-plus-square"></b>账号管理</a>
+              <a class="sidenav_parent" href="javascript:;"><b class="ficon fa fa-plus-square"></b>帐号管理</a>
               <ul class="sidenav_sub" style="display:none">
-                  <li class="{$navClass['home_memberpublic_lists']}"> <a href="{:U('Home/MemberPublic/lists')}">公众号管理 </a> <b class="active_arrow"></b></li>
+                  <li class="{$navClass['home_memberpublic']}"> <a href="{:U('Home/MemberPublic/lists')}">公众号管理 </a> <b class="active_arrow"></b></li>
                   <li class="{$navClass['home_index_main']}"> <a href="{:U('Home/Index/main')}">插件管理 </a> <b class="active_arrow"></b></li>
                   <li class="{$navClass['home_creditconfig_lists']}"> <a href="{:U('Home/CreditConfig/lists')}">积分配置 </a> <b class="active_arrow"></b></li>
-                  <li class="{$navClass['home_keyword_lists']}"> <a href="{:U('Home/Keyword/lists')}">关键词维护 </a> <b class="active_arrow"></b></li>
-                  <li class="{$navClass['home_cascade_lists']}"> <a href="{:U('Home/Cascade/lists')}">级联数据管理 </a> <b class="active_arrow"></b></li>
+                  <li class="{$navClass['home_keyword']}"> <a href="{:U('Home/Keyword/lists')}">关键词维护 </a> <b class="active_arrow"></b></li>
+                  <li class="{$navClass['home_cascade']}"> <a href="{:U('Home/Cascade/lists')}">级联数据管理 </a> <b class="active_arrow"></b></li>
              </ul>
           </li>
           

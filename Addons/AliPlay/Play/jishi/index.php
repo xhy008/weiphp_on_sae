@@ -1,6 +1,6 @@
 <?php
 /* *
- * 功能：支付宝即时到账交易接口接口调试入口页面
+ * 功能：支付宝即时到帐交易接口接口调试入口页面
  * 版本：3.3
  * 日期：2012-07-23
  * 说明：
@@ -11,7 +11,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 	<head>
-	<title>支付宝即时到账交易接口接口</title>
+	<title>支付宝即时到帐交易接口接口</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <style>
 *{
@@ -159,7 +159,7 @@ ul,ol{
                 <a target="_blank" href="https://b.alipay.com/home.htm"><span>商家服务</span></a>|
                 <a target="_blank" href="http://help.alipay.com/support/index_sh.htm"><span>帮助中心</span></a>
             </dl>
-            <span class="title">支付宝即时到账交易接口快速通道</span>
+            <span class="title">支付宝即时到帐交易接口快速通道</span>
 		</div>
         <div class="cashier-nav">
             <ol>
@@ -175,27 +175,32 @@ ul,ol{
                     <dd>
                         <span class="null-star">*</span>
                         <input size="30" name="WIDseller_email" />
-                        <span>必填</span>
+                        <span>必填
+</span>
                     </dd>
                     <dt>商户订单号：</dt>
                     <dd>
                         <span class="null-star">*</span>
                         <input size="30" name="WIDout_trade_no" />
-                        <span>商户网站订单系统中唯一订单号，必填</span>
+                        <span>商户网站订单系统中唯一订单号，必填
+</span>
                     </dd>
                     <dt>订单名称：</dt>
                     <dd>
                         <span class="null-star">*</span>
                         <input size="30" name="WIDsubject" />
-                        <span>必填</span>
+                        <span>必填
+</span>
                     </dd>
                     <dt>付款金额：</dt>
                     <dd>
                         <span class="null-star">*</span>
                         <input size="30" name="WIDtotal_fee" />
-                        <span>必填</span>
+                        <span>必填
+</span>
                     </dd>
-                    <dt>订单描述：</dt>
+                    <dt>订单描述
+：</dt>
                     <dd>
                         <span class="null-star">*</span>
                         <input size="30" name="WIDbody" />
@@ -205,7 +210,8 @@ ul,ol{
                     <dd>
                         <span class="null-star">*</span>
                         <input size="30" name="WIDshow_url" />
-                        <span>需以http://开头的完整路径，例如：http://www.xxx.com/myorder.html</span>
+                        <span>需以http://开头的完整路径，例如：http://www.xxx.com/myorder.html
+</span>
                     </dd>
 					<dt></dt>
                     <dd>

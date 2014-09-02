@@ -8,15 +8,15 @@ namespace Home\Controller;
  */
 class WeixinController extends HomeController {
 	var $token;
-	private $data = array();
+	private $data = array ();
 	public function index() {
-		//删除微信传递的token干扰
-		unset($_REQUEST['token']);
-			
+		// 删除微信传递的token干扰
+		unset ( $_REQUEST ['token'] );
+		
 		$weixin = D ( 'Weixin' );
 		// 获取数据
 		$data = $weixin->getData ();
-		 $this->data =$data;
+		$this->data = $data;
 		if (! empty ( $data ['ToUserName'] )) {
 			get_token ( $data ['ToUserName'] );
 		}
@@ -26,7 +26,7 @@ class WeixinController extends HomeController {
 		
 		$this->token = $data ['ToUserName'];
 		
-		$this->initFollow ($weixin);
+		$this->initFollow ( $weixin );
 		
 		// 记录日志
 		addWeixinLog ( $data, $GLOBALS ['HTTP_RAW_POST_DATA'] );
@@ -55,7 +55,6 @@ class WeixinController extends HomeController {
 		 * subscribe : 关注公众号
 		 * unsubscribe : 取消关注公众号
 		 * scan : 扫描带参数二维码事件
-		 * location : 上报地理位置事件
 		 * click : 自定义菜单事件
 		 */
 		if ($data ['MsgType'] == 'event') {
@@ -69,6 +68,15 @@ class WeixinController extends HomeController {
 				$key = $data ['Content'] = $data ['EventKey'];
 			} else {
 				return true;
+			}
+		}
+		// location : 上报地理位置事件 感谢网友【blue7wings】和【strivi】提供的方案
+		if ($data ['MsgType'] == 'location') {
+			$event = strtolower ( $data ['MsgType'] );
+			foreach ( $addon_list as $vo ) {
+				require_once ONETHINK_ADDON_PATH . $vo ['name'] . '/Model/WeixinAddonModel.class.php';
+				$model = D ( 'Addons://' . $vo ['name'] . '/WeixinAddon' );
+				! method_exists ( $model, $event ) || $model->$event ( $data );
 			}
 		}
 		
@@ -88,11 +96,20 @@ class WeixinController extends HomeController {
 			S ( 'user_status_' . $openid, null );
 		}
 		
-		// 通过插件标识名和插件名来定位处理的插件
+		// 通过插件标识名、插件名或者自定义关键词来定位处理的插件
 		if (! isset ( $addons [$key] )) {
 			foreach ( $addon_list as $k => $vo ) {
 				$addons [$vo ['name']] = $k;
 				$addons [$vo ['title']] = $k;
+				
+				$path = ONETHINK_ADDON_PATH . $vo ['name'] . '/keyword.php';
+				if (file_exists ( $path )) {
+					$keywords = include $path;
+					if (isset ( $keywords [$key] )) {
+						$addons [$key] = $k;
+						$keywordArr = $keywords [$key];
+					}
+				}
 			}
 		}
 		
@@ -112,9 +129,9 @@ class WeixinController extends HomeController {
 			$like ['keyword_type'] = 0;
 			$keywordArr = M ( 'keyword' )->where ( $like )->order ( 'id desc' )->find ();
 			
-			if(!empty($keywordArr ['addon'])){
+			if (! empty ( $keywordArr ['addon'] )) {
 				$addons [$key] = $keywordArr ['addon'];
-				$this->request_count($keywordArr);
+				$this->request_count ( $keywordArr );
 			}
 		}
 		// 通过模糊关键词来定位处理的插件
@@ -131,24 +148,29 @@ class WeixinController extends HomeController {
 			}
 		}
 		
-				
-		//通过通配符，查找默认处理方式
-		//by 肥仔聪要淡定 2014.6.8
+		// 通过通配符，查找默认处理方式
+		// by 肥仔聪要淡定 2014.6.8
 		if (! isset ( $addons [$key] )) {
 			unset ( $like ['keyword_type'] );
-			$like ['keyword'] ='*';
+			$like ['keyword'] = '*';
 			$keywordArr = M ( 'keyword' )->where ( $like )->order ( 'id desc' )->find ();
-		
-			if(!empty($keywordArr ['addon'])){
+			
+			if (! empty ( $keywordArr ['addon'] )) {
 				$addons [$key] = $keywordArr ['addon'];
-				$this->request_count($keywordArr);
+				$this->request_count ( $keywordArr );
 			}
 		}
-
 		
 		// 以上都无法定位插件时，如果开启了智能聊天，则默认使用智能聊天插件
 		if (! isset ( $addons [$key] ) && isset ( $addon_list ['Chat'] )) {
-			$addons [$key] = 'Chat';
+			
+			// 您问我答插件特殊处理
+			$YouaskServiceconfig = getAddonConfig ( 'YouaskService' ); // 获取后台插件的配置参数
+			if ($YouaskServiceconfig ['state'] == 1) {
+				$addons [$key] = 'YouaskService';
+			} else {
+				$addons [$key] = 'Chat';
+			}
 		}
 		
 		// 最终也无法定位到插件，终止操作
@@ -161,7 +183,7 @@ class WeixinController extends HomeController {
 		$model = D ( 'Addons://' . $addons [$key] . '/WeixinAddon' );
 		$model->reply ( $data, $keywordArr );
 		
-		//运营统计
+		// 运营统计
 		tongji ( $addons [$key] );
 	}
 	
@@ -175,7 +197,7 @@ class WeixinController extends HomeController {
 			if (preg_match ( $keywordInfo ['keyword'], $key )) {
 				$addons [$key] = $keywordInfo ['addon'];
 				$keywordArr = $keywordInfo;
-				$this->request_count($keywordArr);
+				$this->request_count ( $keywordArr );
 			}
 			return false;
 		}
@@ -199,14 +221,14 @@ class WeixinController extends HomeController {
 			$keywordArr ['prefix'] = trim ( $arr [0] ); // 关键词前缀，即包含关键词的前面部分
 			$keywordArr ['suffix'] = trim ( $arr [1] ); // 关键词后缀，即包含关键词的后面部分
 			
-			$this->request_count($keywordArr);
+			$this->request_count ( $keywordArr );
 		}
 	}
 	
 	// 保存关键词的请求数
-	private function request_count($keywordArr){
-		$map['id'] = $keywordArr['id'];
-		M ( 'keyword' )->where ( $map )->setInc( 'request_count' );
+	private function request_count($keywordArr) {
+		$map ['id'] = $keywordArr ['id'];
+		M ( 'keyword' )->where ( $map )->setInc ( 'request_count' );
 	}
 }
 ?>

@@ -21,7 +21,7 @@ return array(
     'TMPL_ACTION_ERROR'     =>  MODULE_PATH.'View/Public/error.html', // 默认错误跳转对应的模板文件
     'TMPL_ACTION_SUCCESS'   =>  MODULE_PATH.'View/Public/success.html', // 默认成功跳转对应的模板文件
     'TMPL_EXCEPTION_FILE'   =>  MODULE_PATH.'View/Public/exception.html',// 异常页面的模板文件
-
+	
     /* 模板相关配置 */
     'TMPL_PARSE_STRING' => array(
         '__STATIC__' => __ROOT__ . '/Public/static',
@@ -33,7 +33,7 @@ return array(
     /* 数据缓存设置 */
     'DATA_CACHE_PREFIX'    => 'weiphp_', // 缓存前缀
     'DATA_CACHE_TYPE'      => 'File', // 数据缓存类型
-
+	
     /* 文件上传相关配置 */
     'DOWNLOAD_UPLOAD' => array(
         'mimes'    => '', //允许上传的文件MiMe类型
@@ -48,8 +48,8 @@ return array(
         'replace'  => false, //存在同名是否覆盖
         'hash'     => true, //是否生成hash编码
         'callback' => false, //检测文件是否存在回调函数，如果存在返回文件信息数组
-    ), //下载模型上传配置（文件上传类配置）
-
+    ), //下载模型上传配置（文件上传类配置）	
+	
     /* 图片上传相关配置 */
     'PICTURE_UPLOAD' => array(
 		'mimes'    => '', //允许上传的文件MiMe类型

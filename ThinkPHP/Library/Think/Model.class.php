@@ -2,7 +2,7 @@
 // +----------------------------------------------------------------------
 // | ThinkPHP [ WE CAN DO IT JUST THINK IT ]
 // +----------------------------------------------------------------------
-// | Copyright (c) 2006-2013 http://thinkphp.cn All rights reserved.
+// | Copyright (c) 2006-2014 http://thinkphp.cn All rights reserved.
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
@@ -821,6 +821,10 @@ class Model {
         }
         return null;
     }
+		// 获取多个记录的便捷方法，weiphp增加
+	public function getFields($field) {
+		return $this->getField ( $field, true );
+	}
 
     /**
      * 创建数据对象 但不保存到数据库
@@ -938,6 +942,11 @@ class Model {
      * @return boolean
      */
     public function regex($value,$rule) {
+		// weiphp 解决设置模型字段设置多选和必填时验证失败的问题
+		if (is_array ( $value ) && $rule == 'require') {
+			return ! empty ( $value );
+		}
+    	
         $validate = array(
             'require'   =>  '/\S+/',
             'email'     =>  '/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/',

@@ -107,7 +107,6 @@ $.fn.json2select=function(json,dft,name,deep,css) {
 				}
             });
 			var res = arrayObj.join(',');
-			console.log(res);
 			$('#data_'+name).val(res);
 			
 		}).appendTo(_this).val(dft[0]||0).trigger("change",[true]);

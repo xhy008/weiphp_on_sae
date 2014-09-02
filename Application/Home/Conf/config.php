@@ -16,7 +16,7 @@ $token = get_token();
 return array(
     // 预先加载的标签库
     'TAGLIB_PRE_LOAD'     =>    'OT\\TagLib\\Article,OT\\TagLib\\Think',
-
+        
     /* 主题设置 */
     'DEFAULT_THEME' =>  'default',  // 默认模板主题名称
 
@@ -53,7 +53,7 @@ return array(
         'callback' => false, //检测文件是否存在回调函数，如果存在返回文件信息数组
     ), //附件上传配置（文件上传类配置）
 
-	'ATTACHMENT_UPLOAD_DRIVER'=>'SAE',
+    'ATTACHMENT_UPLOAD_DRIVER'=>'SAE',
 
 	/* 模板相关配置 */
     'TMPL_PARSE_STRING' => array(
@@ -66,7 +66,7 @@ return array(
     /* 数据缓存设置 */
     'DATA_CACHE_PREFIX'    => 'weiphp_', // 缓存前缀
     'DATA_CACHE_TYPE'      => 'File', // 数据缓存类型
-
+	
     /* 文件上传相关配置 */
     'DOWNLOAD_UPLOAD' => array(
         'mimes'    => '', //允许上传的文件MiMe类型
@@ -81,8 +81,8 @@ return array(
         'replace'  => false, //存在同名是否覆盖
         'hash'     => true, //是否生成hash编码
         'callback' => false, //检测文件是否存在回调函数，如果存在返回文件信息数组
-    ), //下载模型上传配置（文件上传类配置）
-
+    ), //下载模型上传配置（文件上传类配置）	
+	
     /* 图片上传相关配置 */
     'PICTURE_UPLOAD' => array(
 		'mimes'    => '', //允许上传的文件MiMe类型

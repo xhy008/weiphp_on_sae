@@ -5,7 +5,7 @@
       <include file="Addons/_nav" />
       <div class="tab-content"> 
         <!-- 表单 -->
-        <php> $post_url || $post_url = U('add?model='.$model['id']);</php>
+        <php> $post_url || $post_url = U('add?model='.$model['id'], $get_param);</php>
         <form id="form" action="{$post_url}" method="post" class="form-horizontal form-center">
           <!-- 基础文档模型 -->
           <volist name=":parse_config_attr($model['field_group'])" id="group">
@@ -17,7 +17,7 @@
                   <input type="hidden" class="text input-large" name="{$field.name}" value="{:I($field[name], $field[value])}">
                 </if>
                 <if condition="$field['is_show'] == 1 || $field['is_show'] == 2 || ($field['is_show'] == 5 && I($field['name']))">
-                  <div class="form-item cf" rel="{$field.name}">
+                  <div class="form-item cf toggle-{$field.name}">
                     <label class="item-label">
                     <notempty name="field.is_must"><span class="need_flag">*</span></notempty>
                     {$field['title']}
@@ -27,7 +27,7 @@
                     <div class="controls">
                       <switch name="field.type">
                         <case value="num">
-                          <input type="text" class="text input-medium" name="{$field.name}" value="{:I($field[name], $field[value])}">
+                          <input type="number" class="text input-medium" name="{$field.name}" value="{:I($field[name], $field[value])}">
                         </case>
                         <case value="string">
                           <input type="text" class="text input-large" name="{$field.name}" value="{:I($field[name], $field[value])}">
@@ -38,25 +38,25 @@
                           </label>
                         </case>
                         <case value="datetime">
-                          <input type="text" name="{$field.name}" class="text input-large time" value="{:I($field[name], $field[value])}" placeholder="请选择时间" />
+                          <input type="datetime" name="{$field.name}" class="text input-large time" value="{:I($field[name], $field[value])}" placeholder="请选择时间" />
                         </case>
                         <case value="date">
-                          <input type="text" name="{$field.name}" class="text input-large date" value="{:I($field[name], $field[value])}" placeholder="请选择日期" />
+                          <input type="datetime" name="{$field.name}" class="text input-large date" value="{:I($field[name], $field[value])}" placeholder="请选择日期" />
                         </case>                        
                         <case value="bool">
                           <select name="{$field.name}">
-                            <volist name=":parse_field_attr($field['extra'])" id="vo"> <option value="{$key}" 
+                            <volist name=":parse_field_attr($field['extra'])" id="vo"> <option value="{$key}" class="toggle-data" toggle-data="{$vo|get_hide_attr}"
                               <eq name="field.value" value="$key">selected</eq>
-                              >{$vo}
+                              >{$vo|clean_hide_attr}
                               </option>
                             </volist>
                           </select>
                         </case>
                         <case value="select">
                           <select name="{$field.name}">
-                            <volist name=":parse_field_attr($field['extra'])" id="vo"> <option value="{$key}" 
+                            <volist name=":parse_field_attr($field['extra'])" id="vo"> <option value="{$key}" class="toggle-data" toggle-data="{$vo|get_hide_attr}"
                               <eq name="field.value" value="$key">selected</eq>
-                              >{$vo}
+                              >{$vo|clean_hide_attr}
                               </option>
                             </volist>
                           </select>
@@ -69,15 +69,15 @@
                           <volist name=":parse_field_attr($field['extra'])" id="vo">
                             <div class="check-item">
 							<!--[if !IE]><!-->  
-								  <input type="radio" class="regular-radio" value="{$key}" id="{$field.name}_{$key}" name="{$field.name}"
+								  <input type="radio" class="regular-radio toggle-data" value="{$key}" id="{$field.name}_{$key}" name="{$field.name}" toggle-data="{$vo|get_hide_attr}"
 								  <eq name="field.value" value="$key">checked</eq> />
-								  <label for="{$field.name}_{$key}"></label>{$vo} 
+								  <label for="{$field.name}_{$key}"></label>{$vo|clean_hide_attr} 
 							   <!--<![endif]-->
 							   <!--[if IE]>
 							       <input type="radio" value="{$key}" 
-								   id="{$field.name}_{$key}" name="{$field.name}" 
+								   id="{$field.name}_{$key}" name="{$field.name}" class="toggle-data" toggle-data="{$vo|get_hide_attr}"
 								  <eq name="field.value" value="$key">checked="checked"</eq> />
-								  <label for="{$field.name}_{$key}"></label>{$vo}
+								  <label for="{$field.name}_{$key}"></label>{$vo|clean_hide_attr}
 							   <![endif]-->
                              </div>
                           </volist>
@@ -85,9 +85,9 @@
                         <case value="checkbox">
                           <volist name=":parse_field_attr($field['extra'])" id="vo">
                             <div class="check-item">
-                              <input type="checkbox" class="regular-radio" value="{$key}" id="{$field.name}_{$key}" name="{$field.name}[]"
+                              <input type="checkbox" class="regular-checkbox toggle-data" value="{$key}" id="{$field.name}_{$key}" name="{$field.name}[]" toggle-data="{$vo|get_hide_attr}"
                               <in name="key" value="$field['value']" >checked="checked"</in> >
-                              <label for="{$field.name}_{$key}"></label>{$vo} 
+                              <label for="{$field.name}_{$key}"></label>{$vo|clean_hide_attr} 
                               </div>
                           </volist>
                         </case>
@@ -141,7 +141,7 @@
 								</script> 
                         </case>
                         <case value="file">
-                          <div class="controls">
+                          <div class="controls upload_file">
                             <input type="file" id="upload_file_{$field.name}" title="点击修改文件">
                             <input type="hidden" name="{$field.name}" value="{$data[$field['name']]}"/>
                             <div class="upload-img-box">
@@ -154,7 +154,7 @@
 								//上传图片
 							    /* 初始化上传插件 */
 								$("#upload_file_{$field.name}").uploadify({
-							        "height"          : 120,
+							        "height"          : 30,
 							        "swf"             : "__STATIC__/uploadify/uploadify.swf",
 							        "fileObjName"     : "download",
 							        "buttonText"      : "上传附件",
@@ -206,7 +206,7 @@
     <link href="__STATIC__/datetimepicker/css/datetimepicker_blue.css?v={:SITE_VERSION}" rel="stylesheet" type="text/css">
     ';</php>
   <link href="__STATIC__/datetimepicker/css/dropdown.css?v={:SITE_VERSION}" rel="stylesheet" type="text/css">
-  <script type="text/javascript" src="__STATIC__/datetimepicker/js/bootstrap-datetimepicker.min.js"></script> 
+  <script type="text/javascript" src="__STATIC__/datetimepicker/js/bootstrap-datetimepicker.js"></script> 
   <script type="text/javascript" src="__STATIC__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js?v={:SITE_VERSION}" charset="UTF-8"></script> 
   <script type="text/javascript">
 $('#submit').click(function(){
@@ -217,7 +217,7 @@ $(function(){
     $('.time').datetimepicker({
         format: 'yyyy-mm-dd hh:ii',
         language:"zh-CN",
-        minView:2,
+        minView:0,
         autoclose:true
     });
     $('.date').datetimepicker({
@@ -227,12 +227,17 @@ $(function(){
         autoclose:true
     });	
     showTab();
-	$('#form select').change(change_event(this));
-	$('#form input[name="radio"]').change(change_event(this));
-	$('#form input[name="checkbox"]').change(change_event(this));
-});
-function change_event(obj){
 	
-}
+	$('.toggle-data').each(function(){
+		var data = $(this).attr('toggle-data');
+		if(data=='') return true;		
+		
+	     if($(this).is(":selected") || $(this).is(":checked")){
+			 change_event(this)
+		 }
+	});
+	
+	$('.toggle-data').bind("click",function(){ change_event(this) });
+});
 </script> 
 </block>

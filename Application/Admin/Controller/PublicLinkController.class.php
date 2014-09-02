@@ -25,6 +25,17 @@ class PublicLinkController extends AdminController {
 		$model = $this->getModel ( $this->table );
 		
 		$map ['mp_id'] = intval ( $_GET ['mp_id'] );
+		if (! empty ( $_GET ['title'] )) {
+			$title = I ( 'get.title' );
+			$where = "nickname like '%$title%'";
+			$uids = M ( 'member' )->where ( $where )->field ( 'uid' )->select ();
+			$uids = getSubByKey ( $uids, 'uid' );
+			$uids [] = 0;
+			$map ['uid'] = array (
+					'in',
+					$uids 
+			);
+		}
 		session ( 'common_condition', $map );
 		
 		$list_data = $this->_get_model_list ( $model );
@@ -38,7 +49,8 @@ class PublicLinkController extends AdminController {
 		// dump($list_data);
 		
 		$this->assign ( 'add_url', U ( 'add?model=' . $model ['id'] . '&mp_id=' . $map ['mp_id'] ) );
-		$this->assign ( 'search_button', false );
+		$this->assign ( 'search_url', U ( 'lists?model=' . $model ['id'] . '&mp_id=' . $map ['mp_id'] ) );
+		// $this->assign ( 'search_button', false );
 		
 		$this->display ( 'Think:lists' );
 	}

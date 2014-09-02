@@ -36,7 +36,7 @@ class QuestionController extends AddonsController {
 		$map ['survey_id'] = $this->survey_id;
 		session ( 'common_condition', $map );
 		
-		parent::common_lists ( $this->model );
+		parent::common_lists ( $this->model, 0, '', $order = 'sort asc,id asc' );
 	}
 	
 	// 通用插件的编辑模型

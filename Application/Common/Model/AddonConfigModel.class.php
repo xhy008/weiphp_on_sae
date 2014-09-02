@@ -31,6 +31,101 @@ class AddonConfigModel extends Model {
 
 		return $flag;
 	}
+	
+	function sett($addon, $config, $id) {
+		$map ['token'] = get_token ();
+		$map['id']=$id;
+		if (empty ( $map ['token'] )) {
+			return false;
+		}
+		$info = M ( 'weisite_category' )->where ( $map )->find ();
+		if (! $info) {
+			//$map['id']=$id;
+			$map ['uid'] = session('mid');
+			$addon_config [$addon] = $config;
+			$map ['addon_config'] = json_encode ( $addon_config );
+			
+			$aaa = M ( 'weisite_category' )->add( $map );
+		} else {
+			$addon_config = json_decode ( $info ['addon_config'], true );
+			$addon_config [$addon] = $config;
+			$aaa = M ( 'weisite_category' )->where ( $map )->setField ( 'addon_config', json_encode ( $addon_config ) );
+		}
+
+		return $aaa;
+	}
+	
+	function setlist($addon, $config, $id) {
+		$map ['token'] = get_token ();
+		$map['id']=$id;
+		if (empty ( $map ['token'] )) {
+			return false;
+		}
+		$info = M ( 'weisite_category' )->where ( $map )->find ();
+		if (! $info) {
+			//$map['id']=$id;
+			$map ['uid'] = session('mid');
+			$addon_config [$addon] = $config;
+			$map ['listts'] = json_encode ( $addon_config );
+			
+			$aaa = M ( 'weisite_category' )->add( $map );
+		} else {
+			$addon_config = json_decode ( $info ['listts'], true );
+			$addon_config [$addon] = $config;
+			$aaa = M ( 'weisite_category' )->where ( $map )->setField ( 'listts', json_encode ( $addon_config ) );
+		}
+
+		return $aaa;
+	}
+	
+	
+	function setdetail($addon, $config, $id) {
+		$map ['token'] = get_token ();
+		$map['id']=$id;
+		if (empty ( $map ['token'] )) {
+			return false;
+		}
+		$info = M ( 'weisite_category' )->where ( $map )->find ();
+		if (! $info) {
+			//$map['id']=$id;
+			$map ['uid'] = session('mid');
+			$addon_config [$addon] = $config;
+			$map ['content'] = json_encode ( $addon_config );
+			
+			$aaa = M ( 'weisite_category' )->add( $map );
+		} else {
+			$addon_config = json_decode ( $info ['content'], true );
+			$addon_config [$addon] = $config;
+			$aaa = M ( 'weisite_category' )->where ( $map )->setField ( 'content', json_encode ( $addon_config ) );
+		}
+
+		return $aaa;
+	}
+	
+	
+	function setfooter($addon, $config, $id) {
+		$map ['token'] = get_token ();
+		$map['id']=$id;
+		if (empty ( $map ['token'] )) {
+			return false;
+		}
+		$info = M ( 'weisite_category' )->where ( $map )->find ();
+		if (! $info) {
+			//$map['id']=$id;
+			$map ['uid'] = session('mid');
+			$addon_config [$addon] = $config;
+			$map ['footer'] = json_encode ( $addon_config );
+			
+			$aaa = M ( 'weisite_category' )->add( $map );
+		} else {
+			$addon_config = json_decode ( $info ['footer'], true );
+			$addon_config [$addon] = $config;
+			$aaa = M ( 'weisite_category' )->where ( $map )->setField ( 'footer', json_encode ( $addon_config ) );
+		}
+
+		return $aaa;
+	}
+	
 	/**
 	 * 获取插件配置
 	 * 获取的优先级：当前公众号设置》后台默认配置》安装文件上的配置

@@ -31,6 +31,7 @@ class CategoryController extends HomeController {
 		$this->assign ( 'nav', $nav );
 		
 		$this->model = $this->getModel ( 'common_category' );
+		$_GET['sidenav'] = 'home_cascade';
 	}
 	public function lists() {
 		$tree = D ( 'Category' )->getTree ( 0 );
@@ -40,12 +41,13 @@ class CategoryController extends HomeController {
 		C ( '_SYS_GET_CATEGORY_TREE_', true ); // 标记系统获取分类树模板
 		
 		$map ['name'] = I ( 'module' );
-		$level = M ( 'common_category_group' )->where ( $map )->getField ( 'level' );
+		$group = M ( 'common_category_group' )->where ( $map )->find (  );
 		$level_path = '';
-		for($i = 1; $i < $level; $i ++) {
+		for($i = 1; $i < $group['level']; $i ++) {
 			$level_path .= ' dd';
 		}
 		$this->assign ( 'level_path', $level_path ); // 最多允许增加的层级
+		$this->assign ( 'group', $group );
 		
 		$this->display ( 'Addons/category' );
 	}
@@ -183,6 +185,10 @@ class CategoryController extends HomeController {
 			/* 获取分类信息 */
 			$info = $id ? $Category->info ( $id ) : '';
 			
+			$map ['name'] = I ( 'module' );
+			$group = M ( 'common_category_group' )->where ( $map )->find ();
+			$this->assign ( 'group', $group );
+			
 			$this->assign ( 'info', $info );
 			$this->assign ( 'category', $cate );
 			$this->meta_title = '编辑分类';
@@ -212,6 +218,10 @@ class CategoryController extends HomeController {
 					$this->error ( '指定的上级分类不存在或被禁用！' );
 				}
 			}
+			
+			$map ['name'] = I ( 'module' );
+			$group = M ( 'common_category_group' )->where ( $map )->find ();
+			$this->assign ( 'group', $group );
 			
 			/* 获取分类信息 */
 			$this->assign ( 'category', $cate );

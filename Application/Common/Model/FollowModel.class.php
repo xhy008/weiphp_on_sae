@@ -39,7 +39,7 @@ class FollowModel extends Model {
 		if ($res)
 			return $res ['id'];
 		
-		$email = time () . '@weiphp.cn';
+		$email = time ().rand(01,99) . '@weiphp.cn';
 		$nickname = uniqid().rand(01,99);
 		
 		/* 调用注册接口注册用户 */

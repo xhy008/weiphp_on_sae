@@ -343,11 +343,20 @@ class AuthManagerController extends AdminController {
 	 * @author 朱亚杰 <zhuyajie@topthink.net>
 	 */
 	public function addToGroup() {
-		$uid = I ( 'uid' );
-		$gid = I ( 'group_id' );
+		$members = I ( 'members' );
+		$members = wp_explode ( $members );
+		$map ['nickname'] = array (
+				'in',
+				$members 
+		);
+		$uid = M ( 'member' )->where ( $map )->getFields ( 'id' );
 		if (empty ( $uid )) {
 			$this->error ( '参数有误' );
 		}
+		$uid = implode(',', $uid);
+		
+		$gid = I ( 'group_id' );
+		
 		$AuthGroup = D ( 'AuthGroup' );
 		if (is_numeric ( $uid )) {
 			if (is_administrator ( $uid )) {
@@ -445,7 +454,7 @@ class AuthManagerController extends AdminController {
 		}
 	}
 	public function public_count() {
-		$uid = I('uid', 0, 'intval');
+		$uid = I ( 'uid', 0, 'intval' );
 		if (IS_POST) {
 			$map ['uid'] = $uid;
 			$public_count = intval ( $_POST ['public_count'] );

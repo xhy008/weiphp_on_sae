@@ -17,7 +17,8 @@
         <!-- 高级搜索 -->
         <div class="search-form fr cf">
           <div class="sleft">
-            <input type="text" name="{$model['search_key']|default='title'}" class="search-input" value="{:I('title')}" placeholder="请输入关键字">
+          <php>empty($search_key) && $search_key=$model['search_key'];empty($search_key) && $search_key='title';</php>
+            <input type="text" name="{$search_key}" class="search-input" value="{:I($search_key)}" placeholder="请输入关键字">
             <a class="sch-btn" href="javascript:;" id="search" url="{:U('lists','model='.$model['name'],false)}"><i class="btn-search"></i></a> </div>
         </div>
       </div>

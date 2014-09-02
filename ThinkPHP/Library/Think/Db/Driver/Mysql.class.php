@@ -2,7 +2,7 @@
 // +----------------------------------------------------------------------
 // | ThinkPHP [ WE CAN DO IT JUST THINK IT ]
 // +----------------------------------------------------------------------
-// | Copyright (c) 2006-2013 http://thinkphp.cn All rights reserved.
+// | Copyright (c) 2006-2014 http://thinkphp.cn All rights reserved.
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
@@ -24,7 +24,7 @@ class Mysql extends Db{
      */
     public function __construct($config=''){
         if ( !extension_loaded('mysql') ) {
-            E(L('_NOT_SUPPERT_').':mysql');
+            E(L('_NOT_SUPPORT_').':mysql');
         }
         if(!empty($config)) {
             $this->config   =   $config;
@@ -155,7 +155,7 @@ class Mysql extends Db{
     /**
      * 用于非自动提交状态下面的查询提交
      * @access public
-     * @return boolen
+     * @return boolean
      */
     public function commit() {
         if ($this->transTimes > 0) {
@@ -172,7 +172,7 @@ class Mysql extends Db{
     /**
      * 事务回滚
      * @access public
-     * @return boolen
+     * @return boolean
      */
     public function rollback() {
         if ($this->transTimes > 0) {

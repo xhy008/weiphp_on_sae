@@ -27,11 +27,12 @@ img {
 	max-width: 100%;
 }
 a {
-	color: #1fce02;
+	color: #0b2a84;
 	text-decoration:none;
 }
 a:hover{
 	text-decoration:none;
+	color:#e60002
 }
 input,button,textarea,select,option {
 	font-family:inherit;

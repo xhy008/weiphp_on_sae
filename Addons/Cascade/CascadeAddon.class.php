@@ -13,7 +13,7 @@ class CascadeAddon extends Addon {
 	public $info = array (
 			'name' => 'Cascade',
 			'title' => '级联菜单',
-			'description' => '支持无级级联菜单，用于地区选择、多层分类选择等场景。菜单的数据来源支持查询数据库和直接用户按格式输入两种方式',
+			'description' => '支持无级级联菜单（当然也包括常见的一级下拉菜单也可以用此插件来实现），用于地区选择、多层分类选择等场景。菜单的数据来源支持查询数据库和直接用户按格式输入两种方式',
 			'status' => 1,
 			'author' => '凡星',
 			'version' => '0.1',
@@ -40,12 +40,15 @@ class CascadeAddon extends Addon {
 		if ($arr ['type'] == 'db') {
 			$table = ! empty ( $arr ['table'] ) ? $arr ['table'] : 'common_category';
 			$value_field = ! empty ( $arr ['value_field'] ) ? $arr ['value_field'] : 'id';
-			unset ( $arr ['type'], $arr ['table'], $arr ['value_field'] );
+			$custom_field = ! empty ( $arr ['custom_field'] ) ? $arr ['custom_field'] : 'id,title,pid,sort';
+			$custom_pid = ! empty ( $arr ['custom_pid'] ) ? $arr ['custom_pid'] : 0;
+			
+			unset ( $arr ['type'], $arr ['table'], $arr ['value_field'], $arr ['custom_field'], $arr ['custom_pid'] );
 			// dump($arr);
 			$arr ['token'] = get_token ();
-			$list = M ( $table )->where ( $arr )->order ( 'pid asc, sort asc' )->select ();
+			$list = M ( $table )->where ( $arr )->field ( $custom_field )->order ( 'pid asc, sort asc' )->select ();
 			// dump($list);
-			$tree = $this->makeTree ( $list, 0, $value_field );
+			$tree = $this->makeTree ( $list, $custom_pid, $value_field );
 		} else {
 			$tree = $this->str2json ( $arr ['data'] );
 		}

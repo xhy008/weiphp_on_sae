@@ -2,7 +2,7 @@
 // +----------------------------------------------------------------------
 // | ThinkPHP [ WE CAN DO IT JUST THINK IT ]
 // +----------------------------------------------------------------------
-// | Copyright (c) 2006-2013 http://thinkphp.cn All rights reserved.
+// | Copyright (c) 2006-2014 http://thinkphp.cn All rights reserved.
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
@@ -46,7 +46,7 @@ if(function_exists('saeAutoLoader')){// 自动识别SAE环境
 }
 
 defined('RUNTIME_PATH') or define('RUNTIME_PATH',   APP_PATH.'Runtime/');   // 系统运行时目录
-defined('LIB_PATH')     or define('LIB_PATH',       THINK_PATH.'Library/'); // 系统核心类库目录
+defined('LIB_PATH')     or define('LIB_PATH',       realpath(THINK_PATH.'Library').'/'); // 系统核心类库目录
 defined('CORE_PATH')    or define('CORE_PATH',      LIB_PATH.'Think/'); // Think类库目录
 defined('BEHAVIOR_PATH')or define('BEHAVIOR_PATH',  LIB_PATH.'Behavior/'); // 行为类库目录
 defined('EXTEND_PATH')  or define('EXTEND_PATH',    THINK_PATH.'Extend/'); // 系统扩展目录
@@ -67,7 +67,7 @@ if(version_compare(PHP_VERSION,'5.4.0','<')) {
 }else{
     define('MAGIC_QUOTES_GPC',false);
 }
-define('IS_CGI',substr(PHP_SAPI, 0,3)=='cgi' ? 1 : 0 );
+define('IS_CGI',(0 === strpos(PHP_SAPI,'cgi') || false !== strpos(PHP_SAPI,'fcgi')) ? 1 : 0 );
 define('IS_WIN',strstr(PHP_OS, 'WIN') ? 1 : 0 );
 define('IS_CLI',PHP_SAPI=='cli'? 1   :   0);
 
@@ -95,39 +95,33 @@ define('SITE_URL'		,	'http://'.SITE_DOMAIN.__ROOT__);
  * @param mixed $value 配置值
  * @return mixed
  */
-function C($name=null, $value=null) {
+function C($name=null, $value=null,$default=null) {
     static $_config = array();
     // 无参数时获取所有
     if (empty($name)) {
-        if(!empty($value) && $array = S('c_'.$value)) {
-            $_config = array_merge($_config, array_change_key_case($array));
-        }
         return $_config;
     }
     // 优先执行设置获取或赋值
     if (is_string($name)) {
         if (!strpos($name, '.')) {
-            $name = strtolower($name);
+            $name = strtoupper($name);
             if (is_null($value))
-                return isset($_config[$name]) ? $_config[$name] : null;
+                return isset($_config[$name]) ? $_config[$name] : $default;
             $_config[$name] = $value;
-            return;
+            return null;
         }
         // 二维数组设置和获取支持
         $name = explode('.', $name);
-        $name[0]   =  strtolower($name[0]);
+        $name[0]   =  strtoupper($name[0]);
         if (is_null($value))
-            return isset($_config[$name[0]][$name[1]]) ? $_config[$name[0]][$name[1]] : null;
+            return isset($_config[$name[0]][$name[1]]) ? $_config[$name[0]][$name[1]] : $default;
         $_config[$name[0]][$name[1]] = $value;
-        return;
+        return null;
     }
     // 批量设置
     if (is_array($name)){
-        $_config = array_merge($_config, array_change_key_case($name));
-        if(!empty($value)) {// 保存配置值
-            S('c_'.$value,$_config);
-        }
-        return;
+        $_config = array_merge($_config, array_change_key_case($name,CASE_UPPER));
+        return null;
     }
     return null; // 避免非法参数
 }

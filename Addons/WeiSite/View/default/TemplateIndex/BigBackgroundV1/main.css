@@ -13,5 +13,7 @@ header{ text-align:center}
 border-radius: 6px;margin-left: 5px;width: 12px;height: 12px;background: #fff;}
 .identify em.cur{ background-color:#090}
 .icon_lists{ margin:100px auto auto 30px;}
-.icon_lists .item{ background-color:RGBA(0,0,0,.5); border-radius:26px; display:inline-block; padding:8px 15px;color:#fff}
+.icon_lists .item{ background-color:RGBA(0,0,0,.5); border-radius:10px; display:inline-block; padding:8px 15px;color:#fff; overflow:hidden; white-space:nowrap; text-align:left}
 .icon_lists .item img{ vertical-align:-6px; height:24px; width:24px;}
+.icon_lists .item .icon{ display:inline-block; margin:0; width:30px; height:30px; vertical-align:middle}
+.icon_lists li{ overflow:hidden; zoom:1; text-align:left}

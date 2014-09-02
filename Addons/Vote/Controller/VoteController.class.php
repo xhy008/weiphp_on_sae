@@ -51,7 +51,7 @@ class VoteController extends AddonsController {
 		empty ( $fields ) || in_array ( 'id', $fields ) || array_push ( $fields, 'id' );
 		$name = parse_name ( get_table_name ( $this->model ['id'] ), true );
 		$data = M ( $name )->field ( empty ( $fields ) ? true : $fields )->where ( $map )->order ( 'id DESC' )->page ( $page, $row )->select ();
-
+		
 		/* 查询记录总数 */
 		$count = M ( $name )->where ( $map )->count ();
 		
@@ -61,7 +61,7 @@ class VoteController extends AddonsController {
 			$page->setConfig ( 'theme', '%FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END% %HEADER%' );
 			$this->assign ( '_page', $page->show () );
 		}
-
+		
 		$this->assign ( 'list_grids', $grids );
 		$this->assign ( 'list_data', $data );
 		$this->meta_title = $this->model ['title'] . '列表';
@@ -118,7 +118,12 @@ class VoteController extends AddonsController {
 			$data = M ( get_table_name ( $this->model ['id'] ) )->find ( $id );
 			$data || $this->error ( '数据不存在！' );
 			
-			$option_list = M ( 'vote_option' )->where ( 'vote_id=' . $id )->select ();
+			$token = get_token ();
+			if (isset ( $data ['token'] ) && $token != $data ['token'] && defined ( 'ADDON_PUBLIC_PATH' )) {
+				$this->error ( '非法访问！' );
+			}
+			
+			$option_list = M ( 'vote_option' )->where ( 'vote_id=' . $id )->order ( '`order` asc' )->select ();
 			$this->assign ( 'option_list', $option_list );
 			
 			$this->assign ( 'fields', $fields );
@@ -169,7 +174,7 @@ class VoteController extends AddonsController {
 				);
 			}
 			// 自动验证规则
-			if (! empty ( $attr ['validate_rule'] ) || $attr['validate_type']=='unique') {
+			if (! empty ( $attr ['validate_rule'] ) || $attr ['validate_type'] == 'unique') {
 				$validate [] = array (
 						$attr ['name'],
 						$attr ['validate_rule'],
@@ -238,7 +243,7 @@ class VoteController extends AddonsController {
 		$this->assign ( 'info', $info );
 		
 		// dump($info);
-		$opts = M ( 'vote_option' )->where ( $map2 )->select ();
+		$opts = M ( 'vote_option' )->where ( $map2 )->order ( '`order` asc' )->select ();
 		foreach ( $opts as $p ) {
 			$total += $p ['opt_count'];
 		}
@@ -261,7 +266,7 @@ class VoteController extends AddonsController {
 			$this->error ( "错误的投票ID" );
 		}
 		if ($this->_is_overtime ( $vote_id )) {
-			$this->error ( "该投票已过期" );
+			$this->error ( "请在指定的时间内投票" );
 		}
 		if ($this->_is_join ( $vote_id, $this->mid, $token )) {
 			$this->error ( "您已经投过,请不要重复投" );
@@ -300,7 +305,7 @@ class VoteController extends AddonsController {
 		// 先看看投票期限过期与否
 		$the_vote = M ( "vote" )->where ( "id=$vote_id" )->find ();
 		$deadline = $the_vote ['end_date'] + 86400;
-		if ($deadline <= time ()) {
+		if ($deadline <= NOW_TIME && $the_vote ['start_date'] < NOW_TIME) {
 			return true;
 		}
 		return false;

@@ -24,7 +24,7 @@ return array(
 				'title'=>'友言配置',
 				'options'=>array(
 					'comment_uid_youyan'=>array(
-						'title'=>'账号id:',
+						'title'=>'帐号id:',
 						'type'=>'text',
 						'value'=>'90040',
 						'tip'=>'填写自己登录友言后的uid,填写后可进相应官方后台'

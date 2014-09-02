@@ -43,8 +43,8 @@ class TokenBuildBehavior extends Behavior {
 
     //获得token
     private function getToken(){
-        $tokenName  = C('TOKEN_NAME');
-        $tokenType  = C('TOKEN_TYPE');
+        $tokenName  = C('TOKEN_NAME',null,'__hash__');
+        $tokenType  = C('TOKEN_TYPE',null,'md5');
         if(!isset($_SESSION[$tokenName])) {
             $_SESSION[$tokenName]  = array();
         }
@@ -55,7 +55,7 @@ class TokenBuildBehavior extends Behavior {
         }else{
             $tokenValue = $tokenType(microtime(TRUE));
             $_SESSION[$tokenName][$tokenKey]   =  $tokenValue;
-            if(IS_AJAX && C('TOKEN_RESET'))
+            if(IS_AJAX && C('TOKEN_RESET',null,true))
                 header($tokenName.': '.$tokenKey.'_'.$tokenValue); //ajax需要获得这个header并替换页面中meta中的token值
         }
         return array($tokenName,$tokenKey,$tokenValue); 

@@ -2,7 +2,7 @@
 // +----------------------------------------------------------------------
 // | ThinkPHP [ WE CAN DO IT JUST THINK IT ]
 // +----------------------------------------------------------------------
-// | Copyright (c) 2006-2013 http://thinkphp.cn All rights reserved.
+// | Copyright (c) 2006-2014 http://thinkphp.cn All rights reserved.
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
@@ -25,7 +25,7 @@ class ShowPageTraceBehavior extends Behavior {
 
     // 行为扩展的执行入口必须是run
     public function run(&$params){
-        if(!IS_AJAX && C('SHOW_PAGE_TRACE')) {
+        if(!IS_AJAX && !IS_CLI && C('SHOW_PAGE_TRACE')) {
             echo $this->showTrace();
         }
     }
@@ -71,9 +71,9 @@ class ShowPageTraceBehavior extends Behavior {
                 default:// 调试信息
                     $name       =   strtoupper($name);
                     if(strpos($name,'|')) {// 多组信息
-                        $array  =   explode('|',$name);
+                        $names  =   explode('|',$name);
                         $result =   array();
-                        foreach($array as $name){
+                        foreach($names as $name){
                             $result   +=   isset($debug[$name])?$debug[$name]:array();
                         }
                         $trace[$title]  =   $result;
@@ -84,7 +84,7 @@ class ShowPageTraceBehavior extends Behavior {
         }
         if($save = C('PAGE_TRACE_SAVE')) { // 保存页面Trace日志
             if(is_array($save)) {// 选择选项卡保存
-                $tabs   =   C('TRACE_PAGE_TABS');
+                $tabs   =   C('TRACE_PAGE_TABS',null,$this->tracePageTabs);
                 $array  =   array();
                 foreach ($save as $tab){
                     $array[] =   $tabs[$tab];
@@ -92,7 +92,7 @@ class ShowPageTraceBehavior extends Behavior {
             }
             $content    =   date('[ c ]').' '.get_client_ip().' '.$_SERVER['REQUEST_URI']."\r\n";
             foreach ($trace as $key=>$val){
-                if(!isset($array) || in_array($key,$array)) {
+                if(!isset($array) || in_array_case($key,$array)) {
                     $content    .=  '[ '.$key." ]\r\n";
                     if(is_array($val)) {
                         foreach ($val as $k=>$v){
@@ -104,7 +104,7 @@ class ShowPageTraceBehavior extends Behavior {
                     $content .= "\r\n";
                 }
             }
-            error_log(str_replace('<br/>',"\r\n",$content), Log::FILE,LOG_PATH.date('y_m_d').'_trace.log');
+            error_log(str_replace('<br/>',"\r\n",$content), 3,C('LOG_PATH').date('y_m_d').'_trace.log');
         }
         unset($files,$info,$base);
         // 调用Trace页面模板

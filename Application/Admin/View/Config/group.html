@@ -13,7 +13,7 @@
 		<ul class="tab-nav nav">
 		<volist name="Think.config.CONFIG_GROUP_LIST" id="group">
 
-			<li <eq name="id" value="$key">class="current"</eq>><a href="{:U('?id='.$key)}">{$group}配置</a></li>
+			<li <eq name="id" value="$key">class="current"</eq>><a href="{:U('group?id='.$key)}">{$group}配置</a></li>
 
 		</volist>
 		</ul>
@@ -58,6 +58,11 @@
 				<empty name="list"><button type="submit" disabled class="btn submit-btn disabled" target-form="form-horizontal">确 定</button><else/><button type="submit" class="btn submit-btn ajax-post" target-form="form-horizontal">确 定</button></empty>
 				
 				<button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+                <notempty name="more_button">
+                    <volist name="more_button" id="vo">
+                        <a class="btn" href="{$vo.url}">{$vo.title}</a>
+                    </volist>
+                </notempty>
 			</div>
 		</div>
 	</form>

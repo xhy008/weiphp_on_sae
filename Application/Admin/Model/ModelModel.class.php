@@ -31,7 +31,7 @@ class ModelModel extends Model{
         array('create_time', NOW_TIME, self::MODEL_INSERT),
         array('update_time', NOW_TIME, self::MODEL_BOTH),
         array('status', '1', self::MODEL_INSERT, 'string'),
-    	array('field_sort', 'getFields', self::MODEL_BOTH, 'callback'),
+    	array('field_sort', 'getSortFields', self::MODEL_BOTH, 'callback'),
     );
 
     /**
@@ -94,7 +94,7 @@ class ModelModel extends Model{
      * 处理字段排序数据
      * @author huajie <banhuajie@163.com>
      */
-    protected function getFields($fields){
+    public function getSortFields($fields){
     	return empty($fields) ? '' : json_encode($fields);
     }
 

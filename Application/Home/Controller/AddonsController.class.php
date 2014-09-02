@@ -19,6 +19,8 @@ class AddonsController extends Controller {
 	protected $addon, $model;
 	function _initialize() {
 		$this->initFollow ();
+		
+		C ( 'EDITOR_UPLOAD.rootPath', './Uploads/Editor/' . get_token () . '/' );
 	}
 	public function execute($_addons = null, $_controller = null, $_action = null) {
 		if (! empty ( $_action ) && ! empty ( $_addons ) && empty ( $_controller )) {
@@ -36,15 +38,19 @@ class AddonsController extends Controller {
 		defined ( '_CONTROLLER' ) or define ( '_CONTROLLER', $_controller );
 		defined ( '_ACTION' ) or define ( '_ACTION', $_action );
 		
-		$token = get_token();
-		if(in_array($_action, array('lists', 'config','nulldeal')) && (empty($token) || $token=='-1')){
-			$this->error ( '请先增加公众号！', U('Home/MemberPublic/lists') );
+		$token = get_token ();
+		if (in_array ( $_action, array (
+				'lists',
+				'config',
+				'nulldeal' 
+		) ) && (empty ( $token ) || $token == '-1')) {
+			$this->error ( '请先增加公众号！', U ( 'Home/MemberPublic/lists' ) );
 		}
-
+		
 		$this->_nav ();
 		
 		if (! empty ( $_addons ) && ! empty ( $_controller ) && ! empty ( $_action )) {
-			tongji($_addons);
+			tongji ( $_addons );
 			
 			A ( "Addons://{$_addons}/{$_controller}" )->$_action ();
 		} else {
@@ -101,7 +107,7 @@ class AddonsController extends Controller {
 		if (file_exists ( $templateFile )) {
 			return $templateFile;
 		}
-		//dump ( $templateFile );
+		// dump ( $templateFile );
 		$oldFile = $templateFile;
 		if (empty ( $templateFile )) {
 			$templateFile = T ( 'Addons://' . _ADDONS . '@' . _CONTROLLER . '/' . _ACTION );
@@ -112,11 +118,11 @@ class AddonsController extends Controller {
 				$templateFile = T ( 'Addons://' . _ADDONS . '@' . $templateFile );
 			}
 		}
-
-		if (stripos ( $templateFile, '/Addons/' ) !== false && ! file_exists ( $templateFile )) { 
-			$templateFile = !empty($oldFile) && stripos ( $oldFile, '/' )===false ? $oldFile : _ACTION;
+		
+		if (stripos ( $templateFile, '/Addons/' ) !== false && ! file_exists ( $templateFile )) {
+			$templateFile = ! empty ( $oldFile ) && stripos ( $oldFile, '/' ) === false ? $oldFile : _ACTION;
 		}
-		//dump ( $templateFile );//exit;
+		// dump ( $templateFile );//exit;
 		return $templateFile;
 	}
 	

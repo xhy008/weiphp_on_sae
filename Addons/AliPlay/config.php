@@ -30,7 +30,7 @@ return array(
 			),
 			'developer'=>array(
 				'tip'=>'这个页面配置的信息都可以在支付宝上获取到，随便填写不起任何作用',
-				'title'=>'账户设置',
+				'title'=>'帐户设置',
 				'options'=>array(
 					'PARTNER'=>array(
 						'title'=>'合作身份者id:',

@@ -75,6 +75,11 @@ class UserCenterController extends AddonsController {
 			// 获取数据
 			$data = M ( get_table_name ( $model ['id'] ) )->where ( $map )->find ();
 			
+		$token = get_token ();
+		if (isset ( $data ['token'] ) && $token != $data ['token'] && defined ( 'ADDON_PUBLIC_PATH' )) {
+			$this->error ( '非法访问！' );
+		}			
+			
 			// 自动从微信接口获取用户信息
 			empty($openid) || $info = getWeixinUserInfo ( $openid, $token );
 			if (is_array ( $info )) {

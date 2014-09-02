@@ -3,6 +3,115 @@
 namespace Home\Controller;
 
 class TestController extends HomeController {
+	function attr2() {
+		$model_list = M ( 'model' )->field ( 'id,name' )->select ();
+		foreach ( $model_list as $m ) {
+			$mod [$m ['id']] = 'wp_' . $m ['name'];
+		}
+		
+		$model_list = M ( 'model_copy' )->field ( 'id,name' )->select ();
+		foreach ( $model_list as $m ) {
+			$mod2 [$m ['id']] = 'wp_' . $m ['name'];
+		}
+		$list = M ( 'attribute_copy' )->field ( 'id,name,field,model_id' )->select ();
+		foreach ( $list as $v ) {
+			$table = $mod2 [$v ['model_id']];
+			$name = $v ['name'];
+			
+			$att2 [$table] [$v ['id']] = $name;
+		}
+		
+		$list = M ( 'attribute' )->field ( 'id,name,field,model_id' )->select ();
+		foreach ( $list as $v ) {
+			$table = $mod [$v ['model_id']];
+			$name = $v ['name'];
+			
+			$att [$table] [$v ['id']] = $name;
+		}
+		
+		foreach ( $att as $t => $a ) {
+			$diff = array_diff ( $att2 [$t], $a );
+			if ( !empty ( $diff )) {
+				dump ( '===========' . $t . '===========' );
+				dump ( $diff );
+			}
+		}
+		
+// 		dump ( $att );
+// 		dump ( $att2 );
+	}
+	function attr() {
+		$column_list = M ()->query ( "SELECT TABLE_NAME,COLUMN_NAME,COLUMN_TYPE,IS_NULLABLE FROM information_schema.`COLUMNS` WHERE TABLE_SCHEMA='update0825'" );
+		foreach ( $column_list as $c ) {
+			$null = $c ['IS_NULLABLE'] == 'NO' ? ' NOT NULL ' : ' NULL ';
+			$col [$c ['TABLE_NAME']] [$c ['COLUMN_NAME']] = $c ['COLUMN_TYPE'] . $null;
+		}
+		// dump ( $col );
+		
+		$model_list = M ( 'model' )->field ( 'id,name' )->select ();
+		foreach ( $model_list as $m ) {
+			$mod [$m ['id']] = 'wp_' . $m ['name'];
+		}
+		// dump ( $mod );
+		
+		$list = M ( 'attribute' )->field ( 'id,name,field,model_id' )->select ();
+		foreach ( $list as $v ) {
+			$table = $mod [$v ['model_id']];
+			$name = $v ['name'];
+			
+			if (trim ( $v ['field'] ) != trim ( $col [$table] [$name] )) {
+				$save ['field'] = $col [$table] [$name];
+				$res = M ( 'attribute' )->where ( 'id=' . $v ['id'] )->save ( $save );
+				dump ( $res );
+				lastsql ();
+			}
+		}
+	}
+	function token_replace() {
+		$sql = "SELECT TABLE_NAME FROM information_schema.`COLUMNS` WHERE TABLE_SCHEMA='citic' AND COLUMN_NAME='token'";
+		$list = M ()->query ( $sql );
+		foreach ( $list as $vo ) {
+			$table = $vo ['TABLE_NAME'];
+			$sql = "UPDATE $table SET token='gh_a9f897b74c99' where token='gh_825cf61f1562'";
+			$res = M ()->execute ( $sql );
+			dump ( $sql );
+			dump ( $res );
+		}
+	}
+	function mylove() {
+		// ALTER TABLE `wp_prize` ADD COLUMN `token` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'Token' AFTER `img`;
+		// ALTER TABLE `wp_sn_code` ADD COLUMN `token` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'Token' AFTER `prize_title`;
+		$_token = array ();
+		$dao = M ( 'prize' );
+		$list = $dao->select ();
+		foreach ( $list as $v ) {
+			$map ['id'] = $v ['id'];
+			$key = $v ['addon'] . '_' . $v ['target_id'];
+			if (isset ( $_token [$key] )) {
+				$save ['token'] = $_token [$key];
+			} else {
+				$save ['token'] = $_token [$key] = M ( $v ['addon'] )->where ( 'id=' . $v ['target_id'] )->getField ( 'token' );
+			}
+			$res = $dao->where ( $map )->save ( $save );
+			dump ( $res );
+			lastsql ();
+		}
+		
+		$dao = M ( 'sn_code' );
+		$list = $dao->select ();
+		foreach ( $list as $v ) {
+			$map ['id'] = $v ['id'];
+			$key = $v ['addon'] . '_' . $v ['target_id'];
+			if (isset ( $_token [$key] )) {
+				$save ['token'] = $_token [$key];
+			} else {
+				$save ['token'] = $_token [$key] = M ( $v ['addon'] )->where ( 'id=' . $v ['target_id'] )->getField ( 'token' );
+			}
+			$res = $dao->where ( $map )->save ( $save );
+			dump ( $res );
+			lastsql ();
+		}
+	}
 	function jiamiFile() {
 		// 取当前用户的网站信息
 		$map ['uid'] = $this->mid;

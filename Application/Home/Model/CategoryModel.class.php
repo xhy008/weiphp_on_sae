@@ -93,16 +93,16 @@ class CategoryModel extends Model {
 	 * @return array 分类树
 	 * @author 麦当苗儿 <zuojiazi@vip.qq.com>
 	 */
-	public function getTree($id = 0, $field = true) {
+	public function getTree($id = 0, $field = true, $module='') {
 		/* 获取当前分类信息 */
 		if ($id) {
 			$info = $this->info ( $id );
 			$id = $info ['id'];
 		}
-		$map ['module'] = I ( 'module' );
+		$map ['module'] = empty($module) ? I ( 'module' ) : $module;
 		
 		/* 获取所有分类 */
-		$list = $this->field ( $field )->where ( $map )->order ( 'sort' )->select ();
+		$list = $this->field ( $field )->where ( $map )->order ( 'sort asc, id asc' )->select ();
 		$list = list_to_tree ( $list, $pk = 'id', $pid = 'pid', $child = '_', $root = $id );
 		
 		/* 获取返回数据 */
@@ -111,9 +111,31 @@ class CategoryModel extends Model {
 		} else { // 否则返回所有分类
 			$info = $list;
 		}
-		
 		return $info;
 	}
+	function getSubUidByMid($tree, $is_sub = false) {
+		static $_uids = array ();
+	
+		foreach ( $tree as $v ) {
+			$uidArr = explode ( ',', $v ['admin_uids'] );
+			if (empty ( $uidArr ))
+				continue;
+				
+			if ($is_sub) {
+				$_uids = array_merge ( $_uids, $uidArr );
+			}
+				
+			if (empty ( $v ['_'] ))
+				continue;
+				
+			if ($is_sub || in_array ( $GLOBALS ['mid'], $uidArr )) {
+				$this->getSubUidByMid ( $v ['_'], true );
+			} else {
+				$this->getSubUidByMid ( $v ['_'], false );
+			}
+		}
+		return $_uids;
+	}	
 	
 	/**
 	 * 获取指定分类的同级分类

@@ -99,7 +99,7 @@ class AdminController extends Controller {
 
 
     /**
-     * action访问控制,在 **登陆成功** 后执行的第一项权限检测任务
+     * action访问控制,在 **登录成功** 后执行的第一项权限检测任务
      *
      * @return boolean|null  返回值必须使用 `===` 进行判断
      *

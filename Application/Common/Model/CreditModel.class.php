@@ -14,15 +14,16 @@ class CreditModel extends Model {
 		if (empty ( $data ) || empty ( $data ['credit_name'] ))
 			return false;
 		
+		$credit = $this->getCreditByName ( $data ['credit_name'] );
+		if (! $credit)
+			return false;
+		
 		empty ( $data ['uid'] ) && $data ['uid'] = session ( 'mid' );
 		empty ( $data ['cTime'] ) && $data ['cTime'] = time ();
 		$data ['token'] = get_token ();
 		
-		if (! isset ( $data ['experience'] ) || ! isset ( $data ['score'] )) {
-			$credit = $this->getCreditByName ( $data ['credit_name'] );
-			isset ( $data ['experience'] ) || $data ['experience'] = $credit ['experience'];
-			isset ( $data ['score'] ) || $data ['score'] = $credit ['score'];
-		}
+		isset ( $data ['experience'] ) || $data ['experience'] = $credit ['experience'];
+		isset ( $data ['score'] ) || $data ['score'] = $credit ['score'];
 		
 		$res = $this->add ( $data );
 		if ($res) {
