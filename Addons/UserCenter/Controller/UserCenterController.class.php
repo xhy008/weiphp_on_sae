@@ -28,6 +28,10 @@ class UserCenterController extends AddonsController {
 			$msg = '编辑';
 			$html = 'edit';
 		}else{
+			if(!isWeixinBrowser()){
+				$this->error ( '非法访问！' );
+			}
+
 			$msg = '绑定';
 		    $openid = $map ['openid'] = get_openid ();
 			$html = 'moblieForm';
