@@ -1219,6 +1219,10 @@ function keyword_unique($keyword) {
 // 分析枚举类型配置值 格式 a:名称1,b:名称2
 // weiphp 该函数是从admin的function的文件里提取这到里
 function parse_config_attr($string) {
+	if (0 === strpos ( $string, ':' )) {
+		// 采用函数定义
+		return eval ( "return " . substr ( $string, 1 ) . ';' );
+	}
 	$array = preg_split ( '/[;\r\n]+/', trim ( $string, ",;\r\n" ) );
 	if (strpos ( $string, ':' )) {
 		$value = array ();
@@ -1249,7 +1253,7 @@ function get_hide_attr($str) {
 function parse_field_attr($string) {
 	if (0 === strpos ( $string, ':' )) {
 		// 采用函数定义
-		return eval ( substr ( $string, 1 ) . ';' );
+		return eval ( "return " . substr ( $string, 1 ) . ';' );
 	}
 	$array = preg_split ( '/[;\r\n]+/', trim ( $string, ",;\r\n" ) );
 	// dump($array);
