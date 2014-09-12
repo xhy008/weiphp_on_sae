@@ -10,8 +10,15 @@ class WeixinAddonModel extends WeixinModel {
 		$config = getAddonConfig ( 'Card' ); // 获取后台插件的配置参数
 		                                     
 		// 其中token和openid这两个参数一定要传，否则程序不知道是哪个微信用户进入了系统
+		// 若是之前关注的，则可能没有初始化过，需要在这里初始化
+		// 判断follow有无记录
 		$param ['token'] = get_token ();
 		$param ['openid'] = get_openid ();
+		if(!M('follow')->where($param)->select()){
+			$info = D ( 'Common/Follow' )->init_follow (get_openid ());
+			session ( 'mid', $info ['id'] );
+		}
+
 		$url = addons_url ( 'Card://Card/show', $param );
 		
 		// 组装微信需要的图文数据，格式是固定的
