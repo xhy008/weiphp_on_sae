@@ -231,7 +231,7 @@ sql;
 				$value = '';
 				foreach ( $d as $k => $v ) {
 					$field .= "`$k`,";
-					$value .= "'" . str_replace ( "\r\n", '\r\n', $v ) . "',";
+					$value .= "'" . str_replace( "'", "''", str_replace ( "\r\n", '\r\n', $v ) ) . "',";
 				}
 				$sql .= "INSERT INTO `wp_{$name}` (" . rtrim ( $field, ',' ) . ') VALUES (' . rtrim ( $value, ',' ) . ");\r\n";
 			}
@@ -241,7 +241,7 @@ sql;
 			$value = '';
 			foreach ( $model as $k => $v ) {
 				$field .= "`$k`,";
-				$value .= "'" . str_replace ( "\r\n", '\r\n', $v ) . "',";
+				$value .= "'" . str_replace( "'", "''", str_replace ( "\r\n", '\r\n', $v ) ) . "',";
 			}
 			$sql .= 'INSERT INTO `wp_model` (' . rtrim ( $field, ',' ) . ') VALUES (' . rtrim ( $value, ',' ) . ');' . "\r\n";
 			
@@ -253,7 +253,7 @@ sql;
 				$value = '';
 				foreach ( $vo as $k => $v ) {
 					$field .= "`$k`,";
-					$value .= "'" . str_replace ( "\r\n", '\r\n', $v ) . "',";
+					$value .= "'" . str_replace( "'", "''", str_replace ( "\r\n", '\r\n', $v ) ) . "',";
 				}
 				$sql .= 'INSERT INTO `wp_attribute` (' . rtrim ( $field, ',' ) . ') VALUES (' . rtrim ( $value, ',' ) . ');' . "\r\n";
 			}
