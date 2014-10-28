@@ -1,14 +1,14 @@
 WeiPHP on SAE
 =============
 
-WeiPHPµÄSAEÒÆÖ²°æ±¾¡£
+WeiPHPçš„SAEç§»æ¤ç‰ˆæœ¬ï¼ˆ2.0ç¨³å®šç‰ˆï¼‰ã€‚
 
-ĞŞ¸ÄÄÚÈİ¼°Ê¹ÓÃµÄ»ù±¾·½·¨£¬Çë²é¿´£ºhttp://www.xsummer.cn/Ô­´´-weiphpÔÚsae»·¾³ÏÂµÄÊ¹ÓÃ-2/
+ä¿®æ”¹å†…å®¹åŠä½¿ç”¨çš„åŸºæœ¬æ–¹æ³•ï¼Œè¯·æŸ¥çœ‹ï¼ˆæ­¤æ–‡ç« æ˜¯é’ˆå¯¹2.0 betaç‰ˆå†™çš„ï¼Œå¯èƒ½ä¼šæœ‰ä¸€äº›å‡ºå…¥ï¼‰ï¼šhttp://www.xsummer.cn/åŸåˆ›-weiphpåœ¨saeç¯å¢ƒä¸‹çš„ä½¿ç”¨-2/
 
 
-Ïà¹ØÁ´½Ó£º
+ç›¸å…³é“¾æ¥ï¼š
 -------------
-> SAE£º<a href="http://sae.sina.com.cn/" target="_blank">http://sae.sina.com.cn/</a> <br />
-> WeiPHP£º<a href="http://www.weiphp.cn/" target="_blank">http://www.weiphp.cn/</a> <br />
-> WeiPHPÂÛÌ³£º<a href="http://bbs.weiphp.cn/" target="_blank">http://bbs.weiphp.cn/</a> <br />
-> ÎÒµÄÌû×Ó£º<a href="http://bbs.weiphp.cn/thread-1037-1-1.html" target="_blank">http://bbs.weiphp.cn/thread-1037-1-1.html</a> <br />
+> SAEï¼š<a href="http://sae.sina.com.cn/" target="_blank">http://sae.sina.com.cn/</a> <br />
+> WeiPHPï¼š<a href="http://www.weiphp.cn/" target="_blank">http://www.weiphp.cn/</a> <br />
+> WeiPHPè®ºå›ï¼š<a href="http://bbs.weiphp.cn/" target="_blank">http://bbs.weiphp.cn/</a> <br />
+> æˆ‘çš„å¸–å­ï¼š<a href="http://bbs.weiphp.cn/thread-1037-1-1.html" target="_blank">http://bbs.weiphp.cn/thread-1037-1-1.html</a> <br />
