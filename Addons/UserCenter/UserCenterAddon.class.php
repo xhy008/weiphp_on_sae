@@ -16,7 +16,8 @@ class UserCenterAddon extends Addon {
 			'description' => '实现3G首页、微信登录，微信用户绑定，微信用户信息初始化等基本功能',
 			'status' => 1,
 			'author' => '凡星',
-			'version' => '0.1' 
+			'version' => '0.1' ,
+			  'has_adminlist'=>1 //修复重新卸载安装后管理列表丢失
 	);
 	public $admin_list = array ();
 	public function install() {
